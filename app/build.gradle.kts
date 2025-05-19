@@ -38,6 +38,7 @@ android {
             "tr-rTR" ,
             "uk-rUA" ,
             "zh-rTW" ,
+            "zh-rCN" ,
         )
         vectorDrawables {
             useSupportLibrary = true
