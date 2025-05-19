@@ -1,3 +1,5 @@
+import com.android.aaptcompiler.android.isTruthy
+
 plugins {
     alias(notation= libs.plugins.androidApplication)
     alias(notation= libs.plugins.jetbrainsKotlinAndroid)
@@ -94,10 +96,7 @@ android {
 dependencies {
 
     // App Core
-    implementation(dependencyNotation = "com.github.D4rK7355608:AppToolkit:0.0.70") {
-        isTransitive = true
-    }
-
+    implementation(project(":apptoolkit"))
     implementation(dependencyNotation = libs.androidx.constraintlayout.compose)
 
     // Image Compression

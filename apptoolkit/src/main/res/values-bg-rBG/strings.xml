@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_short_description">Създадено за улесняване на вашата работа, това приложение предоставя основни инструменти и функции, които ще ви помогнат да останете организирани и ефективни при всяка задача. 📱</string>
+    <string name="notification_update_title">Налична е нова актуализация!</string>
+    <string name="summary_notification_update">Налична е нова версия на приложението. Натиснете, за да актуализирате!</string>
+    <string name="notification_last_time_used_title">Минало е доста време!</string>
+    <string name="default_notification_summary">Има толкова много функции, които ви очакват. Отворете приложението!</string>
+
+    <string name="welcome">Добре дошли</string>
+    <string name="summary_browse_terms_of_service_and_privacy_policy">Прочетете и се съгласете с нашите Общи условия и Политика за поверителност, за да продължите</string>
+    <string name="agree">Съгласен съм</string>
+
+    <string name="navigation_drawer_open">Отворете навигационното меню</string>
+    <string name="go_back">Назад</string>
+
+    <string name="error">Грешка</string>
+    <string name="snack_app_updated">Приложението беше успешно актуализирано</string>
+    <string name="snack_update_failed">Възникна проблем при актуализацията</string>
+    <string name="try_again">Опитайте отново</string>
+    <string name="summary_share_message">Вижте това невероятно приложение, което използвам! То има наистина страхотни функции, които може да ви бъдат интересни. Можете да го изтеглите от Play Store на адрес: %1$s</string>
+    <string name="learn_more">Научете повече</string>
+    <string name="close">Затваряне?</string>
+    <string name="summary_close">Сигурни ли сте, че искате да излезете?</string>
+
+    <string name="home">Начало</string>
+
+    <string name="activity_not_found">Дейността не е намерена.</string>
+    <string name="security_error">Възникна грешка в сигурността. Опитайте отново по-късно.</string>
+    <string name="io_error">Възникна грешка при въвеждане/извеждане. Проверете вашата мрежова връзка или памет и опитайте отново.</string>
+    <string name="illegal_argument_error">Предоставен е невалиден вход или аргумент. Проверете информацията и опитайте отново.</string>
+    <string name="unknown_error">Възникна неизвестна грешка.</string>
+    <string name="initialization_error">Инициализацията не бе успешна. Опитайте отново по-късно.</string>
+
+    <string name="settings">Настройки</string>
+    <string name="settings_placeholder_description">Няма избрани настройки. Изберете опция, за да видите подробностите тук.</string>
+    <string name="get_help">Получете помощ</string>
+
+    <string name="display">Екран</string>
+    <string name="summary_preference_settings_display">Персонализирайте облика на приложението</string>
+
+    <string name="appearance">Външен вид</string>
+    <string name="dark_theme">Тъмна тема</string>
+    <string name="will_turn_on_automatically_by_system">Ще се включи автоматично от системата</string>
+    <string name="will_never_turn_on_automatically">Никога няма да се включи автоматично</string>
+    <string name="amoled_mode">AMOLED режим</string>
+    <string name="follow_system">Следвай системния режим</string>
+    <string name="light_mode">Светъл режим</string>
+    <string name="dark_mode">Тъмен режим</string>
+    <string name="summary_dark_theme">Тъмната тема използва дълбок фон, за да спести батерията</string>
+
+    <string name="dynamic_colors">Динамични цветове</string>
+    <string name="summary_preference_settings_dynamic_colors">Приложете цветове от тапета към темата на приложението</string>
+
+    <string name="app_behavior">Поведение на приложението</string>
+    <string name="bounce_buttons">Анимация при натискане</string>
+    <string name="summary_preference_settings_bounce_buttons">Прилага лека анимация на отскок към всички кликващи елементи</string>
+
+    <string name="navigation">Навигация</string>
+    <string name="startup_page">Начална страница</string>
+    <string name="summary_preference_settings_startup_page">Изберете екрана, който ще се показва при стартиране на приложението.</string>
+
+    <string name="language">Език</string>
+    <string name="summary_preference_settings_language">Променете езика на приложението</string>
+
+    <string name="dialog_startup_subtitle">Изберете предпочитаната начална страница:</string>
+    <string name="dialog_info_startup">Конфигурира началния екран, показван на потребителите при стартиране на приложението. Тази настройка може да се персонализира според специфични потребителски сегменти или продуктови цели.</string>
+
+    <string name="dialog_language_subtitle">Изберете предпочитания език</string>
+    <string name="dialog_info_language">Персонализирайте изживяването си с предпочитания език. Промените в езика се прилагат незабавно.</string>
+
+    <string name="notifications">Известия</string>
+    <string name="summary_preference_settings_notifications">Управлявайте известията на приложението</string>
+
+    <string name="app_usage_notifications">Известия за използване на приложението</string>
+    <string name="update_notifications">Известия за актуализации</string>
+
+    <string name="advanced">Разширени</string>
+    <string name="summary_preference_settings_advanced">Разгледайте повече разширени настройки</string>
+
+    <string name="error_reporting">Докладване на грешки</string>
+    <string name="bug_report">Доклад за грешка</string>
+    <string name="summary_preference_settings_bug_report">Изпращайте доклади за грешки и предложения за функции към страницата с проблеми в GitHub</string>
+
+    <string name="security_and_privacy">Сигурност и поверителност</string>
+    <string name="summary_preference_settings_privacy_and_security">Управлявайте настройките за поверителност</string>
+
+    <string name="privacy">Поверителност</string>
+    <string name="privacy_policy">Политика за поверителност</string>
+    <string name="summary_preference_settings_privacy_policy">Прегледайте политиката за обработка на данни</string>
+    <string name="terms_of_service">Общи условия</string>
+    <string name="summary_preference_settings_terms_of_service">Прегледайте условията за ползване на услугата</string>
+    <string name="code_of_conduct">Кодекс на поведение</string>
+    <string name="summary_preference_settings_code_of_conduct">Разберете правилата и насоките за поведение в услугата ни</string>
+
+    <string name="permissions">Разрешения</string>
+    <string name="summary_preference_settings_permissions">Управлявайте разрешенията, предоставени на нашата услуга</string>
+    <string name="normal">Обикновено</string>
+    <string name="runtime">По време на изпълнение</string>
+    <string name="storage">Памет</string>
+
+    <string name="ads">Реклами</string>
+    <string name="summary_preference_settings_ads">Контролирайте как се използва вашата информация за показване на подходящи реклами</string>
+
+    <string name="display_ads">Показване на реклами</string>
+    <string name="personalized_ads">Персонализирани реклами</string>
+    <string name="summary_ads_personalized_ads">Изберете как да се персонализират рекламите въз основа на вашите интереси</string>
+    <string name="summary_ads">Вижте реклами, които са подходящи за вас. Управлявайте информацията, използвана за персонализирани реклами. Можете да изключите персонализацията тук.</string>
+
+    <string name="usage_and_diagnostics">Използване и диагностика</string>
+    <string name="summary_preference_settings_usage_and_diagnostics">Споделяйте данни за подобряване на изживяването в приложението</string>
+    <string name="summary_usage_and_diagnostics">Помогнете за подобряване на изживяването, като автоматично изпращате диагностични данни за устройството и приложението. Това ще помогне за подобряване на производителността и стабилността на приложението.</string>
+
+    <string name="legal">Правни</string>
+    <string name="legal_notices">Правни известия</string>
+    <string name="summary_preference_settings_legal_notices">Прегледайте правната информация за нашата услуга</string>
+    <string name="license">Лиценз</string>
+
+    <string name="about">Относно</string>
+
+    <string name="app_info">Информация за приложението</string>
+    <string name="app_build_version">Версия на компилацията</string>
+    <string name="oss_license_title">Лицензи за отворен код</string>
+    <string name="summary_preference_settings_oss">Подробности за лицензите на софтуера с отворен код</string>
+
+    <string name="eula_title">Лицензионно споразумение</string>
+    <string name="changelog_title">Дневник на промените</string>
+    <string name="loading_eula_message">Зареждане на лицензионното споразумение…</string>
+    <string name="loading_changelog_message">Зареждане на дневника на промените…</string>
+    <string name="error_loading_eula_message">Неуспешно зареждане на лицензионното споразумение. Опитайте отново.</string>
+    <string name="error_loading_changelog_message">Неуспешно зареждане на дневника на промените. Опитайте отново.</string>
+
+    <string name="device_info">Информация за устройството</string>
+    <string name="app_build">Компилация на приложението: %6$s\n%1$s\n%2$s\n%3$s\n%4$s\n%5$s</string>
+    <string name="debug">Отстраняване на грешки</string>
+    <string name="release">Релийз</string>
+    <string name="manufacturer">Производител:</string>
+    <string name="device_model">Модел на устройството:</string>
+    <string name="android_version">Версия на Android:</string>
+    <string name="api_level">API ниво:</string>
+    <string name="snack_device_info_copied">Информацията за устройството е копирана в клипборда</string>
+
+    <string name="help_and_feedback">Помощ и обратна връзка</string>
+    <string name="help">Помощ</string>
+    <string name="faq">ЧЗВ</string>
+    <string name="popular_help_resources">Популярни ресурси за помощ</string>
+    <string name="contact_us">Свържете се с нас</string>
+    <string name="contact_us_description">Разкажете ни повече и ние ще ви помогнем</string>
+    <string name="view_in_google_play_store">Вижте в Google Play Store</string>
+    <string name="version_info">Информация за версията</string>
+    <string name="version">Версия %1$s</string>
+    <string name="beta_program">Бета програма</string>
+
+    <string name="feedback">Обратна връзка</string>
+
+    <string name="updates">Актуализации</string>
+
+    <string name="share">Споделяне</string>
+
+    <string name="support_us">Подкрепете ни</string>
+    <string name="paid_support">Платена подкрепа</string>
+    <string name="summary_donations">Независимо от размера на вашето дарение, вие ще ни помогнете да поддържаме приложението и да подобрим функциите му. Благодарим за вашата щедрост!</string>
+    <string name="non_paid_support">Безплатна подкрепа</string>
+    <string name="web_ad">Уеб реклама</string>
+</resources>

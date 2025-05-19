@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_short_description">İş akışınızı daha verimli hale getirmek için tasarlanmış bu uygulama, görevlerinizde düzenli ve verimli kalmanıza yardımcı olacak temel araçlar ve özellikler sunar. 📱</string>
+    <string name="notification_update_title">Yeni bir güncelleme mevcut!</string>
+    <string name="summary_notification_update">Uygulamanın yeni bir sürümü mevcut. Güncellemek için tıklayın!</string>
+    <string name="notification_last_time_used_title">Uzun zamandır görüşmedik!</string>
+    <string name="default_notification_summary">Sizi bekleyen birçok özellik var. Uygulamayı açın!</string>
+
+    <string name="welcome">Hoş geldiniz</string>
+    <string name="summary_browse_terms_of_service_and_privacy_policy">Devam etmek için Hizmet Şartlarımızı ve Gizlilik Politikamızı okuyun ve kabul edin</string>
+    <string name="agree">Kabul et</string>
+
+    <string name="navigation_drawer_open">Gezinti çekmecesini aç</string>
+    <string name="go_back">Geri dön</string>
+
+    <string name="error">Hata</string>
+    <string name="snack_app_updated">Uygulama başarıyla güncellendi</string>
+    <string name="snack_update_failed">Güncelleme işleminde bir sorun oluştu</string>
+    <string name="try_again">Tekrar dene</string>
+    <string name="summary_share_message">Bu harika uygulamaya bir göz atın! Kullanmakta olduğum ve ilginizi çekebilecek bazı harika özelliklere sahip. Play Store\'dan indirilebilir: %1$s</string>
+    <string name="learn_more">Daha fazla bilgi</string>
+    <string name="close">Kapat?</string>
+    <string name="summary_close">Çıkmak istediğinizden emin misiniz?</string>
+
+    <string name="home">Ana sayfa</string>
+
+    <string name="activity_not_found">Etkinlik bulunamadı.</string>
+    <string name="security_error">Bir güvenlik hatası oluştu. Lütfen daha sonra tekrar deneyin.</string>
+    <string name="io_error">Bir giriş/çıkış hatası oluştu. Ağ bağlantınızı veya depolamanızı kontrol edin ve tekrar deneyin.</string>
+    <string name="illegal_argument_error">Geçersiz bir girdi veya argüman sağlandı. Lütfen bilgileri kontrol edin ve tekrar deneyin.</string>
+    <string name="unknown_error">Bilinmeyen bir hata oluştu.</string>
+    <string name="initialization_error">Başlatma başarısız oldu. Lütfen daha sonra tekrar deneyin.</string>
+
+    <string name="settings">Ayarlar</string>
+    <string name="settings_placeholder_description">Seçilen bir ayar yok. Ayrıntıları görüntülemek için bir seçenek seçin.</string>
+    <string name="get_help">Yardım al</string>
+
+    <string name="display">Ekran</string>
+    <string name="summary_preference_settings_display">Uygulamanızın görünümünü ve hissini kişiselleştirin</string>
+
+    <string name="appearance">Görünüm</string>
+    <string name="dark_theme">Koyu tema</string>
+    <string name="will_turn_on_automatically_by_system">Sistem tarafından otomatik olarak açılacak</string>
+    <string name="will_never_turn_on_automatically">Hiçbir zaman otomatik olarak açılmayacak</string>
+    <string name="amoled_mode">AMOLED modu</string>
+    <string name="follow_system">Sistem modunu takip et</string>
+    <string name="light_mode">Aydınlık Mod</string>
+    <string name="dark_mode">Koyu Mod</string>
+    <string name="summary_dark_theme">Koyu tema, pil ömrünüzü uzatmaya yardımcı olmak için derin bir arka plan kullanır</string>
+
+    <string name="dynamic_colors">Dinamik renkler</string>
+    <string name="summary_preference_settings_dynamic_colors">Uygulama temasına duvar kağıtlarından renkler uygula</string>
+
+    <string name="app_behavior">Uygulama davranışı</string>
+    <string name="bounce_buttons">Tıklama animasyonu</string>
+    <string name="summary_preference_settings_bounce_buttons">Tıklanabilir öğelere hafif bir sıçrama animasyonu uygular</string>
+
+    <string name="navigation">Gezinti</string>
+    <string name="startup_page">Başlangıç sayfası</string>
+    <string name="summary_preference_settings_startup_page">Uygulama başlatıldığında görüntülenecek ekranı seçin.</string>
+
+    <string name="language">Dil</string>
+    <string name="summary_preference_settings_language">Uygulamada kullanılan dili değiştirin</string>
+
+    <string name="dialog_startup_subtitle">Tercih ettiğiniz başlangıç sayfasını seçin:</string>
+    <string name="dialog_info_startup">Uygulamanın açılışında kullanıcılara sunulan başlangıç ekranını yapılandırır.</string>
+
+    <string name="dialog_language_subtitle">Tercih ettiğiniz dili seçin</string>
+    <string name="dialog_info_language">Tercih ettiğiniz dille deneyiminizi kişiselleştirin</string>
+
+    <string name="notifications">Bildirimler</string>
+    <string name="summary_preference_settings_notifications">Uygulama bildirimlerini yönetin</string>
+
+    <string name="app_usage_notifications">Uygulama Kullanım Bildirimleri</string>
+    <string name="update_notifications">Güncelleme Bildirimleri</string>
+
+    <string name="advanced">Gelişmiş</string>
+    <string name="summary_preference_settings_advanced">Daha gelişmiş ayarları keşfedin</string>
+
+    <string name="error_reporting">Hata raporlama</string>
+    <string name="bug_report">Hata raporu</string>
+    <string name="summary_preference_settings_bug_report">Hata raporları ve istekleri GitHub sorunlar sayfasına gönderin</string>
+
+    <string name="security_and_privacy">Güvenlik ve gizlilik</string>
+    <string name="summary_preference_settings_privacy_and_security">Gizlilik ayarlarınızı yönetin</string>
+
+    <string name="privacy">Gizlilik</string>
+    <string name="privacy_policy">Gizlilik Politikası</string>
+    <string name="summary_preference_settings_privacy_policy">Verilerinizi nasıl ele aldığımızı açıklayan politikayı görüntüleyin</string>
+    <string name="terms_of_service">Hizmet Şartları</string>
+    <string name="summary_preference_settings_terms_of_service">Hizmetimizi kullanırken kabul ettiğiniz şartları gözden geçirin</string>
+    <string name="code_of_conduct">Davranış Kuralları</string>
+    <string name="summary_preference_settings_code_of_conduct">Hizmetimizdeki davranış kurallarını ve yönergelerini anlayın</string>
+
+    <string name="permissions">İzinler</string>
+    <string name="summary_preference_settings_permissions">Hizmetimize verilen izinleri yönetin</string>
+    <string name="normal">Normal</string>
+    <string name="runtime">Çalışma zamanı</string>
+    <string name="storage">Depolama</string>
+
+    <string name="ads">Reklamlar</string>
+    <string name="summary_preference_settings_ads">Verilerinizi nasıl kullandığımızı kontrol edin</string>
+
+    <string name="display_ads">Reklam göster</string>
+    <string name="personalized_ads">Kişiselleştirilmiş reklamlar</string>
+    <string name="summary_ads_personalized_ads">Kişisel ilgi alanlarınıza göre reklamları nasıl özelleştirdiğimizi seçin</string>
+    <string name="summary_ads">Size uygun reklamları görün. Kişiselleştirilmiş reklamları yönetin</string>
+
+    <string name="usage_and_diagnostics">Kullanım ve teşhis</string>
+    <string name="summary_preference_settings_usage_and_diagnostics">Deneyimi geliştirmek için veri paylaşın</string>
+    <string name="summary_usage_and_diagnostics">Otomatik teşhis ve kullanım verilerini göndererek deneyiminizi iyileştirin</string>
+
+    <string name="legal">Yasal</string>
+    <string name="legal_notices">Yasal bildirimler</string>
+    <string name="summary_preference_settings_legal_notices">Hizmetimizle ilgili yasal bilgileri görüntüleyin</string>
+    <string name="license">Lisans</string>
+
+    <string name="about">Hakkında</string>
+
+    <string name="app_info">Uygulama bilgisi</string>
+    <string name="app_build_version">Uygulama sürümü</string>
+    <string name="oss_license_title">Açık kaynak lisansları</string>
+    <string name="summary_preference_settings_oss">Açık kaynak yazılım lisansları hakkında detaylar</string>
+
+    <string name="eula_title">Son Kullanıcı Lisans Sözleşmesi</string>
+    <string name="changelog_title">Uygulama Değişiklik Günlüğü</string>
+    <string name="loading_eula_message">Son Kullanıcı Lisans Sözleşmesi alınıyor…</string>
+    <string name="loading_changelog_message">Değişiklik günlüğü alınıyor…</string>
+    <string name="error_loading_eula_message">Son Kullanıcı Lisans Sözleşmesi yüklenemedi. Lütfen tekrar deneyin.</string>
+    <string name="error_loading_changelog_message">Değişiklik günlüğü yüklenemedi. Lütfen tekrar deneyin.</string>
+
+    <string name="device_info">Cihaz Bilgileri</string>
+    <string name="app_build">Uygulama Yapısı: %6$s\n%1$s\n%2$s\n%3$s\n%4$s\n%5$s</string>
+    <string name="debug">Hata ayıklama</string>
+    <string name="release">Yayın</string>
+    <string name="manufacturer">Üretici:</string>
+    <string name="device_model">Cihaz Modeli:</string>
+    <string name="android_version">Android Sürümü:</string>
+    <string name="api_level">API Seviyesi:</string>
+    <string name="snack_device_info_copied">Cihaz bilgileri panoya kopyalandı</string>
+
+    <string name="help_and_feedback">Yardım ve geri bildirim</string>
+    <string name="help">Yardım</string>
+    <string name="faq">SSS</string>
+    <string name="popular_help_resources">Popüler yardım kaynakları</string>
+    <string name="contact_us">Bize ulaşın</string>
+    <string name="contact_us_description">Daha fazla bilgi verin, size yardımcı olalım</string>
+    <string name="view_in_google_play_store">Google Play Store\'da görüntüle</string>
+    <string name="version_info">Sürüm bilgisi</string>
+    <string name="version">Sürüm %1$s</string>
+    <string name="beta_program">Beta programı</string>
+
+    <string name="feedback">Geri bildirim</string>
+
+    <string name="updates">Güncellemeler</string>
+
+    <string name="share">Paylaş</string>
+
+    <string name="support_us">Bizi destekle</string>
+    <string name="paid_support">Ücretli destek</string>
+    <string name="summary_donations">Bağışlarınız sayesinde uygulamamızı geliştirip devam ettirebiliriz. Cömertliğiniz için teşekkür ederiz!</string>
+    <string name="non_paid_support">Ücretsiz destek</string>
+    <string name="web_ad">Web Reklamı</string>
+</resources>
