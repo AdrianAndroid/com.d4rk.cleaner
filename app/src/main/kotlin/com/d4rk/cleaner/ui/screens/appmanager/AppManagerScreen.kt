@@ -120,8 +120,8 @@ fun AppManagerScreen() {
     else {
         Column(
             modifier = Modifier
-                    .fillMaxSize()
-                    .alpha(contentAlpha)
+                .fillMaxSize()
+                .alpha(contentAlpha)
         ) {
             TabRow(
                 selectedTabIndex = pagerState.currentPage ,
@@ -215,8 +215,8 @@ fun AppsComposable(
                     app ,
                     viewModel = viewModel ,
                     modifier = Modifier
-                            .animateItem()
-                            .padding(start = 8.dp , end = 8.dp , top = 8.dp)
+                        .animateItem()
+                        .padding(start = 8.dp, end = 8.dp, top = 8.dp)
                 )
             }
         }
@@ -247,21 +247,21 @@ fun AppItemComposable(
     OutlinedCard(modifier = modifier) {
         Row(
             modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp)
-                    .clip(RoundedCornerShape(16.dp)) ,
+                .fillMaxWidth()
+                .padding(16.dp)
+                .clip(RoundedCornerShape(16.dp)) ,
             verticalAlignment = Alignment.CenterVertically
         ) {
             AsyncImage(
-                model = model ,
-                contentDescription = null ,
-                modifier = Modifier.size(48.dp) ,
+                model = model,
+                contentDescription = null,
+                modifier = Modifier.size(48.dp),
                 contentScale = ContentScale.Fit
             )
             Column(
                 modifier = Modifier
-                        .padding(16.dp)
-                        .weight(1f)
+                    .padding(16.dp)
+                    .weight(1f)
             ) {
                 Text(
                     text = appName ,
@@ -338,8 +338,8 @@ fun ApksComposable(
                     apkPath = apkInfo.path ,
                     viewModel = viewModel ,
                     modifier = Modifier
-                            .animateItem()
-                            .padding(start = 8.dp , end = 8.dp , top = 8.dp)
+                        .animateItem()
+                        .padding(start = 8.dp, end = 8.dp, top = 8.dp)
                 )
             }
         }
@@ -376,9 +376,9 @@ fun ApkItemComposable(
 
         Row(
             modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp)
-                    .clip(RoundedCornerShape(16.dp)) ,
+                .fillMaxWidth()
+                .padding(16.dp)
+                .clip(RoundedCornerShape(16.dp)) ,
             verticalAlignment = Alignment.CenterVertically
         ) {
             AsyncImage(
@@ -389,8 +389,8 @@ fun ApkItemComposable(
             )
             Column(
                 modifier = Modifier
-                        .padding(16.dp)
-                        .weight(1f)
+                    .padding(16.dp)
+                    .weight(1f)
             ) {
                 Text(
                     text = apkName ,
