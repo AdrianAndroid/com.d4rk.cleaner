@@ -82,6 +82,7 @@
         <item>one</item>
         <item>ecf</item>
         <item>pub</item>
+        <item>txt</item>
     </string-array>
 
     <string-array name="archive_extensions">

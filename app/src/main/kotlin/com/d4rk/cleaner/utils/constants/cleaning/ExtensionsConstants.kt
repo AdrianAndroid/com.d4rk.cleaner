@@ -21,6 +21,7 @@ object ExtensionsConstants {
     const val ARCHIVE_EXTENSIONS = "archive_extensions" // 压缩包
     const val APK_EXTENSIONS = "apk_extensions" // 安装包
     const val EMPTY_FOLDERS = "empty_folders" // 空文件夹
+    const val EMPTY_FILE = "empty_file" // 空文件
     const val IMAGE_EXTENSIONS = "image_extensions" // 图片
     const val AUDIO_EXTENSIONS = "audio_extensions" // 音频
     const val VIDEO_EXTENSIONS = "video_extensions" // 视频

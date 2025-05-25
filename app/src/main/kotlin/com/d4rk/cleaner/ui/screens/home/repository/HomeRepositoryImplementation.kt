@@ -125,24 +125,25 @@ abstract class HomeRepositoryImplementation(val application : Application , val 
             }
 
             val allFoundExtensions : MutableSet<String> = mutableSetOf()
-            fun scanDir(dir : File) {
-                dir.listFiles()?.forEach { file ->
-                    if (file.isDirectory) {
-                        scanDir(file)
-                    }
-                    else {
-                        val ext : String = file.extension.lowercase()
-                        if (ext.isNotEmpty()) {
-                            allFoundExtensions.add(element = ext)
-                        }
-                    }
-                }
-            }
-            scanDir(Environment.getExternalStorageDirectory())
+//            fun scanDir(dir : File) {
+//                dir.listFiles()?.forEach { file ->
+//                    if (file.isDirectory) {
+//                        scanDir(file)
+//                    }
+//                    else {
+//                        val ext : String = file.extension.lowercase()
+//                        if (ext.isNotEmpty()) {
+//                            allFoundExtensions.add(element = ext)
+//                        }
+//                    }
+//                }
+//            }
+//            scanDir(Environment.getExternalStorageDirectory())
 
             val otherExtensions : List<String> = (allFoundExtensions - knownExtensions).toList().sorted()
 
             val fileTypesData = FileTypesData(
+                genericExtensions = genericExtensions,
                 apkExtensions = apkExtensions ,
                 imageExtensions = imageExtensions ,
                 videoExtensions = videoExtensions ,

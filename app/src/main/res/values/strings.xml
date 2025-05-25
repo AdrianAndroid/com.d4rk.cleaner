@@ -195,4 +195,20 @@
     <string name="summary_preference_faq_8">There is no set rule for how often you should use Cleaner, as it will depend on your device\'s usage and the amount of unnecessary files that accumulate over time. Some users may find it helpful to run Cleaner weekly or monthly, while others may only need to use it occasionally</string>
     <string name="question_9">Is Cleaner compatible with all Android devices?</string>
     <string name="summary_preference_faq_9">Cleaner should be compatible with most Android devices that meet the app\'s minimum system requirements. However, it is always a good idea to check the app\'s page on the Google Play Store or the app store you are using to confirm compatibility with your specific device. If you encounter any issues while using Cleaner, you can try troubleshooting the problem or contacting the app\'s support team for assistance</string>
+
+    <string name="title_empty">空文件(夹)</string>
+    <string name="title_generic">冗余文件</string>
+    <string name="title_archive">压缩包</string>
+    <string name="title_apk">安装包</string>
+    <string name="title_image">图片</string>
+    <string name="title_audio">音频</string>
+    <string name="title_video">视频</string>
+    <string name="title_windows">执行文件</string>
+    <string name="title_office">文档</string>
+    <string name="title_font">字体</string>
+    <string name="title_other">其他</string>
+    <string name="title_big_file">大文件</string>
+    <string name="title_new_file">新文件</string>
+    <string name="item_subtitle_1">%s个</string>
+    <string name="item_subtitle_2">%s个(%s)</string>
 </resources>

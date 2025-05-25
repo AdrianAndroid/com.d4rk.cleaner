@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.view.View
 import androidx.compose.animation.Crossfade
+import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.basicMarquee
@@ -27,9 +28,17 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Android
+import androidx.compose.material.icons.outlined.Apps
+import androidx.compose.material.icons.outlined.Download
+import androidx.compose.material.icons.outlined.FolderOpen
+import androidx.compose.material.icons.outlined.Image
 import androidx.compose.material.icons.outlined.MoreVert
+import androidx.compose.material.icons.outlined.MusicNote
+import androidx.compose.material.icons.outlined.SnippetFolder
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -45,13 +54,16 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil3.ImageLoader
 import coil3.disk.DiskCache
@@ -67,6 +79,8 @@ import com.d4rk.cleaner.ui.screens.analyze.AnalyzeScreen
 import com.d4rk.cleaner.utils.helpers.PermissionsHelper
 import com.d4rk.android.libs.apptoolkit.utils.helpers.ndp
 import com.d4rk.android.libs.apptoolkit.utils.helpers.nsp
+import com.d4rk.cleaner.ui.components.texts.MiddleEllipsisText
+import com.d4rk.cleaner.utils.cleaning.StorageUtils
 
 private const val MARGIN = 50
 private const val CARD_HEIGHT = 518
@@ -116,44 +130,148 @@ fun HomeScreen() {
             }
         )
 
-        OutlinedCard(modifier = Modifier.width(300.ndp()).wrapContentHeight()) {
+        OutlinedCard(modifier = Modifier
+            .width(300.ndp())
+            .wrapContentHeight()) {
             IconButton(
-                modifier = Modifier.fillMaxSize().bounceClick(),
+                modifier = Modifier
+                    .fillMaxSize()
+                    .bounceClick(),
                 onClick = {
                     viewModel.analyze()
                 },
                 content = {
 //                    Icon(Icons.Outlined.MoreVert, contentDescription = null)
-                    Text(text = "hello World!")
+                    Text(text = "开始扫描")
                 }
             )
         }
-//        Row(modifier = Modifier
-//            .fillMaxWidth()
-//            .height(300.ndp())
-//            .padding(horizontal = MARGIN.ndp())) {
-//            Column(modifier = Modifier
-//                .weight(1f)
-//                .fillMaxHeight()
-//                .border(BORDER_WIDTH.ndp(), Color.Black, RoundedCornerShape(BORDER_RADIUS.ndp()))
-//                .padding(24.ndp())
-//                , verticalArrangement = Arrangement.SpaceAround) {
-//                val textStyle = TextStyle.Default.copy(fontSize = 41.nsp())
-//                Text(text = "已用：111111112.41GB", style = textStyle)
-//                Text(text = "总共：223.89GB", style = textStyle)
-//                Text(text = "已清理：469.51MB", style = textStyle)
-//            }
-//            Spacer(modifier = Modifier.width(34.ndp()))
-//            StorageProgressButton(
-//                progress = uiState.storageInfo.storageUsageProgress,
-//                modifier = Modifier
-//                    .offset(y = 0.dp),
-//                onClick = {
-////                    viewModel.analyze()
-//                }
-//            )
-//
-//        }
+
+        OutlinedCard(modifier = Modifier
+            .wrapContentHeight()
+            .fillMaxWidth()) {
+            MiddleEllipsisText(
+                text = uiState.displayProcessText,
+                style = TextStyle(fontSize = 14.sp, color = Color.Blue),
+                modifier = Modifier
+                    .width(250.dp)
+                    .padding(top = 16.dp)
+            )
+        }
+
+        // StorageUtils.formatSize(size)
+        TwoBorderCard(
+            leftContent = {
+                ItemCard(
+                    imageVector = Icons.Outlined.Android,
+                    title = stringResource(R.string.title_empty),
+                    subtitle = stringResource(R.string.item_subtitle_1, "${uiState.analyzedFiles.emptyFolders.size + uiState.analyzedFiles.emptyFiles.size}"),
+                )
+            },
+            rightContent = {
+                ItemCard(
+                    imageVector = Icons.Outlined.Android,
+                    title = stringResource(R.string.title_big_file),
+                    subtitle = stringResource(R.string.item_subtitle_2, "${uiState.analyzedFiles.bigFiles.size}", StorageUtils.formatSize(uiState.analyzedFiles.bigFilesSize)),
+                )
+            }
+        )
+
+        TwoBorderCard(
+            leftContent = {
+                ItemCard(
+                    imageVector = Icons.Outlined.Android,
+                    title = stringResource(R.string.title_generic),
+                    subtitle = stringResource(R.string.item_subtitle_2, "${uiState.analyzedFiles.genericFiles.size}", StorageUtils.formatSize(uiState.analyzedFiles.genericFilesSize)),
+                )
+            },
+            rightContent = {
+                ItemCard(
+                    imageVector = Icons.Outlined.Android,
+                    title = stringResource(R.string.title_new_file),
+                    subtitle = stringResource(R.string.item_subtitle_2, "${uiState.analyzedFiles.newFiles.size}", StorageUtils.formatSize(uiState.analyzedFiles.newFilesSize)),
+                )
+            }
+        )
+
+        TwoBorderCard(
+            leftContent = {
+                ItemCard(
+                    imageVector = Icons.Outlined.Android,
+                    title = stringResource(R.string.title_apk),
+                    subtitle = stringResource(R.string.item_subtitle_2, "${uiState.analyzedFiles.apkFiles.size}", StorageUtils.formatSize(uiState.analyzedFiles.apkFilesSize)),
+                )
+            },
+            rightContent = {
+                ItemCard(
+                    imageVector = Icons.Outlined.Android,
+                    title = stringResource(R.string.title_image),
+                    subtitle = stringResource(R.string.item_subtitle_2, "${uiState.analyzedFiles.imageFiles.size}", StorageUtils.formatSize(uiState.analyzedFiles.imageFilesSize)),
+                )
+            }
+        )
+
+        TwoBorderCard(
+            leftContent = {
+                ItemCard(
+                    imageVector = Icons.Outlined.Android,
+                    title = stringResource(R.string.title_video),
+                    subtitle = stringResource(R.string.item_subtitle_2, "${uiState.analyzedFiles.videoFiles.size}", StorageUtils.formatSize(uiState.analyzedFiles.videoFilesSize)),
+                )
+            },
+            rightContent = {
+                ItemCard(
+                    imageVector = Icons.Outlined.Android,
+                    title = stringResource(R.string.title_audio),
+                    subtitle = stringResource(R.string.item_subtitle_2, "${uiState.analyzedFiles.audioFiles.size}", StorageUtils.formatSize(uiState.analyzedFiles.audioFilesSize)),
+                )
+            }
+        )
+
+        TwoBorderCard(
+            leftContent = {
+                ItemCard(
+                    imageVector = Icons.Outlined.Android,
+                    title = stringResource(R.string.title_office),
+                    subtitle = stringResource(R.string.item_subtitle_2, "${uiState.analyzedFiles.officeFiles.size}", StorageUtils.formatSize(uiState.analyzedFiles.officeFilesSize)),
+                )
+            },
+            rightContent = {
+                ItemCard(
+                    imageVector = Icons.Outlined.Android,
+                    title = stringResource(R.string.title_archive),
+                    subtitle = stringResource(R.string.item_subtitle_2, "${uiState.analyzedFiles.archiveFiles.size}", StorageUtils.formatSize(uiState.analyzedFiles.archiveFilesSize)),
+                )
+            }
+        )
+
+        TwoBorderCard(
+            leftContent = {
+                ItemCard(
+                    imageVector = Icons.Outlined.Android,
+                    title = stringResource(R.string.title_font),
+                    subtitle = stringResource(R.string.item_subtitle_2, "${uiState.analyzedFiles.fontFiles.size}", StorageUtils.formatSize(uiState.analyzedFiles.fontFilesSize)),
+                )
+            },
+            rightContent = {
+                ItemCard(
+                    imageVector = Icons.Outlined.Android,
+                    title = stringResource(R.string.windows_files),
+                    subtitle = stringResource(R.string.item_subtitle_2, "${uiState.analyzedFiles.windowsFiles.size}", StorageUtils.formatSize(uiState.analyzedFiles.windowsFilesSize)),
+                )
+            }
+        )
+
+        TwoBorderCard(
+            leftContent = {
+                ItemCard(
+                    imageVector = Icons.Outlined.Android,
+                    title = stringResource(R.string.title_other),
+                    subtitle = stringResource(R.string.item_subtitle_2, "${uiState.analyzedFiles.otherFiles.size}", StorageUtils.formatSize(uiState.analyzedFiles.otherFilesSize)),
+                )
+            },
+            rightContent = null
+        )
 
         Spacer(modifier = Modifier.height(84.ndp()))
         BorderCard(
@@ -250,17 +368,97 @@ fun HomeScreen() {
     }
 }
 
-/*
-@androidx.compose.runtime.Composable @androidx.compose.runtime.ComposableInferredTarget
-public fun Card(
-    modifier: androidx.compose.ui.Modifier = COMPILED_CODE,
-    shape: androidx.compose.ui.graphics.Shape = COMPILED_CODE,
-    colors: androidx.compose.material3.CardColors = COMPILED_CODE,
-    elevation: androidx.compose.material3.CardElevation = COMPILED_CODE,
-    border: androidx.compose.foundation.BorderStroke? = COMPILED_CODE,
-    content: @androidx.compose.runtime.Composable() (androidx.compose.foundation.layout.ColumnScope.() -> kotlin.Unit)
-): kotlin.Unit {
-*/
+
+@Composable
+private fun ItemCard(
+    imageVector: ImageVector = Icons.Outlined.SnippetFolder,
+    title: String = "",
+    subtitle: String = "",
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .animateContentSize()
+            .padding(16.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Card(
+            modifier = Modifier.size(48.dp),
+            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer),
+        ) {
+            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                Icon(
+                    modifier = Modifier.bounceClick(),
+                    imageVector = imageVector,
+                    contentDescription = title,
+                    tint = MaterialTheme.colorScheme.onPrimaryContainer
+                )
+            }
+        }
+
+        Spacer(modifier = Modifier.padding(horizontal = 4.dp))
+        Column {
+            Text(
+                text = title,
+                style = MaterialTheme.typography.bodyMedium,
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier.basicMarquee(),
+            )
+            Text(text = subtitle, style = MaterialTheme.typography.bodySmall)
+        }
+    }
+}
+
+@Composable
+fun TwoCardRow(icon: String, size: Long, modifier: Modifier = Modifier) {
+    val storageIcons: Map<String, ImageVector> = mapOf(
+        stringResource(id = R.string.installed_apps) to Icons.Outlined.Apps,
+        stringResource(id = R.string.system) to Icons.Outlined.Android,
+        stringResource(id = R.string.music) to Icons.Outlined.MusicNote,
+        stringResource(id = R.string.images) to Icons.Outlined.Image,
+        stringResource(id = R.string.documents) to Icons.Outlined.FolderOpen,
+        stringResource(id = R.string.downloads) to Icons.Outlined.Download,
+        stringResource(id = R.string.other_files) to Icons.Outlined.FolderOpen,
+    )
+    Card(
+        modifier = modifier
+            .padding(vertical = 4.dp, horizontal = 4.dp)
+            .animateContentSize()
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .animateContentSize()
+                .padding(16.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Card(
+                modifier = Modifier.size(48.dp),
+                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer),
+            ) {
+                Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                    Icon(
+                        modifier = Modifier.bounceClick(),
+                        imageVector = storageIcons[icon] ?: Icons.Outlined.SnippetFolder,
+                        contentDescription = icon,
+                        tint = MaterialTheme.colorScheme.onPrimaryContainer
+                    )
+                }
+            }
+
+            Spacer(modifier = Modifier.padding(horizontal = 4.dp))
+            Column {
+                Text(
+                    text = icon,
+                    style = MaterialTheme.typography.bodyMedium,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.basicMarquee(),
+                )
+                Text(text = StorageUtils.formatSize(size), style = MaterialTheme.typography.bodySmall)
+            }
+        }
+    }
+}
 
 @Composable
 private fun BorderCard(
@@ -276,28 +474,32 @@ private fun BorderCard(
 
 @Composable
 private fun TwoBorderCard(
-    leftContent: @Composable() (androidx.compose.foundation.layout.ColumnScope.() -> Unit),
-    rightContent: @Composable() (androidx.compose.foundation.layout.ColumnScope.() -> Unit),
+    leftContent: @Composable() (androidx.compose.foundation.layout.ColumnScope.() -> Unit)? = null,
+    rightContent: @Composable() (androidx.compose.foundation.layout.ColumnScope.() -> Unit)? = null,
 ) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .height(477.ndp())
+            .wrapContentHeight()
             .padding(horizontal = MARGIN.ndp())
     ) {
-        BorderCard(
-            modifier = Modifier
-                .fillMaxHeight()
-                .weight(1f),
-            content = leftContent
-        )
-        Spacer(modifier = Modifier.width(45.ndp()))
-        BorderCard(
-            modifier = Modifier
-                .fillMaxHeight()
-                .weight(1f),
-            content = rightContent
-        )
+        if (leftContent != null) {
+            BorderCard(
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .weight(1f),
+                content = leftContent
+            )
+        }
+        if (rightContent != null) {
+            Spacer(modifier = Modifier.width(45.ndp()))
+            BorderCard(
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .weight(1f),
+                content = rightContent
+            )
+        }
     }
 }
 
