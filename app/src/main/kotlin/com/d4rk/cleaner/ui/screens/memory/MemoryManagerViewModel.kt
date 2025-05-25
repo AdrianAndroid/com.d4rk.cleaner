@@ -2,6 +2,7 @@ package com.d4rk.cleaner.ui.screens.memory
 
 import android.app.Application
 import androidx.lifecycle.viewModelScope
+import com.d4rk.android.libs.apptoolkit.utils.helpers.logI
 import com.d4rk.cleaner.data.model.ui.screens.UiMemoryManagerModel
 import com.d4rk.cleaner.ui.screens.memory.repository.MemoryManagerRepository
 import com.d4rk.cleaner.ui.viewmodel.BaseViewModel
@@ -23,6 +24,7 @@ class MemoryManagerViewModel(
     val uiMemoryManagerModel : StateFlow<UiMemoryManagerModel> = _uiMemoryManagerModel.asStateFlow()
 
     init {
+        logI { "MemoryManagerViewModel init" }
         loadMemoryData()
 
         viewModelScope.launch(context = coroutineExceptionHandler) {

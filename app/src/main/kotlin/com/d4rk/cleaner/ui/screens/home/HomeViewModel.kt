@@ -2,10 +2,12 @@ package com.d4rk.cleaner.ui.screens.home
 
 import android.app.Application
 import androidx.lifecycle.viewModelScope
+import com.d4rk.android.libs.apptoolkit.utils.helpers.logI
 import com.d4rk.cleaner.data.core.AppCoreManager
 import com.d4rk.cleaner.data.model.ui.screens.FileTypesData
 import com.d4rk.cleaner.data.model.ui.screens.UiHomeModel
 import com.d4rk.cleaner.ui.screens.home.repository.HomeRepository
+import com.d4rk.cleaner.ui.screens.home.repository.WrapFile
 import com.d4rk.cleaner.ui.viewmodel.BaseViewModel
 import com.d4rk.cleaner.utils.cleaning.StorageUtils
 import com.d4rk.cleaner.utils.constants.cleaning.ExtensionsConstants
@@ -23,12 +25,19 @@ class HomeViewModel(application : Application) : BaseViewModel(application) {
     val uiState : StateFlow<UiHomeModel> = _uiState
 
     init {
-        getStorageInfo()
-        getFileTypes()
+        getStorageInfo() // 存储空间
+        getFileTypes() //
         loadCleanedSpace()
     }
 
     fun analyze() {
+        viewModelScope.launch(context = coroutineExceptionHandler) {
+            repository.analyze { wrapFile: WrapFile ->
+                logI { "analyze --> ${wrapFile.absolutePath()}" }
+            }
+        }
+    }
+    fun analyze2() {
         viewModelScope.launch(context = coroutineExceptionHandler) {
             showLoading()
             repository.analyzeFiles { result ->
@@ -58,7 +67,8 @@ class HomeViewModel(application : Application) : BaseViewModel(application) {
         filesMap.putAll(fileTypesData.fileTypesTitles.associateWith { mutableListOf() })
 
         scannedFiles.forEach { file ->
-            val category : String? = when (val extension : String = file.extension.lowercase()) {
+            val extension : String = file.extension.lowercase()
+            val category : String? = when (extension) {
                 in fileTypesData.imageExtensions -> if (preferences[ExtensionsConstants.IMAGE_EXTENSIONS] == true) fileTypesData.fileTypesTitles[0] else null
                 in fileTypesData.videoExtensions -> if (preferences[ExtensionsConstants.VIDEO_EXTENSIONS] == true) fileTypesData.fileTypesTitles[1] else null
                 in fileTypesData.audioExtensions -> if (preferences[ExtensionsConstants.AUDIO_EXTENSIONS] == true) fileTypesData.fileTypesTitles[2] else null

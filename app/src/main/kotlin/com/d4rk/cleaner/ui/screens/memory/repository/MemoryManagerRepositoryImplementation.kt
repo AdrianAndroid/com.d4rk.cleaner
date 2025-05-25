@@ -60,20 +60,11 @@ abstract class MemoryManagerRepositoryImplementation(val application : Applicati
         val externalStoragePath : String = Environment.getExternalStorageDirectory().absolutePath
 
         breakdown[context.getString(R.string.installed_apps)] = getInstalledAppsSize(context)
-        breakdown[context.getString(R.string.system)] =
-                getDirectorySize(Environment.getRootDirectory())
-        breakdown[context.getString(R.string.music)] =
-                getDirectorySize(File(externalStoragePath , "Music"))
-        breakdown[context.getString(R.string.images)] =
-                getDirectorySize(File(externalStoragePath , "DCIM")) + getDirectorySize(
-                    File(
-                        externalStoragePath , "Pictures"
-                    )
-                )
-        breakdown[context.getString(R.string.documents)] =
-                getDirectorySize(File(externalStoragePath , "Documents"))
-        breakdown[context.getString(R.string.downloads)] =
-                getDirectorySize(File(externalStoragePath , "Download"))
+        breakdown[context.getString(R.string.system)] = getDirectorySize(Environment.getRootDirectory())
+        breakdown[context.getString(R.string.music)] = getDirectorySize(File(externalStoragePath , "Music"))
+        breakdown[context.getString(R.string.images)] = getDirectorySize(File(externalStoragePath , "DCIM")) + getDirectorySize(File(externalStoragePath , "Pictures"))
+        breakdown[context.getString(R.string.documents)] = getDirectorySize(File(externalStoragePath , "Documents"))
+        breakdown[context.getString(R.string.downloads)] = getDirectorySize(File(externalStoragePath , "Download"))
         breakdown[context.getString(R.string.other_files)] = getOtherFilesSize(breakdown)
 
         return breakdown
@@ -87,8 +78,7 @@ abstract class MemoryManagerRepositoryImplementation(val application : Applicati
      */
     private fun getInstalledAppsSize(context : Context) : Long {
         val packageManager : PackageManager = context.packageManager
-        val installedApps : MutableList<ApplicationInfo> =
-                packageManager.getInstalledApplications(0)
+        val installedApps : MutableList<ApplicationInfo> = packageManager.getInstalledApplications(0)
         var installedAppsSize = 0L
         for (app : ApplicationInfo in installedApps) {
             installedAppsSize += getApkSize(context , app.packageName)

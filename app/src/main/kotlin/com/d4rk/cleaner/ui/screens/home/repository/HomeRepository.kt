@@ -46,6 +46,14 @@ class HomeRepository(dataStore : DataStore , application : Application) : HomeRe
         }
     }
 
+    suspend fun analyze(onSuccess : (WrapFile) -> Unit) {
+        withContext(context = Dispatchers.IO) {
+            iterateFiles { wrapFile ->
+                onSuccess(wrapFile)
+            }
+        }
+    }
+
     suspend fun analyzeFiles(onSuccess : (Pair<List<File> , List<File>>) -> Unit) {
         withContext(context = Dispatchers.IO) {
             val result = getAllFilesImplementation()

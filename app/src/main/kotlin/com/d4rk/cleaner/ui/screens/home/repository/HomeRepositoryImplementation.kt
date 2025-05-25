@@ -7,6 +7,7 @@ import android.content.Context
 import android.media.MediaScannerConnection
 import android.os.Build
 import android.os.Environment
+import com.d4rk.android.libs.apptoolkit.utils.helpers.logI
 import com.d4rk.cleaner.R
 import com.d4rk.cleaner.data.datastore.DataStore
 import com.d4rk.cleaner.data.model.ui.memorymanager.StorageInfo
@@ -31,14 +32,45 @@ abstract class HomeRepositoryImplementation(val application : Application , val 
         }
     }
 
+    /**
+     * 遍历根目录下的所有文件
+     */
+    fun iterateFiles(onFile: (WrapFile) -> Unit) {
+        val stack: ArrayDeque<File> = ArrayDeque() // 栈
+        val root: File = Environment.getExternalStorageDirectory() // 根目录
+        stack.addFirst(element = root)
+        while (stack.isNotEmpty()) {
+            val currentFile: File = stack.removeFirst()
+            val wrapFile = WrapFile(currentFile)
+            if (currentFile.isDirectory) {
+                currentFile.listFiles()?.let { children ->
+                    if (children.isEmpty()) {
+                        onFile(wrapFile)
+                    } else {
+                        children.forEach { child ->
+                            if (child.isDirectory) {
+                                stack.addLast(child)
+                            } else {
+                                onFile(WrapFile(child))
+                            }
+                        }
+                    }
+                }
+            } else {
+                onFile(wrapFile)
+            }
+        }
+    }
+
+
     fun getAllFilesImplementation() : Pair<List<File> , List<File>> {
-        val files : MutableList<File> = mutableListOf()
-        val emptyFolders : MutableList<File> = mutableListOf()
-        val stack : ArrayDeque<File> = ArrayDeque()
-        val root : File = Environment.getExternalStorageDirectory()
+        val files : MutableList<File> = mutableListOf() // 保存所有的文件
+        val emptyFolders : MutableList<File> = mutableListOf() // 空文件夹
+        val stack : ArrayDeque<File> = ArrayDeque() // 栈
+        val root : File = Environment.getExternalStorageDirectory() // 根目录
         stack.addFirst(element = root)
 
-        val trashDir = File(application.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS) , "Trash")
+        val trashDir = File(application.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS) , "Trash") // 垃圾篓
 
         while (stack.isNotEmpty()) {
             val currentFile : File = stack.removeFirst()
@@ -60,8 +92,7 @@ abstract class HomeRepositoryImplementation(val application : Application , val 
                         }
                     }
                 }
-            }
-            else {
+            } else {
                 files.add(currentFile)
             }
         }

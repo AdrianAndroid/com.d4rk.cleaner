@@ -22,11 +22,18 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.MoreVert
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
 import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
@@ -52,6 +59,7 @@ import coil3.disk.directory
 import coil3.memory.MemoryCache
 import com.d4rk.android.libs.apptoolkit.data.model.ui.error.UiErrorModel
 import com.d4rk.android.libs.apptoolkit.ui.components.dialogs.ErrorAlertDialog
+import com.d4rk.android.libs.apptoolkit.ui.components.modifiers.bounceClick
 import com.d4rk.cleaner.R
 import com.d4rk.cleaner.data.model.ui.screens.UiHomeModel
 import com.d4rk.cleaner.ui.components.progressbars.StorageProgressButton
@@ -60,7 +68,7 @@ import com.d4rk.cleaner.utils.helpers.PermissionsHelper
 import com.d4rk.android.libs.apptoolkit.utils.helpers.ndp
 import com.d4rk.android.libs.apptoolkit.utils.helpers.nsp
 
-private const val MARGIN = 90
+private const val MARGIN = 50
 private const val CARD_HEIGHT = 518
 private const val BORDER_WIDTH = 2
 private const val BORDER_RADIUS = 74
@@ -94,34 +102,58 @@ fun HomeScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .verticalScroll(scrollState)
+            .verticalScroll(scrollState),
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Row(modifier = Modifier
-            .fillMaxWidth()
-            .height(300.ndp())
-            .padding(horizontal = MARGIN.ndp())) {
-            Column(modifier = Modifier
-                .weight(1f)
-                .fillMaxHeight()
-                .border(BORDER_WIDTH.ndp(), Color.Black, RoundedCornerShape(BORDER_RADIUS.ndp()))
-                .padding(24.ndp())
-                , verticalArrangement = Arrangement.SpaceAround) {
-                val textStyle = TextStyle.Default.copy(fontSize = 41.nsp())
-                Text(text = "已用：111111112.41GB", style = textStyle)
-                Text(text = "总共：223.89GB", style = textStyle)
-                Text(text = "已清理：469.51MB", style = textStyle)
-            }
-            Spacer(modifier = Modifier.width(34.ndp()))
-            StorageProgressButton(
-                progress = uiState.storageInfo.storageUsageProgress,
-                modifier = Modifier
-                    .offset(y = 0.dp),
-                onClick = {
+
+        StorageProgressButton(
+            progress = uiState.storageInfo.storageUsageProgress,
+            modifier = Modifier
+                .size(600.ndp())
+                .offset(y = 0.dp),
+            onClick = {
 //                    viewModel.analyze()
+            }
+        )
+
+        OutlinedCard(modifier = Modifier.width(300.ndp()).wrapContentHeight()) {
+            IconButton(
+                modifier = Modifier.fillMaxSize().bounceClick(),
+                onClick = {
+                    viewModel.analyze()
+                },
+                content = {
+//                    Icon(Icons.Outlined.MoreVert, contentDescription = null)
+                    Text(text = "hello World!")
                 }
             )
-
         }
+//        Row(modifier = Modifier
+//            .fillMaxWidth()
+//            .height(300.ndp())
+//            .padding(horizontal = MARGIN.ndp())) {
+//            Column(modifier = Modifier
+//                .weight(1f)
+//                .fillMaxHeight()
+//                .border(BORDER_WIDTH.ndp(), Color.Black, RoundedCornerShape(BORDER_RADIUS.ndp()))
+//                .padding(24.ndp())
+//                , verticalArrangement = Arrangement.SpaceAround) {
+//                val textStyle = TextStyle.Default.copy(fontSize = 41.nsp())
+//                Text(text = "已用：111111112.41GB", style = textStyle)
+//                Text(text = "总共：223.89GB", style = textStyle)
+//                Text(text = "已清理：469.51MB", style = textStyle)
+//            }
+//            Spacer(modifier = Modifier.width(34.ndp()))
+//            StorageProgressButton(
+//                progress = uiState.storageInfo.storageUsageProgress,
+//                modifier = Modifier
+//                    .offset(y = 0.dp),
+//                onClick = {
+////                    viewModel.analyze()
+//                }
+//            )
+//
+//        }
 
         Spacer(modifier = Modifier.height(84.ndp()))
         BorderCard(

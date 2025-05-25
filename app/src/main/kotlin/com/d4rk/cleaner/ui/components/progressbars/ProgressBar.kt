@@ -57,9 +57,7 @@ fun StorageProgressButton(
         label = "Storage Progress Load Animation"
     )
 
-    Box(
-        contentAlignment = Alignment.Center, modifier = modifier.size(300.ndp())
-    ) {
+    Box(contentAlignment = Alignment.Center, modifier = modifier) {
         CircularProgressIndicator(
             progress = { 1f },
             modifier = Modifier.fillMaxSize(),
