@@ -7,6 +7,10 @@ data class WrapFile(
     val file: File,
 ) {
 
+    fun fileName() : String {
+        return file.name
+    }
+
     fun fileSize() : Long {
         return FileSizeHelper.getFileSize(file)
     }

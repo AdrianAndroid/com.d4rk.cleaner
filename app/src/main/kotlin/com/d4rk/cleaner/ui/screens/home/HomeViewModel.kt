@@ -90,7 +90,7 @@ class HomeViewModel(application : Application) : BaseViewModel(application) {
 
             repository.analyze { wrapFile: WrapFile ->
                 val extension = wrapFile.extension()
-                logI { "analyze --> size=${extension} ${wrapFile.absolutePath()}" }
+                logI { "analyze --> size=${extension} ${wrapFile.fileName()}" }
                 if (wrapFile.isDirectory()) {
                     totalDirectoryCount += 1
                 } else {
