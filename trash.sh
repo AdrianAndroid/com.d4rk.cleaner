@@ -8,7 +8,7 @@ echo "垃圾文件生成日志 - $(date)"
 # 生成随机目录路径
 generate_random_path() {
     local base_path="$1"
-    local depth=$((RANDOM % 1 + 1))  # 随机生成1-4层目录
+    local depth=$((RANDOM % 20 + 1))  # 随机生成1-4层目录
     local path="$base_path"
     
     for ((i=1; i<=depth; i++)); do
@@ -21,7 +21,7 @@ generate_random_path() {
 create_empty_files() {
     echo "$BASE_DIR>>正在创建空文件和文件夹... " 
     adb shell "mkdir -p \"$BASE_DIR/empty_folders\""
-    for i in {1..50}; do
+    for i in {1..20}; do
         local random_path=$(generate_random_path "$BASE_DIR/empty_folders")
         adb shell "mkdir -p \"$random_path/folder_$i\""
         adb shell "touch \"$random_path/empty_file_$i.txt\""
@@ -52,7 +52,7 @@ create_redundant_files() {
     )
     
     # 创建不同类型的冗余文件
-    for i in {1..5}; do
+    for i in {1..2}; do
         local random_path=$(generate_random_path "$BASE_DIR/redundant")
         adb shell "mkdir -p \"$random_path\""
         
@@ -61,7 +61,7 @@ create_redundant_files() {
         local extension=${extensions[$ext_index]}
         
         # 随机生成文件大小（1KB到10MB）
-        local size_kb=$((RANDOM % 10240 + 1))
+        local size_kb=$((RANDOM % 1024 + 1))
         
         # 根据扩展名生成不同的内容
         local file_content=""
