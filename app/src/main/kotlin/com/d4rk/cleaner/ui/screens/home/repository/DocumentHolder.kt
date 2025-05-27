@@ -3,7 +3,7 @@ package com.d4rk.cleaner.ui.screens.home.repository
 import com.d4rk.cleaner.utils.helpers.FileSizeHelper
 import java.io.File
 
-data class WrapFile(
+data class DocumentHolder(
     val file: File,
 ) {
 

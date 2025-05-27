@@ -1,7 +1,7 @@
 package com.d4rk.cleaner.data.model.ui.screens
 
 import com.d4rk.cleaner.data.model.ui.memorymanager.StorageInfo
-import com.d4rk.cleaner.ui.screens.home.repository.WrapFile
+import com.d4rk.cleaner.ui.screens.home.repository.DocumentHolder
 import java.io.File
 
 data class UiHomeModel(
@@ -18,42 +18,42 @@ data class AnalyzeModel(
     val totalDirCount: Long = 0L, // 总目录大小
     val totalFileCount: Long = 0L, // 总文件数量
 
-    val emptyFolders: List<WrapFile> = emptyList(), // 空文件夹
-    val emptyFiles: List<WrapFile> = emptyList(), // 空文件
-    val genericFiles: List<WrapFile> = emptyList(), // 冗余文件
+    val emptyFolders: List<DocumentHolder> = emptyList(), // 空文件夹
+    val emptyFiles: List<DocumentHolder> = emptyList(), // 空文件
+    val genericFiles: List<DocumentHolder> = emptyList(), // 冗余文件
     val genericFilesSize: Long = 0L, // 冗余文件大小
 
-    val archiveFiles: List<WrapFile> = emptyList(), // 压缩包
+    val archiveFiles: List<DocumentHolder> = emptyList(), // 压缩包
     val archiveFilesSize: Long = 0L, // 压缩包文件大小
 
-    val apkFiles: List<WrapFile> = emptyList(), // 安装包
+    val apkFiles: List<DocumentHolder> = emptyList(), // 安装包
     val apkFilesSize: Long = 0L, // 安装包文件大小
 
-    val imageFiles: List<WrapFile> = emptyList(), // 图片
+    val imageFiles: List<DocumentHolder> = emptyList(), // 图片
     val imageFilesSize: Long = 0L, // 图片文件大小
 
-    val audioFiles: List<WrapFile> = emptyList(), // 音频
+    val audioFiles: List<DocumentHolder> = emptyList(), // 音频
     val audioFilesSize: Long = 0L, // 音频文件大小
 
-    val videoFiles: List<WrapFile> = emptyList(), // 视频
+    val videoFiles: List<DocumentHolder> = emptyList(), // 视频
     val videoFilesSize : Long = 0L, // 视频文件大小
 
-    val windowsFiles: List<WrapFile> = emptyList(), // windows下执行文件
+    val windowsFiles: List<DocumentHolder> = emptyList(), // windows下执行文件
     val windowsFilesSize: Long = 0L, // windows下执行文件大小
 
-    val officeFiles: List<WrapFile> = emptyList(), // 文档
+    val officeFiles: List<DocumentHolder> = emptyList(), // 文档
     val officeFilesSize: Long = 0L, // 文档文件大小
 
-    val fontFiles: List<WrapFile> = emptyList(), // 字体
+    val fontFiles: List<DocumentHolder> = emptyList(), // 字体
     val fontFilesSize: Long = 0L, // 字体文件大小
 
-    val otherFiles: List<WrapFile> = emptyList(), // 其他
+    val otherFiles: List<DocumentHolder> = emptyList(), // 其他
     val otherFilesSize: Long = 0L, // 其他文件大小
 
-    val bigFiles: List<WrapFile> = emptyList(), // 大文件
+    val bigFiles: List<DocumentHolder> = emptyList(), // 大文件
     val bigFilesSize: Long = 0L, // 大文件大小
 
-    val newFiles: List<WrapFile> = emptyList(), // 新文件
+    val newFiles: List<DocumentHolder> = emptyList(), // 新文件
     val newFilesSize: Long = 0L, // 新文件大小
 )
 

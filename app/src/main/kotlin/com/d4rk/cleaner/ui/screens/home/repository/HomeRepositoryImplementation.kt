@@ -7,7 +7,6 @@ import android.content.Context
 import android.media.MediaScannerConnection
 import android.os.Build
 import android.os.Environment
-import com.d4rk.android.libs.apptoolkit.utils.helpers.logI
 import com.d4rk.cleaner.R
 import com.d4rk.cleaner.data.datastore.DataStore
 import com.d4rk.cleaner.data.model.ui.memorymanager.StorageInfo
@@ -35,29 +34,29 @@ abstract class HomeRepositoryImplementation(val application : Application , val 
     /**
      * 遍历根目录下的所有文件
      */
-    fun iterateFiles(onFile: (WrapFile) -> Unit) {
+    fun iterateFiles(onFile: (DocumentHolder) -> Unit) {
         val stack: ArrayDeque<File> = ArrayDeque() // 栈
         val root: File = Environment.getExternalStorageDirectory() // 根目录
         stack.addFirst(element = root)
         while (stack.isNotEmpty()) {
             val currentFile: File = stack.removeFirst()
-            val wrapFile = WrapFile(currentFile)
+            val documentHolder = DocumentHolder(currentFile)
             if (currentFile.isDirectory) {
                 currentFile.listFiles()?.let { children ->
                     if (children.isEmpty()) {
-                        onFile(wrapFile)
+                        onFile(documentHolder)
                     } else {
                         children.forEach { child ->
                             if (child.isDirectory) {
                                 stack.addLast(child)
                             } else {
-                                onFile(WrapFile(child))
+                                onFile(DocumentHolder(child))
                             }
                         }
                     }
                 }
             } else {
-                onFile(wrapFile)
+                onFile(documentHolder)
             }
         }
     }
