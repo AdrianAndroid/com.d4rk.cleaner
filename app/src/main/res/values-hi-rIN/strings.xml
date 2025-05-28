@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">Clean Duck</string>
     <string name="app_short_description">हर रोज़ इस्तेमाल के लिए यह आखिरी Android क्लीनर है जिसकी आपको कभी आवश्यकता होगी!</string>
     <string name="summary_notification_last_time_used">चलिए कुछ जगह खाली करते हैं! हम खुश हैं कि आप वापस आ गए हैं!</string>
 

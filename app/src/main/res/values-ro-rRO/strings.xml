@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">Clean Duck</string>
     <string name="app_short_description">Ultima aplicație de curățare Android de care vei avea nevoie vreodată, pentru utilizare zilnică!</string>
     <string name="summary_notification_last_time_used"> Hai să eliberăm spațiu! Ne bucurăm că te-ai întors!</string>
 

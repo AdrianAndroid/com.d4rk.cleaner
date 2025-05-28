@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">Clean Duck</string>
     <string name="app_short_description">Pembersih Android terakhir yang Anda perlukan untuk penggunaan sehari-hari!</string>
     <string name="summary_notification_last_time_used"> Mari kita bebaskan ruang! Kami senang Anda kembali!</string>
 

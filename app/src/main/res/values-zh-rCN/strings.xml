@@ -193,4 +193,21 @@
     <string name="summary_preference_faq_8">没有设定使用清洁工具的次数，因为这取决于您设备的使用情况以及随着时间推移累积的不必要文件数量。有些用户可能会发现每周或每月执行清洁工具很有用，而其他人可能只偶尔需要使用它</string>
     <string name="question_9">清洁工具与所有 Android 设备兼容吗？</string>
     <string name="summary_preference_faq_9">清洁工具应与符合应用程序最低系统要求的大多数 Android 设备兼容。但是，始终建议您检查 Google Play 商店或您使用的应用程序商店中的应用程序页面，以确认它与您的特定设备兼容。如果您在使用清洁工具时遇到任何问题，可以尝试解决问题或联系应用程序的支持团队以获取协助</string>
+    <string name="item_subtitle_2">%s个(%s)</string>
+    <string name="internal_storage">内部存储</string>
+    <string name="title_empty">空文件(夹)</string>
+    <string name="title_generic">冗余文件</string>
+    <string name="title_archive">压缩包</string>
+    <string name="title_apk">安装包</string>
+    <string name="title_image">图片</string>
+    <string name="title_audio">音频</string>
+    <string name="title_video">视频</string>
+    <string name="title_windows">执行文件</string>
+    <string name="title_office">文档</string>
+    <string name="title_font">字体</string>
+    <string name="title_other">其他</string>
+    <string name="title_big_file">大文件</string>
+    <string name="title_new_file">新文件</string>
+    <string name="item_subtitle_1">%s个</string>
+    <string name="app_name">清理鸭</string>
 </resources>

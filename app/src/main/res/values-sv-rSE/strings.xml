@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">Clean Duck</string>
     <string name="app_short_description">Den enda Android Cleaner du någonsin kommer att behöva för vardagligt bruk!</string>
     <string name="summary_notification_last_time_used"> Låt oss frigöra lite utrymme! Vi är glada att du är tillbaka!</string>
 
