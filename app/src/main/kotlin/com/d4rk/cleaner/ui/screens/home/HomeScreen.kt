@@ -129,7 +129,9 @@ fun HomeScreen() {
     }
 
     BackHandler {
-        if (uiState.showInternalStorage) {
+        if (mainActivityManager.canExit().not()) {
+            viewModel.showInternal(true)
+        } else if (uiState.showInternalStorage) {
             viewModel.showInternal(false)
         } else if(context is Activity) {
             context.finish()

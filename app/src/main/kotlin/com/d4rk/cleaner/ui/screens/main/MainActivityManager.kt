@@ -30,4 +30,11 @@ class MainActivityManager {
             if (!isCreated) onTabStarted() else onTabResumed()
         }
     }
+
+    fun canExit(): Boolean {
+        if (curTab?.onBackPressed() == true) {
+            return false
+        }
+        return true
+    }
 }

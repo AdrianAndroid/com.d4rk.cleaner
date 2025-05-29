@@ -232,4 +232,5 @@
     <string name="decompressing">Decompressing: %1$s</string>
     <string name="compressing">Compressing: $%1$s</string>
     <string name="root_dir">Root</string>
+    <string name="empty">Empty</string>
 </resources>

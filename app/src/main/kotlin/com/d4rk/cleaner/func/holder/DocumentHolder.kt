@@ -320,6 +320,84 @@ data class DocumentHolder(val documentFile: DocumentFile) : ContentHolder(){
         }
     }
 
+    fun getFileIconType(): Int {
+        if (isFolder) {
+            return FILE_TYPE_FOLDER
+        } else if (fileExtension == FileMimeType.aiFileType) {
+            return FILE_TYPE_AI
+        } else if (fileExtension == FileMimeType.apkFileType) {
+            return FILE_TYPE_APK
+        } else if (fileExtension == FileMimeType.cssFileType) {
+            return FILE_TYPE_CSS
+        } else if (fileExtension == FileMimeType.isoFileType) {
+            return FILE_TYPE_ISO
+        } else if (fileExtension == FileMimeType.jsFileType) {
+            return FILE_TYPE_JS
+        } else if (fileExtension == FileMimeType.psdFileType) {
+            return FILE_TYPE_PSD
+        } else if (fileExtension == FileMimeType.sqlFileType) {
+            return FILE_TYPE_SQL
+        } else if (fileExtension == FileMimeType.svgFileType) {
+            return FILE_TYPE_SVG
+        } else if (fileExtension == FileMimeType.vcfFileType) {
+            return FILE_TYPE_VCF
+        } else if (fileExtension == FileMimeType.pdfFileType) {
+            return FILE_TYPE_PDF
+        } else if (FileMimeType.docFileType.contains(fileExtension)) {
+            return FILE_TYPE_DOC
+        } else if (FileMimeType.excelFileType.contains(fileExtension)) {
+            return FILE_TYPE_XLS
+        } else if (FileMimeType.pptFileType.contains(fileExtension)) {
+            return FILE_TYPE_PPT
+        } else if (FileMimeType.fontFileType.contains(fileExtension)) {
+            return FILE_TYPE_FONT
+        } else if (FileMimeType.vectorFileType.contains(fileExtension)) {
+            return FILE_TYPE_VECTOR
+        } else if (FileMimeType.archiveFileType.contains(fileExtension) || FileMimeType.apkBundleFileType.contains(fileExtension)) {
+            return FILE_TYPE_ARCHIVE
+        } else if (FileMimeType.videoFileType.contains(fileExtension)) {
+            return FILE_TYPE_VIDEO
+        } else if (FileMimeType.codeFileType.contains(fileExtension)) {
+            return FILE_TYPE_CODE
+        } else if (FileMimeType.editableFileType.contains(fileExtension)) {
+            return FILE_TYPE_TEXT
+        } else if (FileMimeType.imageFileType.contains(fileExtension)) {
+            return FILE_TYPE_IMAGE
+        } else if (FileMimeType.audioFileType.contains(fileExtension)) {
+            return FILE_TYPE_AUDIO
+        } else {
+            return FILE_TYPE_UNKNOWN
+        }
+    }
+
+    fun getFileIconResource() = when (getFileIconType()) {
+        FILE_TYPE_FOLDER -> R.drawable.baseline_folder_24
+        FILE_TYPE_AI -> R.drawable.ai_file_extension
+        FILE_TYPE_APK -> R.drawable.apk_file_extension
+        FILE_TYPE_CSS -> R.drawable.css_file_extension
+        FILE_TYPE_ISO -> R.drawable.iso_file_extension
+        FILE_TYPE_JS -> R.drawable.js_file_extension
+        FILE_TYPE_PDF -> R.drawable.pdf_file_extension
+        FILE_TYPE_PSD -> R.drawable.psd_file_extension
+        FILE_TYPE_SQL -> R.drawable.sql_file_extension
+        FILE_TYPE_SVG -> R.drawable.svg_file_extension
+        FILE_TYPE_VCF -> R.drawable.vcf_file_extension
+        FILE_TYPE_JAVA -> R.drawable.javascript_file_extension
+        FILE_TYPE_KOTLIN -> R.drawable.css_file_extension
+        FILE_TYPE_DOC -> R.drawable.doc_file_extension
+        FILE_TYPE_XLS -> R.drawable.xls_file_extension
+        FILE_TYPE_PPT -> R.drawable.ppt_file_extension
+        FILE_TYPE_FONT -> R.drawable.font_file_extension
+        FILE_TYPE_VECTOR -> R.drawable.vector_file_extension
+        FILE_TYPE_VIDEO -> R.drawable.video_file_extension
+        FILE_TYPE_AUDIO -> R.drawable.music_file_extension
+        FILE_TYPE_IMAGE -> R.drawable.jpg_file_extension
+        FILE_TYPE_CODE -> R.drawable.css_file_extension
+        FILE_TYPE_TEXT -> R.drawable.txt_file_extension
+        FILE_TYPE_ARCHIVE -> R.drawable.zip_file_extension
+        else -> R.drawable.unknown_file_extension
+    }
+
     fun fileName() : String {
         return documentFile.name ?: ""
     }

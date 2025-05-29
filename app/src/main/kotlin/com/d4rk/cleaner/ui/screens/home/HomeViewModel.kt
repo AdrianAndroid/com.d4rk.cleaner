@@ -213,9 +213,11 @@ class HomeViewModel(application : Application) : BaseViewModel(application) {
     }
 
     fun showInternal(showInternalStorage: Boolean) {
-        _uiState.update { state ->
-            state.copy(showInternalStorage = showInternalStorage)
-         }
+        if (_uiState.value.showInternalStorage != showInternalStorage) {
+            _uiState.update { state ->
+                state.copy(showInternalStorage = showInternalStorage)
+            }
+        }
     }
 
     private fun computeGroupedFiles(

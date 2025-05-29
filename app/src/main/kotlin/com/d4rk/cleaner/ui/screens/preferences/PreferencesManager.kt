@@ -1,4 +1,4 @@
-package com.d4rk.cleaner.ui.screens.settings
+package com.d4rk.cleaner.ui.screens.preferences
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -12,6 +12,7 @@ import com.d4rk.cleaner.func.holder.DocumentHolder
 import com.d4rk.cleaner.func.misc.FileSortingPrefs
 import com.d4rk.cleaner.func.misc.SortingMethod
 import com.d4rk.cleaner.func.misc.prefMutableState
+import com.d4rk.cleaner.ui.screens.preferences.constant.FilesTabFileListSize
 import com.d4rk.cleaner.utils.extension.emptyString
 import com.d4rk.cleaner.utils.extension.fromJson
 import com.d4rk.cleaner.utils.extension.toJson
@@ -65,11 +66,11 @@ class PreferencesManager {
 //            getPreferencesKey = { intPreferencesKey(it) }
 //        )
 
-//        var fileListSize by prefMutableState(
-//            keyName = "fileListSize",
-//            defaultValue = FilesTabFileListSize.LARGE.ordinal,
-//            getPreferencesKey = { intPreferencesKey(it) }
-//        )
+        var fileListSize by prefMutableState(
+            keyName = "fileListSize",
+            defaultValue = FilesTabFileListSize.LARGE.ordinal,
+            getPreferencesKey = { intPreferencesKey(it) }
+        )
 
         var showBottomBarLabels by prefMutableState(
             keyName = "showBottomBarLabels",

@@ -17,7 +17,7 @@ import com.d4rk.cleaner.data.datastore.DataStore
 import com.d4rk.cleaner.func.holder.DocumentHolder
 import com.d4rk.cleaner.func.tabs.FilesTabManager
 import com.d4rk.cleaner.ui.screens.main.MainActivityManager
-import com.d4rk.cleaner.ui.screens.settings.PreferencesManager
+import com.d4rk.cleaner.ui.screens.preferences.PreferencesManager
 import com.d4rk.cleaner.utils.error.CrashlyticsErrorReporter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Deferred
