@@ -3,12 +3,14 @@ package com.d4rk.cleaner.ui.screens.home
 import android.app.Activity
 import android.content.Context
 import android.view.View
+import androidx.activity.compose.BackHandler
 import androidx.compose.animation.Crossfade
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.basicMarquee
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -35,10 +37,13 @@ import androidx.compose.material.icons.outlined.FolderOpen
 import androidx.compose.material.icons.outlined.Image
 import androidx.compose.material.icons.outlined.MoreVert
 import androidx.compose.material.icons.outlined.MusicNote
+import androidx.compose.material.icons.outlined.SdStorage
 import androidx.compose.material.icons.outlined.SnippetFolder
+import androidx.compose.material.icons.outlined.Storage
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -50,9 +55,12 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
@@ -79,10 +87,16 @@ import com.d4rk.cleaner.ui.screens.analyze.AnalyzeScreen
 import com.d4rk.cleaner.utils.helpers.PermissionsHelper
 import com.d4rk.android.libs.apptoolkit.utils.helpers.ndp
 import com.d4rk.android.libs.apptoolkit.utils.helpers.nsp
+import com.d4rk.cleaner.data.core.AppCoreManager
+import com.d4rk.cleaner.func.holder.StorageDeviceHolder
+import com.d4rk.cleaner.func.tabs.FilesTab
 import com.d4rk.cleaner.ui.components.texts.MiddleEllipsisText
+import com.d4rk.cleaner.ui.screens.tabs.FilesTabContentView
 import com.d4rk.cleaner.utils.cleaning.StorageUtils
+import com.raival.compose.file.explorer.screen.main.tab.files.provider.StorageProvider
 
 private const val MARGIN = 50
+private const val MARGIN_BOTTOM = 25
 private const val CARD_HEIGHT = 518
 private const val BORDER_WIDTH = 2
 private const val BORDER_RADIUS = 74
@@ -102,6 +116,7 @@ fun HomeScreen() {
         }.build()
     }
     val scrollState = rememberScrollState()
+    val mainActivityManager = AppCoreManager.instance.mainActivityManager
 
     LaunchedEffect(key1 = Unit) {
         if (! PermissionsHelper.hasStoragePermissions(context = context)) {
@@ -111,6 +126,14 @@ fun HomeScreen() {
 
     if (uiErrorModel.showErrorDialog) {
         ErrorAlertDialog(errorMessage = uiErrorModel.errorMessage , onDismiss = { viewModel.dismissErrorDialog() })
+    }
+
+    BackHandler {
+        if (uiState.showInternalStorage) {
+            viewModel.showInternal(false)
+        } else if(context is Activity) {
+            context.finish()
+        }
     }
 
     Column(
@@ -159,7 +182,6 @@ fun HomeScreen() {
             )
         }
 
-        // StorageUtils.formatSize(size)
         TwoBorderCard(
             leftContent = {
                 ItemCard(
@@ -176,6 +198,8 @@ fun HomeScreen() {
                 )
             }
         )
+
+        Spacer(modifier = Modifier.height(MARGIN_BOTTOM.ndp()))
 
         TwoBorderCard(
             leftContent = {
@@ -194,6 +218,8 @@ fun HomeScreen() {
             }
         )
 
+        Spacer(modifier = Modifier.height(MARGIN_BOTTOM.ndp()))
+
         TwoBorderCard(
             leftContent = {
                 ItemCard(
@@ -210,6 +236,8 @@ fun HomeScreen() {
                 )
             }
         )
+
+        Spacer(modifier = Modifier.height(MARGIN_BOTTOM.ndp()))
 
         TwoBorderCard(
             leftContent = {
@@ -228,6 +256,8 @@ fun HomeScreen() {
             }
         )
 
+        Spacer(modifier = Modifier.height(MARGIN_BOTTOM.ndp()))
+
         TwoBorderCard(
             leftContent = {
                 ItemCard(
@@ -244,6 +274,8 @@ fun HomeScreen() {
                 )
             }
         )
+
+        Spacer(modifier = Modifier.height(MARGIN_BOTTOM.ndp()))
 
         TwoBorderCard(
             leftContent = {
@@ -262,6 +294,8 @@ fun HomeScreen() {
             }
         )
 
+        Spacer(modifier = Modifier.height(MARGIN_BOTTOM.ndp()))
+
         TwoBorderCard(
             leftContent = {
                 ItemCard(
@@ -273,110 +307,45 @@ fun HomeScreen() {
             rightContent = null
         )
 
-        Spacer(modifier = Modifier.height(84.ndp()))
-        BorderCard(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(518.ndp())
-                .padding(horizontal = MARGIN.ndp())
-        ) {
+        Spacer(modifier = Modifier.height(MARGIN_BOTTOM.ndp()))
 
-        }
-
-        Spacer(modifier = Modifier.height(68.ndp()))
-        TwoBorderCard(
-            leftContent = {},
-            rightContent = {}
-        )
-
-        Spacer(modifier = Modifier.height(68.ndp()))
-        TwoBorderCard(
-            leftContent = {},
-            rightContent = {}
-        )
-
-        Spacer(modifier = Modifier.height(68.ndp()))
-        TwoBorderCard(
-            leftContent = {},
-            rightContent = {}
-        )
-
-        Spacer(modifier = Modifier.height(68.ndp()))
-        TwoBorderCard(
-            leftContent = {},
-            rightContent = {}
-        )
-
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-        ) {
-
-            if (! uiState.analyzeState.isAnalyzeScreenVisible) {
-                Row(modifier = Modifier
-                    .fillMaxWidth()
-                    .height(300.ndp())
-                    .padding(horizontal = 90.ndp())) {
-                    Column(modifier = Modifier
-                        .weight(1f)
-                        .fillMaxHeight()
-                        .border(
-                            BORDER_WIDTH.ndp(),
-                            Color.Black,
-                            RoundedCornerShape(BORDER_RADIUS.ndp())
-                        )
-                        .padding(24.ndp())
-                        , verticalArrangement = Arrangement.SpaceAround) {
-                        val textStyle = TextStyle.Default.copy(fontSize = 41.nsp())
-                        Text(text = "已用：111111112.41GB", style = textStyle)
-                        Text(text = "总共：223.89GB", style = textStyle)
-                        Text(text = "已清理：469.51MB", style = textStyle)
-                    }
-                    Spacer(modifier = Modifier.width(34.ndp()))
-                    StorageProgressButton(
-                        progress = uiState.storageInfo.storageUsageProgress,
-                        modifier = Modifier
-                            .offset(y = 0.dp),
-                        onClick = {
-                            viewModel.analyze()
-                        }
+        StorageProvider.getStorageDevices(context).forEach { holder: StorageDeviceHolder ->
+            TwoBorderCard(
+                leftContent = {
+                    ItemCard(
+                        imageVector = Icons.Outlined.SdStorage,
+                        title = holder.title,
+                        //title = stringResource(R.string.internal_storage),
+                        subtitle = stringResource(R.string.item_subtitle_2, "${uiState.analyzedFiles.otherFiles.size}", StorageUtils.formatSize(uiState.analyzedFiles.otherFilesSize)),
                     )
-
+                },
+                rightContent = null,
+                onClickLeft = {
+                    mainActivityManager.replaceCurrentTabWith(FilesTab(holder.documentHolder))
+                    viewModel.showInternal(true)
                 }
+            )
 
-                ExtraStorageInfo(
-                    modifier = Modifier
-                        .align(Alignment.BottomCenter)
-                        .padding(bottom = 16.dp) ,
-                    cleanedSpace = uiState.storageInfo.cleanedSpace ,
-                    freeSpace = "${uiState.storageInfo.freeSpacePercentage} %" ,
-                )
-            }
-
-            Crossfade(
-                targetState = uiState.analyzeState.isAnalyzeScreenVisible , animationSpec = tween(durationMillis = 300) , label = ""
-            ) { showCleaningComposable ->
-                if (showCleaningComposable) {
-                    key(uiState.analyzeState.fileTypesData) {
-                        AnalyzeScreen(
-                            imageLoader = imageLoader , view = view , viewModel = viewModel , data = uiState
-                        )
-                    }
-                }
-            }
+            Spacer(modifier = Modifier.height(MARGIN_BOTTOM.ndp()))
+//            HorizontalDivider()
         }
+    }
+
+    if (uiState.showInternalStorage) {
+        FilesTabContentView()
     }
 }
 
 
 @Composable
 private fun ItemCard(
+    modifier: Modifier = Modifier,
     imageVector: ImageVector = Icons.Outlined.SnippetFolder,
     title: String = "",
     subtitle: String = "",
 ) {
     Row(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .animateContentSize()
             .padding(16.dp),
@@ -476,6 +445,8 @@ private fun BorderCard(
 private fun TwoBorderCard(
     leftContent: @Composable() (androidx.compose.foundation.layout.ColumnScope.() -> Unit)? = null,
     rightContent: @Composable() (androidx.compose.foundation.layout.ColumnScope.() -> Unit)? = null,
+    onClickLeft: (() -> Unit)? = null,
+    onClickRight: (() -> Unit)? = null
 ) {
     Row(
         modifier = Modifier
@@ -484,19 +455,39 @@ private fun TwoBorderCard(
             .padding(horizontal = MARGIN.ndp())
     ) {
         if (leftContent != null) {
-            BorderCard(
-                modifier = Modifier
+            val modifierLeft : Modifier = if (onClickLeft != null) {
+                Modifier
                     .fillMaxHeight()
-                    .weight(1f),
+                    .weight(1f)
+                    .clip(shape = RoundedCornerShape(BORDER_RADIUS.ndp()))
+                    .bounceClick()
+                    .clickable(onClick = onClickLeft)
+            } else {
+                Modifier
+                    .fillMaxHeight()
+                    .weight(1f)
+            }
+            BorderCard(
+                modifier = modifierLeft,
                 content = leftContent
             )
         }
         if (rightContent != null) {
             Spacer(modifier = Modifier.width(45.ndp()))
-            BorderCard(
-                modifier = Modifier
+            val modifierRight: Modifier = if (onClickRight != null) {
+                Modifier
                     .fillMaxHeight()
-                    .weight(1f),
+                    .weight(1f)
+                    .clip(shape = RoundedCornerShape(BORDER_RADIUS.ndp()))
+                    .bounceClick()
+                    .clickable(onClick = onClickRight)
+            } else {
+                Modifier
+                    .fillMaxHeight()
+                    .weight(1f)
+            }
+            BorderCard(
+                modifier = modifierRight,
                 content = rightContent
             )
         }

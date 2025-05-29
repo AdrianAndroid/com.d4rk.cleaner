@@ -5,6 +5,7 @@ import android.os.Environment
 import com.d4rk.cleaner.data.datastore.DataStore
 import com.d4rk.cleaner.data.model.ui.screens.FileTypesData
 import com.d4rk.cleaner.data.model.ui.screens.UiHomeModel
+import com.d4rk.cleaner.func.holder.DocumentHolder
 import com.d4rk.cleaner.utils.constants.cleaning.ExtensionsConstants
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first

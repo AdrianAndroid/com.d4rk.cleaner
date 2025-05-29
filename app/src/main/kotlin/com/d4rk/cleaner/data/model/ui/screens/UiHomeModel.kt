@@ -1,16 +1,18 @@
 package com.d4rk.cleaner.data.model.ui.screens
 
 import com.d4rk.cleaner.data.model.ui.memorymanager.StorageInfo
-import com.d4rk.cleaner.ui.screens.home.repository.DocumentHolder
+import com.d4rk.cleaner.func.holder.DocumentHolder
 import java.io.File
 
 data class UiHomeModel(
-    val storageInfo : StorageInfo = StorageInfo() , // 存储信息
-    var analyzeState : UiAnalyzeModel = UiAnalyzeModel() , //
-    var daysFromLastScan : Int = 0 , // 最近扫描天数
-    var isRescanDialogVisible : Boolean = false , // 重新扫描对话框
+    val storageInfo : StorageInfo = StorageInfo(), // 存储信息
+    var analyzeState : UiAnalyzeModel = UiAnalyzeModel(), //
+    var daysFromLastScan : Int = 0, // 最近扫描天数
+    var isRescanDialogVisible : Boolean = false, // 重新扫描对话框
     var displayProcessText : String = "", // 显示进度文本
     val analyzedFiles : AnalyzeModel = AnalyzeModel(), // 已分析文件列表
+
+    var showInternalStorage: Boolean = false,
 )
 
 

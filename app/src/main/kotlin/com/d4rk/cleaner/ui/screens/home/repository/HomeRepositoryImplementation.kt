@@ -7,13 +7,16 @@ import android.content.Context
 import android.media.MediaScannerConnection
 import android.os.Build
 import android.os.Environment
+import androidx.documentfile.provider.DocumentFile
 import com.d4rk.cleaner.R
 import com.d4rk.cleaner.data.datastore.DataStore
 import com.d4rk.cleaner.data.model.ui.memorymanager.StorageInfo
 import com.d4rk.cleaner.data.model.ui.screens.FileTypesData
 import com.d4rk.cleaner.data.model.ui.screens.UiHomeModel
+import com.d4rk.cleaner.func.holder.DocumentHolder
 import com.d4rk.cleaner.utils.cleaning.StorageUtils
 import kotlinx.coroutines.flow.first
+import org.w3c.dom.Document
 import java.io.File
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
@@ -40,7 +43,7 @@ abstract class HomeRepositoryImplementation(val application : Application , val 
         stack.addFirst(element = root)
         while (stack.isNotEmpty()) {
             val currentFile: File = stack.removeFirst()
-            val documentHolder = DocumentHolder(currentFile)
+            val documentHolder = DocumentHolder(DocumentFile.fromFile(currentFile))
             if (currentFile.isDirectory) {
                 currentFile.listFiles()?.let { children ->
                     if (children.isEmpty()) {
@@ -50,7 +53,7 @@ abstract class HomeRepositoryImplementation(val application : Application , val 
                             if (child.isDirectory) {
                                 stack.addLast(child)
                             } else {
-                                onFile(DocumentHolder(child))
+                                onFile(DocumentHolder(DocumentFile.fromFile(child)))
                             }
                         }
                     }

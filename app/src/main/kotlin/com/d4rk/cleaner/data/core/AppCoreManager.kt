@@ -5,6 +5,7 @@ package com.d4rk.cleaner.data.core
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.OnLifecycleEvent
 import androidx.lifecycle.ProcessLifecycleOwner
@@ -13,14 +14,23 @@ import com.d4rk.android.libs.apptoolkit.data.core.ads.AdsCoreManager
 import com.d4rk.android.libs.apptoolkit.utils.error.ErrorHandler
 import com.d4rk.cleaner.utils.constants.ads.AdsConstants
 import com.d4rk.cleaner.data.datastore.DataStore
+import com.d4rk.cleaner.func.holder.DocumentHolder
+import com.d4rk.cleaner.func.tabs.FilesTabManager
+import com.d4rk.cleaner.ui.screens.main.MainActivityManager
+import com.d4rk.cleaner.ui.screens.settings.PreferencesManager
 import com.d4rk.cleaner.utils.error.CrashlyticsErrorReporter
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.supervisorScope
+import java.io.File
 
 class AppCoreManager : BaseCoreManager() {
 
     private var currentActivity : Activity? = null
+    private var uid = 0
 
     companion object {
         @SuppressLint("StaticFieldLeak")
@@ -37,6 +47,23 @@ class AppCoreManager : BaseCoreManager() {
         val isAppLoaded : Boolean
             get() = BaseCoreManager.isAppLoaded
     }
+
+
+    val mainActivityManager: MainActivityManager by lazy { MainActivityManager() }
+    val filesTabManager: FilesTabManager by lazy { FilesTabManager() }
+    val preferencesManager: PreferencesManager by lazy { PreferencesManager() }
+
+    val recycleBinDir: DocumentHolder
+        get() = DocumentHolder.fromFile(File(getExternalFilesDir(null), "bin").apply { mkdirs() })
+
+    fun showMsg(msg: String) {
+        CoroutineScope(Dispatchers.Main).launch {
+            Toast.makeText(this@AppCoreManager, msg, Toast.LENGTH_SHORT).show()
+        }
+    }
+
+
+    fun generateUid() = uid++
 
     override fun onCreate() {
         super.onCreate()

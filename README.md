@@ -71,6 +71,9 @@ possibility to fix that issue.
 Thank you for choosing Cleaner! We hope you enjoy using our app as much as we enjoyed creating it
 for you!
 
+# Github source
+[SimpleStorage](https://github.com/anggrayudi/SimpleStorage)
+
 # License
 
 __Privacy Policy__ [here](https://sites.google.com/view/d4rk7355608/more/apps/privacy-policy).

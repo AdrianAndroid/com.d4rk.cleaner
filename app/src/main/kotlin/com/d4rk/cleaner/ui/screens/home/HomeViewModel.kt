@@ -7,7 +7,7 @@ import com.d4rk.cleaner.data.core.AppCoreManager
 import com.d4rk.cleaner.data.model.ui.screens.FileTypesData
 import com.d4rk.cleaner.data.model.ui.screens.UiHomeModel
 import com.d4rk.cleaner.ui.screens.home.repository.HomeRepository
-import com.d4rk.cleaner.ui.screens.home.repository.DocumentHolder
+import com.d4rk.cleaner.func.holder.DocumentHolder
 import com.d4rk.cleaner.ui.viewmodel.BaseViewModel
 import com.d4rk.cleaner.utils.cleaning.StorageUtils
 import com.d4rk.cleaner.utils.constants.cleaning.ExtensionsConstants
@@ -97,8 +97,8 @@ class HomeViewModel(application : Application) : BaseViewModel(application) {
                     totalFileCount += 1
                 }
                 when {
-                    documentHolder.isEmptyDirectory() -> if (preferences[ExtensionsConstants.EMPTY_FOLDERS] == true) addTypeFile(emptyFolders, documentHolder)
-                    documentHolder.isEmptyFile() -> if (preferences[ExtensionsConstants.EMPTY_FILE] == true) addTypeFile(emptyFiles, documentHolder)
+                    documentHolder.isEmptyDirectory -> if (preferences[ExtensionsConstants.EMPTY_FOLDERS] == true) addTypeFile(emptyFolders, documentHolder)
+                    documentHolder.isEmptyFile -> if (preferences[ExtensionsConstants.EMPTY_FILE] == true) addTypeFile(emptyFiles, documentHolder)
 
                     extension in fileTypesData.imageExtensions -> if (preferences[ExtensionsConstants.IMAGE_EXTENSIONS] == true) {
                         addTypeFile(imageFiles, documentHolder)
@@ -210,6 +210,12 @@ class HomeViewModel(application : Application) : BaseViewModel(application) {
             }
             hideLoading()
         }
+    }
+
+    fun showInternal(showInternalStorage: Boolean) {
+        _uiState.update { state ->
+            state.copy(showInternalStorage = showInternalStorage)
+         }
     }
 
     private fun computeGroupedFiles(

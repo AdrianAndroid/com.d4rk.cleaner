@@ -14,7 +14,7 @@ android {
     namespace = "com.d4rk.cleaner"
     defaultConfig {
         applicationId = "com.d4rk.cleaner"
-        minSdk = 23
+        minSdk = 26
         targetSdk = 35
         versionCode = 158
         versionName = "3.2.4"
@@ -102,4 +102,7 @@ dependencies {
     // Image Compression
     implementation(dependencyNotation = libs.compressor)
     implementation(dependencyNotation = libs.coil3.coil.video)
+
+    implementation(libs.storage)
+    implementation(libs.gson)
 }
