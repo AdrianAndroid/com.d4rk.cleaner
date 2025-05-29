@@ -214,6 +214,10 @@ object FileMimeType {
         "otf",
     )
 
+
+    val knownExtensions : Set<String> = (imageExtensions + videoExtensions + audioExtensions + officeExtensions + archiveExtensions + apkExtensions + fontExtensions + windowsExtensions).toSet()
+
+
     @JvmField
     val docFileType = arrayOf("doc", "docx")
 

@@ -32,158 +32,43 @@ class HomeViewModel(application : Application) : BaseViewModel(application) {
 
     fun analyze() {
         viewModelScope.launch(context = coroutineExceptionHandler) {
-            val fileTypesData : FileTypesData = _uiState.value.analyzeState.fileTypesData
-            val preferences : Map<String , Boolean> = repository.getPreferences()
-            val knownExtensions : Set<String> = (fileTypesData.imageExtensions + fileTypesData.videoExtensions + fileTypesData.audioExtensions + fileTypesData.officeExtensions + fileTypesData.archiveExtensions + fileTypesData.apkExtensions + fileTypesData.fontExtensions + fileTypesData.windowsExtensions).toSet()
-
-            val imageFiles = mutableListOf<DocumentHolder>() // 图片
-            var imageFilesSize: Long = 0L // 图片文件大小
-
-            val videoFiles = mutableListOf<DocumentHolder>() // 视频
-            var videoFilesSize: Long = 0L // 视频文件大小
-
-            val genericFiles = mutableListOf<DocumentHolder>() // 冗余文件
-            var genericFilesSize: Long = 0L // 冗余文件大小
-
-            val archiveFiles = mutableListOf<DocumentHolder>() // 压缩包
-            var archiveFilesSize: Long = 0L // 压缩包文件大小
-
-            val apkFiles = mutableListOf<DocumentHolder>() // 安装包
-            var apkFilesSize: Long = 0L // 安装包文件大小
-
-            val audioFiles = mutableListOf<DocumentHolder>() // 音频
-            var audioFilesSize: Long = 0L // 音频文件大小
-
-            val windowsFiles = mutableListOf<DocumentHolder>() // windows下执行文件
-            var windowsFilesSize: Long = 0L // windows下执行文件大小
-
-            val officeFiles = mutableListOf<DocumentHolder>() // 文档
-            var officeFilesSize: Long = 0L // 文档文件大小
-
-            val fontFiles: MutableList<DocumentHolder> = mutableListOf<DocumentHolder>() // 字体
-            var fontFilesSize: Long = 0L // 字体文件大小
-
-            val otherFiles = mutableListOf<DocumentHolder>() // 其他
-            var otherFilesSize: Long = 0L // 其他文件大小
-
-            val bigFiles = mutableListOf<DocumentHolder>() // 大文件
-            val bigFilesSize: Long = 0L // 大文件大小
-
-            val newFiles = mutableListOf<DocumentHolder>() // 新文件
-            val newFilesSize: Long = 0L // 新文件大小
-
-            val emptyFolders = mutableListOf<DocumentHolder>() // 空文件夹
-            val emptyFiles = mutableListOf<DocumentHolder>() // 已扫描文件
-
-            var totalDirectoryCount = 0L
-            var totalFileCount = 0L
-
-            fun addTypeFile(mutableFile: MutableList<DocumentHolder>, documentHolder: DocumentHolder) {
-                mutableFile.add(documentHolder)
-                if (preferences[ExtensionsConstants.BIG_FILE_EXTENSION] == true && documentHolder.isBigFile()) {
-                    bigFiles.add(documentHolder)
-                }
-                if (preferences[ExtensionsConstants.NEW_FILE_EXTENSION] == true && documentHolder.isNewFile()) {
-                    newFiles.add(documentHolder)
-                }
-            }
+            // val preferences : Map<String , Boolean> = repository.getPreferences()
+            val mainActivityManager = AppCoreManager.instance.mainActivityManager
 
             repository.analyze { documentHolder: DocumentHolder ->
-                val extension = documentHolder.extension()
-                logI { "analyze --> size=${extension} ${documentHolder.fileName()}" }
-                if (documentHolder.isDirectory()) {
-                    totalDirectoryCount += 1
-                } else {
-                    totalFileCount += 1
-                }
-                when {
-                    documentHolder.isEmptyDirectory -> if (preferences[ExtensionsConstants.EMPTY_FOLDERS] == true) addTypeFile(emptyFolders, documentHolder)
-                    documentHolder.isEmptyFile -> if (preferences[ExtensionsConstants.EMPTY_FILE] == true) addTypeFile(emptyFiles, documentHolder)
-
-                    extension in fileTypesData.imageExtensions -> if (preferences[ExtensionsConstants.IMAGE_EXTENSIONS] == true) {
-                        addTypeFile(imageFiles, documentHolder)
-                        imageFilesSize += documentHolder.fileSize()
-                    }
-                    extension in fileTypesData.videoExtensions -> if (preferences[ExtensionsConstants.VIDEO_EXTENSIONS] == true) {
-                        addTypeFile(videoFiles, documentHolder)
-                        videoFilesSize += documentHolder.fileSize()
-                    }
-                    extension in fileTypesData.audioExtensions -> if (preferences[ExtensionsConstants.AUDIO_EXTENSIONS] == true) {
-                        addTypeFile(audioFiles, documentHolder)
-                        audioFilesSize += documentHolder.fileSize()
-                    }
-                    extension in fileTypesData.officeExtensions -> if (preferences[ExtensionsConstants.OFFICE_EXTENSIONS] == true) {
-                        addTypeFile(officeFiles, documentHolder)
-                        officeFilesSize += documentHolder.fileSize()
-                    }
-                    extension in fileTypesData.archiveExtensions -> if (preferences[ExtensionsConstants.ARCHIVE_EXTENSIONS] == true) {
-                        addTypeFile(archiveFiles, documentHolder)
-                        archiveFilesSize += documentHolder.fileSize()
-                    }
-                    extension in fileTypesData.apkExtensions -> if (preferences[ExtensionsConstants.APK_EXTENSIONS] == true) {
-                        addTypeFile(apkFiles, documentHolder)
-                        apkFilesSize += documentHolder.fileSize()
-                    }
-                    extension in fileTypesData.fontExtensions -> if (preferences[ExtensionsConstants.FONT_EXTENSIONS] == true) {
-                        addTypeFile(fontFiles, documentHolder)
-                        fontFilesSize += documentHolder.fileSize()
-                    }
-                    extension in fileTypesData.windowsExtensions -> if (preferences[ExtensionsConstants.WINDOWS_EXTENSIONS] == true) {
-                        addTypeFile(windowsFiles, documentHolder)
-                        windowsFilesSize += documentHolder.fileSize()
-                    }
-                    extension in fileTypesData.genericExtensions -> if (preferences[ExtensionsConstants.GENERIC_EXTENSIONS] == true) {
-                        addTypeFile(genericFiles, documentHolder)
-                        genericFilesSize += documentHolder.fileSize()
-                    }
-                    else -> if (! knownExtensions.contains(extension) && preferences[ExtensionsConstants.OTHER_EXTENSIONS] == true) {
-                        addTypeFile(otherFiles, documentHolder)
-                        otherFilesSize += documentHolder.fileSize()
-                    }
-                }
+                mainActivityManager.analyzeCleanFile(documentHolder = documentHolder)
                 _uiState.update { state ->
                     state.copy(
                         displayProcessText = documentHolder.absolutePath(),
                         analyzedFiles = state.analyzedFiles.copy(
-                            totalDirCount = totalDirectoryCount, // 总目录大小
-                            totalFileCount = totalFileCount, // 总文件数量
-                            emptyFolders = emptyFolders, // 空文件夹
-                            emptyFiles = emptyFiles, // 空文件
-                            genericFiles = genericFiles, // 冗余文件
-                            genericFilesSize = genericFilesSize, // 冗余文件大小,
-
-                            archiveFiles = archiveFiles, // 压缩包
-                            archiveFilesSize = archiveFilesSize, // 压缩包文件大小,
-
-                            apkFiles = apkFiles, // 安装包
-                            apkFilesSize = apkFilesSize, // 安装包文件大小,
-
-                            imageFiles = imageFiles, // 图片
-                            imageFilesSize = imageFilesSize, // 图片文件大小,
-
-                            audioFiles = audioFiles, // 音频
-                            audioFilesSize = audioFilesSize, // 音频文件大小,
-
-                            videoFiles = videoFiles, // 视频
-                            videoFilesSize = videoFilesSize, // 视频文件大小,
-
-                            windowsFiles = windowsFiles, // windows下执行文件
-                            windowsFilesSize = windowsFilesSize, // windows下执行文件大小,
-
-                            officeFiles = officeFiles, // 文档
-                            officeFilesSize = officeFilesSize, // 文档文件大小,
-
-                            fontFiles = fontFiles, // 字体
-                            fontFilesSize = fontFilesSize, // 字体文件大小,
-
-                            otherFiles = otherFiles, // 其他
-                            otherFilesSize = otherFilesSize, // 其他文件大小,
-
-                            bigFiles = bigFiles, // 大文件
-                            bigFilesSize = bigFilesSize, // 大文件大小,
-
-                            newFiles = newFiles, // 新文件
-                            newFilesSize = newFilesSize, // 新文件大小,
+                            totalDirCount = mainActivityManager.totalDirectoryCount, // 总目录大小
+                            totalFileCount = mainActivityManager.totalFileCount, // 总文件数量
+                            emptyFolders = mainActivityManager.emptyFolders, // 空文件夹
+                            emptyFiles = mainActivityManager.emptyFiles, // 空文件
+                            genericFiles = mainActivityManager.genericFiles, // 冗余文件
+                            genericFilesSize = mainActivityManager.genericFilesSize, // 冗余文件大小,
+                            archiveFiles = mainActivityManager.archiveFiles, // 压缩包
+                            archiveFilesSize = mainActivityManager.archiveFilesSize, // 压缩包文件大小,
+                            apkFiles = mainActivityManager.apkFiles, // 安装包
+                            apkFilesSize = mainActivityManager.apkFilesSize, // 安装包文件大小,
+                            imageFiles = mainActivityManager.imageFiles, // 图片
+                            imageFilesSize = mainActivityManager.imageFilesSize, // 图片文件大小,
+                            audioFiles = mainActivityManager.audioFiles, // 音频
+                            audioFilesSize = mainActivityManager.audioFilesSize, // 音频文件大小,
+                            videoFiles = mainActivityManager.videoFiles, // 视频
+                            videoFilesSize = mainActivityManager.videoFilesSize, // 视频文件大小,
+                            windowsFiles = mainActivityManager.windowsFiles, // windows下执行文件
+                            windowsFilesSize = mainActivityManager.windowsFilesSize, // windows下执行文件大小,
+                            officeFiles = mainActivityManager.officeFiles, // 文档
+                            officeFilesSize = mainActivityManager.officeFilesSize, // 文档文件大小,
+                            fontFiles = mainActivityManager.fontFiles, // 字体
+                            fontFilesSize = mainActivityManager.fontFilesSize, // 字体文件大小,
+                            otherFiles = mainActivityManager.otherFiles, // 其他
+                            otherFilesSize = mainActivityManager.otherFilesSize, // 其他文件大小,
+                            bigFiles = mainActivityManager.bigFiles, // 大文件
+                            bigFilesSize = mainActivityManager.bigFilesSize, // 大文件大小,
+                            newFiles = mainActivityManager.newFiles, // 新文件
+                            newFilesSize = mainActivityManager.newFilesSize, // 新文件大小,
                         )
                     )
                 }
