@@ -8,6 +8,8 @@ import android.media.MediaScannerConnection
 import android.os.Build
 import android.os.Environment
 import androidx.documentfile.provider.DocumentFile
+import com.anggrayudi.storage.file.toRawFile
+import com.d4rk.android.libs.apptoolkit.utils.helpers.logI
 import com.d4rk.cleaner.R
 import com.d4rk.cleaner.data.core.AppCoreManager
 import com.d4rk.cleaner.data.datastore.DataStore
@@ -15,9 +17,10 @@ import com.d4rk.cleaner.data.model.ui.memorymanager.StorageInfo
 import com.d4rk.cleaner.data.model.ui.screens.FileTypesData
 import com.d4rk.cleaner.data.model.ui.screens.UiHomeModel
 import com.d4rk.cleaner.func.holder.DocumentHolder
+import com.d4rk.cleaner.ui.screens.main.DirInfo
 import com.d4rk.cleaner.utils.cleaning.StorageUtils
+import com.raival.compose.file.explorer.screen.main.tab.files.provider.StorageProvider
 import kotlinx.coroutines.flow.first
-import org.w3c.dom.Document
 import java.io.File
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
@@ -45,11 +48,32 @@ abstract class HomeRepositoryImplementation(val application : Application , val 
         stack.addFirst(root)
         
         // 用于临时存储文件夹大小的映射
-        val dirSizes = mainActivityManager.dirSizes
+        val dirSizes: MutableMap<String, DirInfo> = mainActivityManager.dirSizes
+
+        fun refreshDirInfo(docFile: DocumentFile, fileSize: Long, filesCount: Int, dirsCount: Int) {
+            var currentFile: DocumentFile = docFile
+            while (currentFile.uri.path != root.absolutePath) {
+                val path: String = currentFile.uri.path ?: break
+                val dirInfo = dirSizes[path] ?: DirInfo()
+                dirInfo.filesCount += filesCount
+                dirInfo.dirsCount += dirsCount
+                dirInfo.totalSize += fileSize
+                dirSizes[path] = dirInfo
+                currentFile = currentFile.parentFile ?: break
+            }
+            // 更新根目录信息
+            val rootInfo = dirSizes[root.absolutePath] ?: DirInfo()
+            rootInfo.filesCount += filesCount
+            rootInfo.dirsCount += dirsCount
+            rootInfo.totalSize += fileSize
+            dirSizes[root.absolutePath] = rootInfo
+        }
         
         while (stack.isNotEmpty()) {
             val currentFile = stack.removeFirst()
             var currentSize = 0L
+            var filesCount = 0
+            var dirsCount = 0
             val documentHolder = DocumentHolder(DocumentFile.fromFile(currentFile))
             
             if (currentFile.isDirectory) {
@@ -60,25 +84,27 @@ abstract class HomeRepositoryImplementation(val application : Application , val 
                         children.forEach { child ->
                             if (child.isDirectory) {
                                 stack.addLast(child)
+                                ++dirsCount
                             } else {
                                 val fileSize = child.length()
                                 currentSize += fileSize
+                                ++filesCount
                                 onFile(DocumentHolder(DocumentFile.fromFile(child)))
                             }
                         }
-                        // 存储当前文件夹的大小
-                        dirSizes[currentFile.absolutePath] = currentSize
-                        // 更新父文件夹的大小
-                        currentFile.parentFile?.let { parent ->
-                            dirSizes[parent.absolutePath] = (dirSizes[parent.absolutePath] ?: 0L) + currentSize
-                        }
+                        refreshDirInfo(documentHolder.documentFile, currentSize, filesCount, dirsCount)
                         // 回调当前文件夹的总大小
                         onFile(documentHolder)
                     }
                 }
+//                ++filesCount
             } else {
+//                ++dirsCount
                 onFile(documentHolder)
             }
+        }
+        logI {
+            "iterateFiles done!"
         }
     }
 

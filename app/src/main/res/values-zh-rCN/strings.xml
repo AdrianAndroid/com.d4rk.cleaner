@@ -210,4 +210,5 @@
     <string name="title_new_file">新文件</string>
     <string name="item_subtitle_1">%s个</string>
     <string name="app_name">清理鸭</string>
+    <string name="storage_analyze">存储分析</string>
 </resources>

@@ -8,6 +8,7 @@ import com.d4rk.cleaner.data.model.ui.screens.FileTypesData
 import com.d4rk.cleaner.data.model.ui.screens.UiHomeModel
 import com.d4rk.cleaner.ui.screens.home.repository.HomeRepository
 import com.d4rk.cleaner.func.holder.DocumentHolder
+import com.d4rk.cleaner.ui.screens.main.MainActivityManager
 import com.d4rk.cleaner.ui.viewmodel.BaseViewModel
 import com.d4rk.cleaner.utils.cleaning.StorageUtils
 import com.d4rk.cleaner.utils.constants.cleaning.ExtensionsConstants
@@ -33,8 +34,8 @@ class HomeViewModel(application : Application) : BaseViewModel(application) {
     fun analyze() {
         viewModelScope.launch(context = coroutineExceptionHandler) {
             // val preferences : Map<String , Boolean> = repository.getPreferences()
-            val mainActivityManager = AppCoreManager.instance.mainActivityManager
-
+            val mainActivityManager: MainActivityManager = AppCoreManager.instance.mainActivityManager
+            mainActivityManager.clearAnalyzeBefore()
             repository.analyze { documentHolder: DocumentHolder ->
                 mainActivityManager.analyzeCleanFile(documentHolder = documentHolder)
                 _uiState.update { state ->

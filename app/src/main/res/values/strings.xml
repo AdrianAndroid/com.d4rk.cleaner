@@ -213,6 +213,7 @@
     <string name="item_subtitle_1">%s</string>
     <string name="item_subtitle_2">%s(%s)</string>
     <string name="internal_storage">Internal Storage</string>
+    <string name="storage_analyze">Storage Analyze</string>
     <string name="task_subtitle">Size: %1$d</string>
     <string name="delete">Delete</string>
     <string name="move">Move</string>

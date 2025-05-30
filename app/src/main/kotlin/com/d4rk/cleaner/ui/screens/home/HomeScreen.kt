@@ -90,10 +90,12 @@ import com.d4rk.android.libs.apptoolkit.utils.helpers.ndp
 import com.d4rk.android.libs.apptoolkit.utils.helpers.nsp
 import com.d4rk.cleaner.data.core.AppCoreManager
 import com.d4rk.cleaner.func.holder.StorageDeviceHolder
+import com.d4rk.cleaner.func.tabs.AnalyzeFilesTab
 import com.d4rk.cleaner.func.tabs.FilesTab
 import com.d4rk.cleaner.ui.components.texts.MiddleEllipsisText
 import com.d4rk.cleaner.ui.screens.tabs.FilesTabContentView
 import com.d4rk.cleaner.utils.cleaning.StorageUtils
+import com.d4rk.cleaner.utils.extension.toRes
 import com.raival.compose.file.explorer.screen.main.tab.files.provider.StorageProvider
 
 private const val MARGIN = 50
@@ -139,202 +141,271 @@ fun HomeScreen() {
         }
     }
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .verticalScroll(scrollState),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-
-        StorageProgressButton(
-            progress = uiState.storageInfo.storageUsageProgress,
+    if (uiState.showInternalStorage) {
+        FilesTabContentView()
+    } else {
+        Column(
             modifier = Modifier
-                .size(600.ndp())
-                .offset(y = 0.dp),
-            onClick = {
-//                    viewModel.analyze()
-            }
-        )
+                .fillMaxSize()
+                .verticalScroll(scrollState),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
 
-        OutlinedCard(modifier = Modifier
-            .width(300.ndp())
-            .wrapContentHeight()) {
-            IconButton(
+            StorageProgressButton(
+                progress = uiState.storageInfo.storageUsageProgress,
                 modifier = Modifier
-                    .fillMaxSize()
-                    .bounceClick(),
+                    .size(600.ndp())
+                    .offset(y = 0.dp),
                 onClick = {
-                    viewModel.analyze()
-                },
-                content = {
-//                    Icon(Icons.Outlined.MoreVert, contentDescription = null)
-                    Text(text = "开始扫描")
+//                    viewModel.analyze()
                 }
             )
-        }
 
-        OutlinedCard(modifier = Modifier
-            .wrapContentHeight()
-            .fillMaxWidth()) {
-            MiddleEllipsisText(
-                text = uiState.displayProcessText,
-                style = TextStyle(fontSize = 14.sp, color = Color.Blue),
-                modifier = Modifier
-                    .width(250.dp)
-                    .padding(top = 16.dp)
+            OutlinedCard(modifier = Modifier.width(300.ndp()).wrapContentHeight()) {
+                IconButton(
+                    modifier = Modifier.fillMaxSize().bounceClick(),
+                    onClick = {
+                        viewModel.analyze()
+                    },
+                    content = {
+                        Text(text = "开始扫描")
+                    }
+                )
+            }
+
+            OutlinedCard(modifier = Modifier.fillMaxWidth().wrapContentHeight()) {
+                MiddleEllipsisText(
+                    text = uiState.displayProcessText,
+                    style = TextStyle(fontSize = 14.sp, color = Color.Blue),
+                    modifier = Modifier
+                        .width(250.dp)
+                        .padding(top = 16.dp)
+                )
+            }
+
+            TwoBorderCard(
+                leftContent = {
+                    ItemCard(
+                        imageVector = Icons.Outlined.Android,
+                        title = stringResource(R.string.title_empty),
+                        subtitle = stringResource(
+                            R.string.item_subtitle_1,
+                            "${mainActivityManager.emptyFolders.size + mainActivityManager.emptyFiles.size}"
+                        ),
+                    )
+                },
+                rightContent = {
+                    ItemCard(
+                        imageVector = Icons.Outlined.Android,
+                        title = stringResource(R.string.title_big_file),
+                        subtitle = stringResource(
+                            R.string.item_subtitle_2,
+                            "${mainActivityManager.bigFiles.size}",
+                            StorageUtils.formatSize(mainActivityManager.bigFilesSize)
+                        ),
+                    )
+                }
             )
-        }
 
-        TwoBorderCard(
-            leftContent = {
-                ItemCard(
-                    imageVector = Icons.Outlined.Android,
-                    title = stringResource(R.string.title_empty),
-                    subtitle = stringResource(R.string.item_subtitle_1, "${mainActivityManager.emptyFolders.size + mainActivityManager.emptyFiles.size}"),
-                )
-            },
-            rightContent = {
-                ItemCard(
-                    imageVector = Icons.Outlined.Android,
-                    title = stringResource(R.string.title_big_file),
-                    subtitle = stringResource(R.string.item_subtitle_2, "${mainActivityManager.bigFiles.size}", StorageUtils.formatSize(mainActivityManager.bigFilesSize)),
-                )
-            }
-        )
+            Spacer(modifier = Modifier.height(MARGIN_BOTTOM.ndp()))
 
-        Spacer(modifier = Modifier.height(MARGIN_BOTTOM.ndp()))
+            TwoBorderCard(
+                leftContent = {
+                    ItemCard(
+                        imageVector = Icons.Outlined.Android,
+                        title = stringResource(R.string.title_generic),
+                        subtitle = stringResource(
+                            R.string.item_subtitle_2,
+                            "${mainActivityManager.genericFiles.size}",
+                            StorageUtils.formatSize(mainActivityManager.genericFilesSize)
+                        ),
+                    )
+                },
+                rightContent = {
+                    ItemCard(
+                        imageVector = Icons.Outlined.Android,
+                        title = stringResource(R.string.title_new_file),
+                        subtitle = stringResource(
+                            R.string.item_subtitle_2,
+                            "${mainActivityManager.newFiles.size}",
+                            StorageUtils.formatSize(mainActivityManager.newFilesSize)
+                        ),
+                    )
+                }
+            )
 
-        TwoBorderCard(
-            leftContent = {
-                ItemCard(
-                    imageVector = Icons.Outlined.Android,
-                    title = stringResource(R.string.title_generic),
-                    subtitle = stringResource(R.string.item_subtitle_2, "${mainActivityManager.genericFiles.size}", StorageUtils.formatSize(mainActivityManager.genericFilesSize)),
-                )
-            },
-            rightContent = {
-                ItemCard(
-                    imageVector = Icons.Outlined.Android,
-                    title = stringResource(R.string.title_new_file),
-                    subtitle = stringResource(R.string.item_subtitle_2, "${mainActivityManager.newFiles.size}", StorageUtils.formatSize(mainActivityManager.newFilesSize)),
-                )
-            }
-        )
+            Spacer(modifier = Modifier.height(MARGIN_BOTTOM.ndp()))
 
-        Spacer(modifier = Modifier.height(MARGIN_BOTTOM.ndp()))
+            TwoBorderCard(
+                leftContent = {
+                    ItemCard(
+                        imageVector = Icons.Outlined.Android,
+                        title = stringResource(R.string.title_apk),
+                        subtitle = stringResource(
+                            R.string.item_subtitle_2,
+                            "${mainActivityManager.apkFiles.size}",
+                            StorageUtils.formatSize(mainActivityManager.apkFilesSize)
+                        ),
+                    )
+                },
+                rightContent = {
+                    ItemCard(
+                        imageVector = Icons.Outlined.Android,
+                        title = stringResource(R.string.title_image),
+                        subtitle = stringResource(
+                            R.string.item_subtitle_2,
+                            "${mainActivityManager.imageFiles.size}",
+                            StorageUtils.formatSize(mainActivityManager.imageFilesSize)
+                        ),
+                    )
+                }
+            )
 
-        TwoBorderCard(
-            leftContent = {
-                ItemCard(
-                    imageVector = Icons.Outlined.Android,
-                    title = stringResource(R.string.title_apk),
-                    subtitle = stringResource(R.string.item_subtitle_2, "${mainActivityManager.apkFiles.size}", StorageUtils.formatSize(mainActivityManager.apkFilesSize)),
-                )
-            },
-            rightContent = {
-                ItemCard(
-                    imageVector = Icons.Outlined.Android,
-                    title = stringResource(R.string.title_image),
-                    subtitle = stringResource(R.string.item_subtitle_2, "${mainActivityManager.imageFiles.size}", StorageUtils.formatSize(mainActivityManager.imageFilesSize)),
-                )
-            }
-        )
+            Spacer(modifier = Modifier.height(MARGIN_BOTTOM.ndp()))
 
-        Spacer(modifier = Modifier.height(MARGIN_BOTTOM.ndp()))
+            TwoBorderCard(
+                leftContent = {
+                    ItemCard(
+                        imageVector = Icons.Outlined.Android,
+                        title = stringResource(R.string.title_video),
+                        subtitle = stringResource(
+                            R.string.item_subtitle_2,
+                            "${mainActivityManager.videoFiles.size}",
+                            StorageUtils.formatSize(mainActivityManager.videoFilesSize)
+                        ),
+                    )
+                },
+                rightContent = {
+                    ItemCard(
+                        imageVector = Icons.Outlined.Android,
+                        title = stringResource(R.string.title_audio),
+                        subtitle = stringResource(
+                            R.string.item_subtitle_2,
+                            "${mainActivityManager.audioFiles.size}",
+                            StorageUtils.formatSize(mainActivityManager.audioFilesSize)
+                        ),
+                    )
+                }
+            )
 
-        TwoBorderCard(
-            leftContent = {
-                ItemCard(
-                    imageVector = Icons.Outlined.Android,
-                    title = stringResource(R.string.title_video),
-                    subtitle = stringResource(R.string.item_subtitle_2, "${mainActivityManager.videoFiles.size}", StorageUtils.formatSize(mainActivityManager.videoFilesSize)),
-                )
-            },
-            rightContent = {
-                ItemCard(
-                    imageVector = Icons.Outlined.Android,
-                    title = stringResource(R.string.title_audio),
-                    subtitle = stringResource(R.string.item_subtitle_2, "${mainActivityManager.audioFiles.size}", StorageUtils.formatSize(mainActivityManager.audioFilesSize)),
-                )
-            }
-        )
+            Spacer(modifier = Modifier.height(MARGIN_BOTTOM.ndp()))
 
-        Spacer(modifier = Modifier.height(MARGIN_BOTTOM.ndp()))
+            TwoBorderCard(
+                leftContent = {
+                    ItemCard(
+                        imageVector = Icons.Outlined.Android,
+                        title = stringResource(R.string.title_office),
+                        subtitle = stringResource(
+                            R.string.item_subtitle_2,
+                            "${mainActivityManager.officeFiles.size}",
+                            StorageUtils.formatSize(mainActivityManager.officeFilesSize)
+                        ),
+                    )
+                },
+                rightContent = {
+                    ItemCard(
+                        imageVector = Icons.Outlined.Android,
+                        title = stringResource(R.string.title_archive),
+                        subtitle = stringResource(
+                            R.string.item_subtitle_2,
+                            "${mainActivityManager.archiveFiles.size}",
+                            StorageUtils.formatSize(mainActivityManager.archiveFilesSize)
+                        ),
+                    )
+                }
+            )
 
-        TwoBorderCard(
-            leftContent = {
-                ItemCard(
-                    imageVector = Icons.Outlined.Android,
-                    title = stringResource(R.string.title_office),
-                    subtitle = stringResource(R.string.item_subtitle_2, "${mainActivityManager.officeFiles.size}", StorageUtils.formatSize(mainActivityManager.officeFilesSize)),
-                )
-            },
-            rightContent = {
-                ItemCard(
-                    imageVector = Icons.Outlined.Android,
-                    title = stringResource(R.string.title_archive),
-                    subtitle = stringResource(R.string.item_subtitle_2, "${mainActivityManager.archiveFiles.size}", StorageUtils.formatSize(mainActivityManager.archiveFilesSize)),
-                )
-            }
-        )
+            Spacer(modifier = Modifier.height(MARGIN_BOTTOM.ndp()))
 
-        Spacer(modifier = Modifier.height(MARGIN_BOTTOM.ndp()))
+            TwoBorderCard(
+                leftContent = {
+                    ItemCard(
+                        imageVector = Icons.Outlined.Android,
+                        title = stringResource(R.string.title_font),
+                        subtitle = stringResource(
+                            R.string.item_subtitle_2,
+                            "${mainActivityManager.fontFiles.size}",
+                            StorageUtils.formatSize(mainActivityManager.fontFilesSize)
+                        ),
+                    )
+                },
+                rightContent = {
+                    ItemCard(
+                        imageVector = Icons.Outlined.Android,
+                        title = stringResource(R.string.windows_files),
+                        subtitle = stringResource(
+                            R.string.item_subtitle_2,
+                            "${mainActivityManager.windowsFiles.size}",
+                            StorageUtils.formatSize(mainActivityManager.windowsFilesSize)
+                        ),
+                    )
+                }
+            )
 
-        TwoBorderCard(
-            leftContent = {
-                ItemCard(
-                    imageVector = Icons.Outlined.Android,
-                    title = stringResource(R.string.title_font),
-                    subtitle = stringResource(R.string.item_subtitle_2, "${mainActivityManager.fontFiles.size}", StorageUtils.formatSize(mainActivityManager.fontFilesSize)),
-                )
-            },
-            rightContent = {
-                ItemCard(
-                    imageVector = Icons.Outlined.Android,
-                    title = stringResource(R.string.windows_files),
-                    subtitle = stringResource(R.string.item_subtitle_2, "${mainActivityManager.windowsFiles.size}", StorageUtils.formatSize(mainActivityManager.windowsFilesSize)),
-                )
-            }
-        )
+            Spacer(modifier = Modifier.height(MARGIN_BOTTOM.ndp()))
 
-        Spacer(modifier = Modifier.height(MARGIN_BOTTOM.ndp()))
+            TwoBorderCard(
+                leftContent = {
+                    ItemCard(
+                        imageVector = Icons.Outlined.Android,
+                        title = stringResource(R.string.title_other),
+                        subtitle = stringResource(
+                            R.string.item_subtitle_2,
+                            "${mainActivityManager.otherFiles.size}",
+                            StorageUtils.formatSize(mainActivityManager.otherFilesSize)
+                        ),
+                    )
+                },
+                rightContent = null
+            )
 
-        TwoBorderCard(
-            leftContent = {
-                ItemCard(
-                    imageVector = Icons.Outlined.Android,
-                    title = stringResource(R.string.title_other),
-                    subtitle = stringResource(R.string.item_subtitle_2, "${mainActivityManager.otherFiles.size}", StorageUtils.formatSize(mainActivityManager.otherFilesSize)),
-                )
-            },
-            rightContent = null
-        )
+            Spacer(modifier = Modifier.height(MARGIN_BOTTOM.ndp()))
 
-        Spacer(modifier = Modifier.height(MARGIN_BOTTOM.ndp()))
-
-        StorageProvider.getStorageDevices(context).forEach { holder: StorageDeviceHolder ->
             TwoBorderCard(
                 leftContent = {
                     ItemCard(
                         imageVector = Icons.Outlined.SdStorage,
-                        title = holder.title,
-                        subtitle = stringResource(R.string.item_subtitle_2, "${mainActivityManager.otherFiles.size}", StorageUtils.formatSize(mainActivityManager.otherFilesSize)),
+                        title = R.string.storage_analyze.toRes(),
+                        subtitle = stringResource(
+                            R.string.item_subtitle_2,
+                            "${mainActivityManager.otherFiles.size}",
+                            StorageUtils.formatSize(mainActivityManager.otherFilesSize)
+                        ),
                     )
                 },
                 rightContent = null,
                 onClickLeft = {
-                    mainActivityManager.replaceCurrentTabWith(FilesTab(holder.documentHolder))
+                    mainActivityManager.replaceCurrentTabWith(AnalyzeFilesTab(StorageProvider.sdcard))
                     viewModel.showInternal(true)
                 }
             )
 
             Spacer(modifier = Modifier.height(MARGIN_BOTTOM.ndp()))
-//            HorizontalDivider()
-        }
-    }
 
-    if (uiState.showInternalStorage) {
-        FilesTabContentView()
+            StorageProvider.getStorageDevices(context).forEach { holder: StorageDeviceHolder ->
+                TwoBorderCard(
+                    leftContent = {
+                        ItemCard(
+                            imageVector = Icons.Outlined.SdStorage,
+                            title = holder.title,
+                            subtitle = stringResource(
+                                R.string.item_subtitle_2,
+                                "${mainActivityManager.otherFiles.size}",
+                                StorageUtils.formatSize(mainActivityManager.otherFilesSize)
+                            ),
+                        )
+                    },
+                    rightContent = null,
+                    onClickLeft = {
+                        mainActivityManager.replaceCurrentTabWith(FilesTab(holder.documentHolder))
+                        viewModel.showInternal(true)
+                    }
+                )
+
+                Spacer(modifier = Modifier.height(MARGIN_BOTTOM.ndp()))
+//            HorizontalDivider()
+            }
+        }
     }
 }
 

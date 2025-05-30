@@ -222,10 +222,7 @@ data class DocumentHolder(val documentFile: DocumentFile) : ContentHolder(){
         documentFile.renameTo(newName)
     }
 
-    fun getFormattedDetails(
-        useCache: Boolean = false,
-        showFolderContentCount: Boolean
-    ): String {
+    fun getFormattedDetails(useCache: Boolean = false, showFolderContentCount: Boolean): String {
         if (useCache && formattedDetailsCache.isNotEmpty()) {
             return formattedDetailsCache
         }

@@ -28,6 +28,7 @@ object StorageProvider {
     val archives = DocumentHolder.fromFile(File("/:Archives"))
     val bookmarks = DocumentHolder.fromFile(File("/:Bookmarks"))
     val globalClass by lazy { AppCoreManager.instance }
+    val sdcard by lazy { DocumentHolder.fromFile(Environment.getExternalStorageDirectory()) }
 
     fun getStorageDevices(context: Context): List<StorageDeviceHolder> {
         val storageDeviceHolders = mutableListOf<StorageDeviceHolder>()

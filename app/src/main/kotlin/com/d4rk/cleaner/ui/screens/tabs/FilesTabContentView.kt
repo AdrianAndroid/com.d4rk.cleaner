@@ -7,19 +7,29 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.d4rk.cleaner.data.core.AppCoreManager
+import com.d4rk.cleaner.func.tabs.AnalyzeFilesTab
 import com.d4rk.cleaner.func.tabs.FilesTab
+import com.d4rk.cleaner.ui.screens.tabs.components.AnalyzeFilesList
 import com.d4rk.cleaner.ui.screens.tabs.components.FilesList
 import com.d4rk.cleaner.ui.screens.tabs.components.PathListRow
 
 @Composable
 fun FilesTabContentView() {
     val mainActivityManager = AppCoreManager.instance.mainActivityManager
-    val tab = mainActivityManager.curTab
-    if (tab is FilesTab) {
-        Column(modifier = Modifier.fillMaxSize()) {
-            PathListRow(tab)
-            HorizontalDivider(modifier = Modifier, thickness = 1.dp)
-            FilesList(tab)
+    when (val tab = mainActivityManager.curTab) {
+        is AnalyzeFilesTab -> {
+            Column(modifier = Modifier.fillMaxSize()) {
+                PathListRow(tab)
+                HorizontalDivider(modifier = Modifier, thickness = 1.dp)
+                AnalyzeFilesList(tab)
+            }
+        }
+        is FilesTab -> {
+            Column(modifier = Modifier.fillMaxSize()) {
+                PathListRow(tab)
+                HorizontalDivider(modifier = Modifier, thickness = 1.dp)
+                FilesList(tab)
+            }
         }
     }
 }

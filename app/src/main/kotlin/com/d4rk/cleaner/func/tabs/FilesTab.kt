@@ -48,7 +48,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class FilesTab(val source: DocumentHolder) : Tab() {
+open class FilesTab(val source: DocumentHolder) : Tab() {
     private val globalClass: AppCoreManager by lazy { AppCoreManager.instance }
     override val id = AppCoreManager.instance.generateUid()
 

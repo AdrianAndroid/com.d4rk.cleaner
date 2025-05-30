@@ -1,19 +1,13 @@
 package com.d4rk.cleaner.ui.screens.main
 
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.SnippetFolder
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import com.d4rk.cleaner.data.core.AppCoreManager
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.graphics.vector.ImageVector
 import com.d4rk.android.libs.apptoolkit.utils.helpers.logI
 import com.d4rk.cleaner.func.holder.DocumentHolder
 import com.d4rk.cleaner.func.misc.FileMimeType
-import com.d4rk.cleaner.func.tabs.FilesTab
 import com.d4rk.cleaner.func.tabs.Tab
-import com.d4rk.cleaner.utils.constants.cleaning.ExtensionsConstants
 import com.d4rk.cleaner.utils.extension.emptyString
 
 class MainActivityManager {
@@ -52,7 +46,41 @@ class MainActivityManager {
     val emptyFolders = mutableListOf<DocumentHolder>() // 空文件夹
     val emptyFiles = mutableListOf<DocumentHolder>() // 已扫描文件
 
-    val dirSizes = mutableMapOf<String, Long>() // 所有文件夹的容量大小
+    val dirSizes = mutableMapOf<String, DirInfo>() // 所有文件夹的容量大小
+
+    fun clearAnalyzeBefore() {
+        imageFiles.clear()
+        videoFiles.clear()
+        genericFiles.clear()
+        archiveFiles.clear()
+        apkFiles.clear()
+        audioFiles.clear()
+        windowsFiles.clear()
+        officeFiles.clear()
+        fontFiles.clear()
+        otherFiles.clear()
+        bigFiles.clear()
+        newFiles.clear()
+        emptyFolders.clear()
+        emptyFiles.clear()
+
+        imageFilesSize = 0L
+        videoFilesSize = 0L
+        genericFilesSize = 0L
+        archiveFilesSize = 0L
+        apkFilesSize = 0L
+        audioFilesSize = 0L
+        windowsFilesSize = 0L
+        officeFilesSize = 0L
+        fontFilesSize = 0L
+        otherFilesSize = 0L
+        bigFilesSize = 0L
+        newFilesSize = 0L
+        totalDirectoryCount = 0L
+        totalFileCount = 0L
+
+        dirSizes.clear()
+    }
 
     private fun addTypeFile(mutableFile: MutableList<DocumentHolder>, documentHolder: DocumentHolder) {
         mutableFile.add(documentHolder)
@@ -148,3 +176,9 @@ class MainActivityManager {
         return true
     }
 }
+
+data class DirInfo(
+    var totalSize: Long = 0L,
+    var filesCount: Int = 0,
+    var dirsCount: Int = 0,
+)
