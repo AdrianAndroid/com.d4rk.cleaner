@@ -40,36 +40,6 @@ class HomeViewModel(application : Application) : BaseViewModel(application) {
                 _uiState.update { state ->
                     state.copy(
                         displayProcessText = documentHolder.absolutePath(),
-                        analyzedFiles = state.analyzedFiles.copy(
-                            totalDirCount = mainActivityManager.totalDirectoryCount, // 总目录大小
-                            totalFileCount = mainActivityManager.totalFileCount, // 总文件数量
-                            emptyFolders = mainActivityManager.emptyFolders, // 空文件夹
-                            emptyFiles = mainActivityManager.emptyFiles, // 空文件
-                            genericFiles = mainActivityManager.genericFiles, // 冗余文件
-                            genericFilesSize = mainActivityManager.genericFilesSize, // 冗余文件大小,
-                            archiveFiles = mainActivityManager.archiveFiles, // 压缩包
-                            archiveFilesSize = mainActivityManager.archiveFilesSize, // 压缩包文件大小,
-                            apkFiles = mainActivityManager.apkFiles, // 安装包
-                            apkFilesSize = mainActivityManager.apkFilesSize, // 安装包文件大小,
-                            imageFiles = mainActivityManager.imageFiles, // 图片
-                            imageFilesSize = mainActivityManager.imageFilesSize, // 图片文件大小,
-                            audioFiles = mainActivityManager.audioFiles, // 音频
-                            audioFilesSize = mainActivityManager.audioFilesSize, // 音频文件大小,
-                            videoFiles = mainActivityManager.videoFiles, // 视频
-                            videoFilesSize = mainActivityManager.videoFilesSize, // 视频文件大小,
-                            windowsFiles = mainActivityManager.windowsFiles, // windows下执行文件
-                            windowsFilesSize = mainActivityManager.windowsFilesSize, // windows下执行文件大小,
-                            officeFiles = mainActivityManager.officeFiles, // 文档
-                            officeFilesSize = mainActivityManager.officeFilesSize, // 文档文件大小,
-                            fontFiles = mainActivityManager.fontFiles, // 字体
-                            fontFilesSize = mainActivityManager.fontFilesSize, // 字体文件大小,
-                            otherFiles = mainActivityManager.otherFiles, // 其他
-                            otherFilesSize = mainActivityManager.otherFilesSize, // 其他文件大小,
-                            bigFiles = mainActivityManager.bigFiles, // 大文件
-                            bigFilesSize = mainActivityManager.bigFilesSize, // 大文件大小,
-                            newFiles = mainActivityManager.newFiles, // 新文件
-                            newFilesSize = mainActivityManager.newFilesSize, // 新文件大小,
-                        )
                     )
                 }
             }

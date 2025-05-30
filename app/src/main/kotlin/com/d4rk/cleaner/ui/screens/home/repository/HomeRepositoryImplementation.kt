@@ -9,6 +9,7 @@ import android.os.Build
 import android.os.Environment
 import androidx.documentfile.provider.DocumentFile
 import com.d4rk.cleaner.R
+import com.d4rk.cleaner.data.core.AppCoreManager
 import com.d4rk.cleaner.data.datastore.DataStore
 import com.d4rk.cleaner.data.model.ui.memorymanager.StorageInfo
 import com.d4rk.cleaner.data.model.ui.screens.FileTypesData
@@ -38,12 +39,19 @@ abstract class HomeRepositoryImplementation(val application : Application , val 
      * 遍历根目录下的所有文件
      */
     fun iterateFiles(onFile: (DocumentHolder) -> Unit) {
-        val stack: ArrayDeque<File> = ArrayDeque() // 栈
+        val mainActivityManager = AppCoreManager.instance.mainActivityManager
+        val stack: ArrayDeque<File> = ArrayDeque() // 栈，存储文件和其大小
         val root: File = Environment.getExternalStorageDirectory() // 根目录
-        stack.addFirst(element = root)
+        stack.addFirst(root)
+        
+        // 用于临时存储文件夹大小的映射
+        val dirSizes = mainActivityManager.dirSizes
+        
         while (stack.isNotEmpty()) {
-            val currentFile: File = stack.removeFirst()
+            val currentFile = stack.removeFirst()
+            var currentSize = 0L
             val documentHolder = DocumentHolder(DocumentFile.fromFile(currentFile))
+            
             if (currentFile.isDirectory) {
                 currentFile.listFiles()?.let { children ->
                     if (children.isEmpty()) {
@@ -53,9 +61,19 @@ abstract class HomeRepositoryImplementation(val application : Application , val 
                             if (child.isDirectory) {
                                 stack.addLast(child)
                             } else {
+                                val fileSize = child.length()
+                                currentSize += fileSize
                                 onFile(DocumentHolder(DocumentFile.fromFile(child)))
                             }
                         }
+                        // 存储当前文件夹的大小
+                        dirSizes[currentFile.absolutePath] = currentSize
+                        // 更新父文件夹的大小
+                        currentFile.parentFile?.let { parent ->
+                            dirSizes[parent.absolutePath] = (dirSizes[parent.absolutePath] ?: 0L) + currentSize
+                        }
+                        // 回调当前文件夹的总大小
+                        onFile(documentHolder)
                     }
                 }
             } else {
@@ -63,6 +81,50 @@ abstract class HomeRepositoryImplementation(val application : Application , val 
             }
         }
     }
+
+//    fun iterateFiles2(onFile: (DocumentHolder, Long) -> Unit) {
+//        val stack: ArrayDeque<Pair<File, Long>> = ArrayDeque() // 栈，存储文件和其大小
+//        val root: File = Environment.getExternalStorageDirectory() // 根目录
+//        stack.addFirst(Pair(root, 0L))
+//
+//        // 用于临时存储文件夹大小的映射
+//        val dirSizes = mutableMapOf<String, Long>()
+//
+//        while (stack.isNotEmpty()) {
+//            val (currentFile, parentSize) = stack.removeFirst()
+//            var currentSize = 0L
+//            val documentHolder = DocumentHolder(DocumentFile.fromFile(currentFile))
+//
+//            if (currentFile.isDirectory) {
+//                currentFile.listFiles()?.let { children ->
+//                    if (children.isEmpty()) {
+//                        onFile(documentHolder, parentSize)
+//                    } else {
+//                        children.forEach { child ->
+//                            if (child.isDirectory) {
+//                                stack.addLast(Pair(child, currentSize))
+//                            } else {
+//                                val fileSize = child.length()
+//                                currentSize += fileSize
+//                                onFile(DocumentHolder(DocumentFile.fromFile(child)), fileSize)
+//                            }
+//                        }
+//                        // 存储当前文件夹的大小
+//                        dirSizes[currentFile.absolutePath] = currentSize
+//                        // 更新父文件夹的大小
+//                        currentFile.parentFile?.let { parent ->
+//                            dirSizes[parent.absolutePath] = (dirSizes[parent.absolutePath] ?: 0L) + currentSize
+//                        }
+//                        // 回调当前文件夹的总大小
+//                        onFile(documentHolder, currentSize)
+//                    }
+//                }
+//            } else {
+//                val fileSize = currentFile.length()
+//                onFile(documentHolder, fileSize)
+//            }
+//        }
+//    }
 
 
     fun getAllFilesImplementation() : Pair<List<File> , List<File>> {

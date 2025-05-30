@@ -1,10 +1,13 @@
 package com.d4rk.cleaner.ui.screens.main
 
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.SnippetFolder
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import com.d4rk.cleaner.data.core.AppCoreManager
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.graphics.vector.ImageVector
 import com.d4rk.android.libs.apptoolkit.utils.helpers.logI
 import com.d4rk.cleaner.func.holder.DocumentHolder
 import com.d4rk.cleaner.func.misc.FileMimeType
@@ -43,19 +46,23 @@ class MainActivityManager {
     val otherFiles = mutableListOf<DocumentHolder>() // 其他
     var otherFilesSize: Long = 0L // 其他文件大小
     val bigFiles = mutableListOf<DocumentHolder>() // 大文件
-    val bigFilesSize: Long = 0L // 大文件大小
+    var bigFilesSize: Long = 0L // 大文件大小
     val newFiles = mutableListOf<DocumentHolder>() // 新文件
-    val newFilesSize: Long = 0L // 新文件大小
+    var newFilesSize: Long = 0L // 新文件大小
     val emptyFolders = mutableListOf<DocumentHolder>() // 空文件夹
     val emptyFiles = mutableListOf<DocumentHolder>() // 已扫描文件
+
+    val dirSizes = mutableMapOf<String, Long>() // 所有文件夹的容量大小
 
     private fun addTypeFile(mutableFile: MutableList<DocumentHolder>, documentHolder: DocumentHolder) {
         mutableFile.add(documentHolder)
         if (documentHolder.isBigFile()) {
             bigFiles.add(documentHolder)
+            bigFilesSize += documentHolder.fileSize
         }
         if (documentHolder.isNewFile()) {
             newFiles.add(documentHolder)
+            newFilesSize += documentHolder.fileSize
         }
     }
 
@@ -73,43 +80,43 @@ class MainActivityManager {
 
             extension in FileMimeType.imageExtensions -> {
                 addTypeFile(imageFiles, documentHolder)
-                imageFilesSize += documentHolder.fileSize()
+                imageFilesSize += documentHolder.fileSize
             }
             extension in FileMimeType.videoExtensions -> {
                 addTypeFile(videoFiles, documentHolder)
-                videoFilesSize += documentHolder.fileSize()
+                videoFilesSize += documentHolder.fileSize
             }
             extension in FileMimeType.audioExtensions -> {
                 addTypeFile(audioFiles, documentHolder)
-                audioFilesSize += documentHolder.fileSize()
+                audioFilesSize += documentHolder.fileSize
             }
             extension in FileMimeType.officeExtensions ->  {
                 addTypeFile(officeFiles, documentHolder)
-                officeFilesSize += documentHolder.fileSize()
+                officeFilesSize += documentHolder.fileSize
             }
             extension in FileMimeType.archiveExtensions ->  {
                 addTypeFile(archiveFiles, documentHolder)
-                archiveFilesSize += documentHolder.fileSize()
+                archiveFilesSize += documentHolder.fileSize
             }
             extension in FileMimeType.apkExtensions -> {
                 addTypeFile(apkFiles, documentHolder)
-                apkFilesSize += documentHolder.fileSize()
+                apkFilesSize += documentHolder.fileSize
             }
             extension in FileMimeType.fontExtensions -> {
                 addTypeFile(fontFiles, documentHolder)
-                fontFilesSize += documentHolder.fileSize()
+                fontFilesSize += documentHolder.fileSize
             }
             extension in FileMimeType.windowsExtensions ->  {
                 addTypeFile(windowsFiles, documentHolder)
-                windowsFilesSize += documentHolder.fileSize()
+                windowsFilesSize += documentHolder.fileSize
             }
             extension in FileMimeType.genericExtensions -> {
                 addTypeFile(genericFiles, documentHolder)
-                genericFilesSize += documentHolder.fileSize()
+                genericFilesSize += documentHolder.fileSize
             }
             else -> if (!FileMimeType.knownExtensions.contains(extension)){
                 addTypeFile(otherFiles, documentHolder)
-                otherFilesSize += documentHolder.fileSize()
+                otherFilesSize += documentHolder.fileSize
             }
         }
     }

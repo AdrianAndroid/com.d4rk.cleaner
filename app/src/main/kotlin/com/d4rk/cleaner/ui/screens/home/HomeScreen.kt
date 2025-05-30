@@ -26,6 +26,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -189,14 +190,14 @@ fun HomeScreen() {
                 ItemCard(
                     imageVector = Icons.Outlined.Android,
                     title = stringResource(R.string.title_empty),
-                    subtitle = stringResource(R.string.item_subtitle_1, "${uiState.analyzedFiles.emptyFolders.size + uiState.analyzedFiles.emptyFiles.size}"),
+                    subtitle = stringResource(R.string.item_subtitle_1, "${mainActivityManager.emptyFolders.size + mainActivityManager.emptyFiles.size}"),
                 )
             },
             rightContent = {
                 ItemCard(
                     imageVector = Icons.Outlined.Android,
                     title = stringResource(R.string.title_big_file),
-                    subtitle = stringResource(R.string.item_subtitle_2, "${uiState.analyzedFiles.bigFiles.size}", StorageUtils.formatSize(uiState.analyzedFiles.bigFilesSize)),
+                    subtitle = stringResource(R.string.item_subtitle_2, "${mainActivityManager.bigFiles.size}", StorageUtils.formatSize(mainActivityManager.bigFilesSize)),
                 )
             }
         )
@@ -208,14 +209,14 @@ fun HomeScreen() {
                 ItemCard(
                     imageVector = Icons.Outlined.Android,
                     title = stringResource(R.string.title_generic),
-                    subtitle = stringResource(R.string.item_subtitle_2, "${uiState.analyzedFiles.genericFiles.size}", StorageUtils.formatSize(uiState.analyzedFiles.genericFilesSize)),
+                    subtitle = stringResource(R.string.item_subtitle_2, "${mainActivityManager.genericFiles.size}", StorageUtils.formatSize(mainActivityManager.genericFilesSize)),
                 )
             },
             rightContent = {
                 ItemCard(
                     imageVector = Icons.Outlined.Android,
                     title = stringResource(R.string.title_new_file),
-                    subtitle = stringResource(R.string.item_subtitle_2, "${uiState.analyzedFiles.newFiles.size}", StorageUtils.formatSize(uiState.analyzedFiles.newFilesSize)),
+                    subtitle = stringResource(R.string.item_subtitle_2, "${mainActivityManager.newFiles.size}", StorageUtils.formatSize(mainActivityManager.newFilesSize)),
                 )
             }
         )
@@ -227,14 +228,14 @@ fun HomeScreen() {
                 ItemCard(
                     imageVector = Icons.Outlined.Android,
                     title = stringResource(R.string.title_apk),
-                    subtitle = stringResource(R.string.item_subtitle_2, "${uiState.analyzedFiles.apkFiles.size}", StorageUtils.formatSize(uiState.analyzedFiles.apkFilesSize)),
+                    subtitle = stringResource(R.string.item_subtitle_2, "${mainActivityManager.apkFiles.size}", StorageUtils.formatSize(mainActivityManager.apkFilesSize)),
                 )
             },
             rightContent = {
                 ItemCard(
                     imageVector = Icons.Outlined.Android,
                     title = stringResource(R.string.title_image),
-                    subtitle = stringResource(R.string.item_subtitle_2, "${uiState.analyzedFiles.imageFiles.size}", StorageUtils.formatSize(uiState.analyzedFiles.imageFilesSize)),
+                    subtitle = stringResource(R.string.item_subtitle_2, "${mainActivityManager.imageFiles.size}", StorageUtils.formatSize(mainActivityManager.imageFilesSize)),
                 )
             }
         )
@@ -246,14 +247,14 @@ fun HomeScreen() {
                 ItemCard(
                     imageVector = Icons.Outlined.Android,
                     title = stringResource(R.string.title_video),
-                    subtitle = stringResource(R.string.item_subtitle_2, "${uiState.analyzedFiles.videoFiles.size}", StorageUtils.formatSize(uiState.analyzedFiles.videoFilesSize)),
+                    subtitle = stringResource(R.string.item_subtitle_2, "${mainActivityManager.videoFiles.size}", StorageUtils.formatSize(mainActivityManager.videoFilesSize)),
                 )
             },
             rightContent = {
                 ItemCard(
                     imageVector = Icons.Outlined.Android,
                     title = stringResource(R.string.title_audio),
-                    subtitle = stringResource(R.string.item_subtitle_2, "${uiState.analyzedFiles.audioFiles.size}", StorageUtils.formatSize(uiState.analyzedFiles.audioFilesSize)),
+                    subtitle = stringResource(R.string.item_subtitle_2, "${mainActivityManager.audioFiles.size}", StorageUtils.formatSize(mainActivityManager.audioFilesSize)),
                 )
             }
         )
@@ -265,14 +266,14 @@ fun HomeScreen() {
                 ItemCard(
                     imageVector = Icons.Outlined.Android,
                     title = stringResource(R.string.title_office),
-                    subtitle = stringResource(R.string.item_subtitle_2, "${uiState.analyzedFiles.officeFiles.size}", StorageUtils.formatSize(uiState.analyzedFiles.officeFilesSize)),
+                    subtitle = stringResource(R.string.item_subtitle_2, "${mainActivityManager.officeFiles.size}", StorageUtils.formatSize(mainActivityManager.officeFilesSize)),
                 )
             },
             rightContent = {
                 ItemCard(
                     imageVector = Icons.Outlined.Android,
                     title = stringResource(R.string.title_archive),
-                    subtitle = stringResource(R.string.item_subtitle_2, "${uiState.analyzedFiles.archiveFiles.size}", StorageUtils.formatSize(uiState.analyzedFiles.archiveFilesSize)),
+                    subtitle = stringResource(R.string.item_subtitle_2, "${mainActivityManager.archiveFiles.size}", StorageUtils.formatSize(mainActivityManager.archiveFilesSize)),
                 )
             }
         )
@@ -284,14 +285,14 @@ fun HomeScreen() {
                 ItemCard(
                     imageVector = Icons.Outlined.Android,
                     title = stringResource(R.string.title_font),
-                    subtitle = stringResource(R.string.item_subtitle_2, "${uiState.analyzedFiles.fontFiles.size}", StorageUtils.formatSize(uiState.analyzedFiles.fontFilesSize)),
+                    subtitle = stringResource(R.string.item_subtitle_2, "${mainActivityManager.fontFiles.size}", StorageUtils.formatSize(mainActivityManager.fontFilesSize)),
                 )
             },
             rightContent = {
                 ItemCard(
                     imageVector = Icons.Outlined.Android,
                     title = stringResource(R.string.windows_files),
-                    subtitle = stringResource(R.string.item_subtitle_2, "${uiState.analyzedFiles.windowsFiles.size}", StorageUtils.formatSize(uiState.analyzedFiles.windowsFilesSize)),
+                    subtitle = stringResource(R.string.item_subtitle_2, "${mainActivityManager.windowsFiles.size}", StorageUtils.formatSize(mainActivityManager.windowsFilesSize)),
                 )
             }
         )
@@ -303,7 +304,7 @@ fun HomeScreen() {
                 ItemCard(
                     imageVector = Icons.Outlined.Android,
                     title = stringResource(R.string.title_other),
-                    subtitle = stringResource(R.string.item_subtitle_2, "${uiState.analyzedFiles.otherFiles.size}", StorageUtils.formatSize(uiState.analyzedFiles.otherFilesSize)),
+                    subtitle = stringResource(R.string.item_subtitle_2, "${mainActivityManager.otherFiles.size}", StorageUtils.formatSize(mainActivityManager.otherFilesSize)),
                 )
             },
             rightContent = null
@@ -317,8 +318,7 @@ fun HomeScreen() {
                     ItemCard(
                         imageVector = Icons.Outlined.SdStorage,
                         title = holder.title,
-                        //title = stringResource(R.string.internal_storage),
-                        subtitle = stringResource(R.string.item_subtitle_2, "${uiState.analyzedFiles.otherFiles.size}", StorageUtils.formatSize(uiState.analyzedFiles.otherFilesSize)),
+                        subtitle = stringResource(R.string.item_subtitle_2, "${mainActivityManager.otherFiles.size}", StorageUtils.formatSize(mainActivityManager.otherFilesSize)),
                     )
                 },
                 rightContent = null,
@@ -337,7 +337,6 @@ fun HomeScreen() {
         FilesTabContentView()
     }
 }
-
 
 @Composable
 private fun ItemCard(

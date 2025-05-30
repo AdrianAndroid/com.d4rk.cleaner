@@ -92,7 +92,7 @@ data class DocumentHolder(val documentFile: DocumentFile) : ContentHolder(){
 
     val fileExtension by lazy { documentFile.extension.lowercase() }
 
-    val fileSize by lazy { documentFile.length() }
+    val fileSize: Long by lazy { documentFile.length() }
 
     val lastModified by lazy { documentFile.lastModified() }
 
@@ -400,10 +400,6 @@ data class DocumentHolder(val documentFile: DocumentFile) : ContentHolder(){
 
     fun fileName() : String {
         return documentFile.name ?: ""
-    }
-
-    fun fileSize() : Long {
-        return documentFile.length()
     }
 
     fun extension(): String {
