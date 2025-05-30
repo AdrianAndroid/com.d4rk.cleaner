@@ -185,191 +185,46 @@ fun HomeScreen() {
                 )
             }
 
-            TwoBorderCard(
-                leftContent = {
-                    ItemCard(
-                        imageVector = Icons.Outlined.Android,
-                        title = stringResource(R.string.title_empty),
-                        subtitle = stringResource(
-                            R.string.item_subtitle_1,
-                            "${mainActivityManager.emptyFolders.size + mainActivityManager.emptyFiles.size}"
-                        ),
-                    )
-                },
-                onClickLeft = {
-                    val list = mutableListOf< DocumentHolder>()
-                    list.addAll(mainActivityManager.emptyFolders)
-                    list.addAll(mainActivityManager.emptyFiles)
-                    mainActivityManager.replaceCurrentTabWith(AnalyzeDetailTab(list))
-                    viewModel.showInternal(true)
-                },
-                rightContent = {
-                    ItemCard(
-                        imageVector = Icons.Outlined.Android,
-                        title = stringResource(R.string.title_big_file),
-                        subtitle = stringResource(
-                            R.string.item_subtitle_2,
-                            "${mainActivityManager.bigFiles.size}",
-                            StorageUtils.formatSize(mainActivityManager.bigFilesSize)
-                        ),
-                    )
-                },
-                onClickRight = {
-                    mainActivityManager.replaceCurrentTabWith(AnalyzeDetailTab(mainActivityManager.bigFiles))
-                    viewModel.showInternal(true)
-                }
+            FirstLine(
+                leftText = stringResource(R.string.item_subtitle_1, "${mainActivityManager.emptyFolders.size + mainActivityManager.emptyFiles.size}"),
+                rightText = stringResource(R.string.item_subtitle_2, "${mainActivityManager.bigFiles.size}", StorageUtils.formatSize(mainActivityManager.bigFilesSize)),
+                onClick = { viewModel.showInternal(true) }
             )
-
             Spacer(modifier = Modifier.height(MARGIN_BOTTOM.ndp()))
-
-            TwoBorderCard(
-                leftContent = {
-                    ItemCard(
-                        imageVector = Icons.Outlined.Android,
-                        title = stringResource(R.string.title_generic),
-                        subtitle = stringResource(
-                            R.string.item_subtitle_2,
-                            "${mainActivityManager.genericFiles.size}",
-                            StorageUtils.formatSize(mainActivityManager.genericFilesSize)
-                        ),
-                    )
-                },
-                rightContent = {
-                    ItemCard(
-                        imageVector = Icons.Outlined.Android,
-                        title = stringResource(R.string.title_new_file),
-                        subtitle = stringResource(
-                            R.string.item_subtitle_2,
-                            "${mainActivityManager.newFiles.size}",
-                            StorageUtils.formatSize(mainActivityManager.newFilesSize)
-                        ),
-                    )
-                }
+            SecondLine(
+                leftText = stringResource(R.string.item_subtitle_2, "${mainActivityManager.genericFiles.size}", StorageUtils.formatSize(mainActivityManager.genericFilesSize)),
+                rightText = stringResource(R.string.item_subtitle_2, "${mainActivityManager.newFiles.size}", StorageUtils.formatSize(mainActivityManager.newFilesSize)),
+                onClick = { viewModel.showInternal(true) }
             )
-
             Spacer(modifier = Modifier.height(MARGIN_BOTTOM.ndp()))
-
-            TwoBorderCard(
-                leftContent = {
-                    ItemCard(
-                        imageVector = Icons.Outlined.Android,
-                        title = stringResource(R.string.title_apk),
-                        subtitle = stringResource(
-                            R.string.item_subtitle_2,
-                            "${mainActivityManager.apkFiles.size}",
-                            StorageUtils.formatSize(mainActivityManager.apkFilesSize)
-                        ),
-                    )
-                },
-                rightContent = {
-                    ItemCard(
-                        imageVector = Icons.Outlined.Android,
-                        title = stringResource(R.string.title_image),
-                        subtitle = stringResource(
-                            R.string.item_subtitle_2,
-                            "${mainActivityManager.imageFiles.size}",
-                            StorageUtils.formatSize(mainActivityManager.imageFilesSize)
-                        ),
-                    )
-                }
+            ThirdLine(
+                leftText = stringResource(R.string.item_subtitle_2, "${mainActivityManager.apkFiles.size}", StorageUtils.formatSize(mainActivityManager.apkFilesSize)),
+                rightText = stringResource(R.string.item_subtitle_2, "${mainActivityManager.imageFiles.size}", StorageUtils.formatSize(mainActivityManager.imageFilesSize)),
+                onClick = { viewModel.showInternal(true) }
             )
-
             Spacer(modifier = Modifier.height(MARGIN_BOTTOM.ndp()))
-
-            TwoBorderCard(
-                leftContent = {
-                    ItemCard(
-                        imageVector = Icons.Outlined.Android,
-                        title = stringResource(R.string.title_video),
-                        subtitle = stringResource(
-                            R.string.item_subtitle_2,
-                            "${mainActivityManager.videoFiles.size}",
-                            StorageUtils.formatSize(mainActivityManager.videoFilesSize)
-                        ),
-                    )
-                },
-                rightContent = {
-                    ItemCard(
-                        imageVector = Icons.Outlined.Android,
-                        title = stringResource(R.string.title_audio),
-                        subtitle = stringResource(
-                            R.string.item_subtitle_2,
-                            "${mainActivityManager.audioFiles.size}",
-                            StorageUtils.formatSize(mainActivityManager.audioFilesSize)
-                        ),
-                    )
-                }
+            FourLine(
+                leftText = stringResource(R.string.item_subtitle_2, "${mainActivityManager.videoFiles.size}", StorageUtils.formatSize(mainActivityManager.videoFilesSize)),
+                rightText = stringResource(R.string.item_subtitle_2, "${mainActivityManager.audioFiles.size}", StorageUtils.formatSize(mainActivityManager.audioFilesSize)),
+                onClick = { viewModel.showInternal(true) }
             )
-
             Spacer(modifier = Modifier.height(MARGIN_BOTTOM.ndp()))
-
-            TwoBorderCard(
-                leftContent = {
-                    ItemCard(
-                        imageVector = Icons.Outlined.Android,
-                        title = stringResource(R.string.title_office),
-                        subtitle = stringResource(
-                            R.string.item_subtitle_2,
-                            "${mainActivityManager.officeFiles.size}",
-                            StorageUtils.formatSize(mainActivityManager.officeFilesSize)
-                        ),
-                    )
-                },
-                rightContent = {
-                    ItemCard(
-                        imageVector = Icons.Outlined.Android,
-                        title = stringResource(R.string.title_archive),
-                        subtitle = stringResource(
-                            R.string.item_subtitle_2,
-                            "${mainActivityManager.archiveFiles.size}",
-                            StorageUtils.formatSize(mainActivityManager.archiveFilesSize)
-                        ),
-                    )
-                }
+            FiveLine(
+                leftText = stringResource(R.string.item_subtitle_2, "${mainActivityManager.officeFiles.size}", StorageUtils.formatSize(mainActivityManager.officeFilesSize)),
+                rightText = stringResource(R.string.item_subtitle_2, "${mainActivityManager.archiveFiles.size}", StorageUtils.formatSize(mainActivityManager.archiveFilesSize)),
+                onClick = { viewModel.showInternal(true) }
             )
-
             Spacer(modifier = Modifier.height(MARGIN_BOTTOM.ndp()))
-
-            TwoBorderCard(
-                leftContent = {
-                    ItemCard(
-                        imageVector = Icons.Outlined.Android,
-                        title = stringResource(R.string.title_font),
-                        subtitle = stringResource(
-                            R.string.item_subtitle_2,
-                            "${mainActivityManager.fontFiles.size}",
-                            StorageUtils.formatSize(mainActivityManager.fontFilesSize)
-                        ),
-                    )
-                },
-                rightContent = {
-                    ItemCard(
-                        imageVector = Icons.Outlined.Android,
-                        title = stringResource(R.string.windows_files),
-                        subtitle = stringResource(
-                            R.string.item_subtitle_2,
-                            "${mainActivityManager.windowsFiles.size}",
-                            StorageUtils.formatSize(mainActivityManager.windowsFilesSize)
-                        ),
-                    )
-                }
+            SixLine(
+                leftText = stringResource(R.string.item_subtitle_2, "${mainActivityManager.fontFiles.size}", StorageUtils.formatSize(mainActivityManager.fontFilesSize)),
+                rightText = stringResource(R.string.item_subtitle_2, "${mainActivityManager.windowsFiles.size}", StorageUtils.formatSize(mainActivityManager.windowsFilesSize)),
+                onClick = { viewModel.showInternal(true) }
             )
-
             Spacer(modifier = Modifier.height(MARGIN_BOTTOM.ndp()))
-
-            TwoBorderCard(
-                leftContent = {
-                    ItemCard(
-                        imageVector = Icons.Outlined.Android,
-                        title = stringResource(R.string.title_other),
-                        subtitle = stringResource(
-                            R.string.item_subtitle_2,
-                            "${mainActivityManager.otherFiles.size}",
-                            StorageUtils.formatSize(mainActivityManager.otherFilesSize)
-                        ),
-                    )
-                },
-                rightContent = null
+            SevenLine(
+                leftText = stringResource(R.string.item_subtitle_2, "${mainActivityManager.otherFiles.size}", StorageUtils.formatSize(mainActivityManager.otherFilesSize)),
+                rightText = "",
+                onClick = { viewModel.showInternal(true) }
             )
 
             Spacer(modifier = Modifier.height(MARGIN_BOTTOM.ndp()))
@@ -420,6 +275,231 @@ fun HomeScreen() {
             }
         }
     }
+}
+
+@Composable
+private fun FirstLine(
+    leftText: String = "",
+    rightText: String = "",
+    onClick: () -> Unit
+) {
+    val mainActivityManager = AppCoreManager.instance.mainActivityManager
+    TwoBorderCard(
+        leftContent = {
+            ItemCard(
+                imageVector = Icons.Outlined.Android,
+                title = stringResource(R.string.title_empty),
+                subtitle = leftText,
+            )
+        },
+        onClickLeft = {
+            val list = mutableListOf< DocumentHolder>()
+            list.addAll(mainActivityManager.emptyFolders)
+            list.addAll(mainActivityManager.emptyFiles)
+            mainActivityManager.replaceCurrentTabWith(AnalyzeDetailTab(list))
+            onClick.invoke()
+        },
+        rightContent = {
+            ItemCard(
+                imageVector = Icons.Outlined.Android,
+                title = stringResource(R.string.title_big_file),
+                subtitle = rightText,
+            )
+        },
+        onClickRight = {
+            mainActivityManager.replaceCurrentTabWith(AnalyzeDetailTab(mainActivityManager.bigFiles))
+            onClick.invoke()
+        }
+    )
+}
+
+@Composable
+private fun SecondLine(
+    leftText: String = "",
+    rightText: String = "",
+    onClick: () -> Unit
+) {
+    val mainActivityManager = AppCoreManager.instance.mainActivityManager
+    TwoBorderCard(
+        leftContent = {
+            ItemCard(
+                imageVector = Icons.Outlined.Android,
+                title = stringResource(R.string.title_generic),
+                subtitle = leftText,
+            )
+        },
+        rightContent = {
+            ItemCard(
+                imageVector = Icons.Outlined.Android,
+                title = stringResource(R.string.title_new_file),
+                subtitle = rightText,
+            )
+        },
+        onClickLeft = {
+            mainActivityManager.replaceCurrentTabWith(AnalyzeDetailTab(mainActivityManager.genericFiles))
+            onClick.invoke()
+        },
+        onClickRight = {
+            mainActivityManager.replaceCurrentTabWith(AnalyzeDetailTab(mainActivityManager.newFiles))
+            onClick.invoke()
+        }
+    )
+}
+
+@Composable
+private fun ThirdLine(
+    leftText: String = "",
+    rightText: String = "",
+    onClick: () -> Unit
+) {
+    val mainActivityManager = AppCoreManager.instance.mainActivityManager
+    TwoBorderCard(
+        leftContent = {
+            ItemCard(
+                imageVector = Icons.Outlined.Android,
+                title = stringResource(R.string.title_apk),
+                subtitle = leftText,
+            )
+        },
+        rightContent = {
+            ItemCard(
+                imageVector = Icons.Outlined.Android,
+                title = stringResource(R.string.title_image),
+                subtitle = rightText,
+            )
+        },
+        onClickLeft = {
+            mainActivityManager.replaceCurrentTabWith(AnalyzeDetailTab(mainActivityManager.apkFiles))
+            onClick.invoke()
+        },
+        onClickRight = {
+            mainActivityManager.replaceCurrentTabWith(AnalyzeDetailTab(mainActivityManager.imageFiles))
+            onClick.invoke()
+        }
+    )
+}
+
+@Composable
+private fun FourLine(
+    leftText: String = "",
+    rightText: String = "",
+    onClick: () -> Unit
+) {
+    val mainActivityManager = AppCoreManager.instance.mainActivityManager
+    TwoBorderCard(
+        leftContent = {
+            ItemCard(
+                imageVector = Icons.Outlined.Android,
+                title = stringResource(R.string.title_video),
+                subtitle = leftText,
+            )
+        },
+        rightContent = {
+            ItemCard(
+                imageVector = Icons.Outlined.Android,
+                title = stringResource(R.string.title_audio),
+                subtitle = rightText,
+            )
+        },
+        onClickLeft = {
+            mainActivityManager.replaceCurrentTabWith(AnalyzeDetailTab(mainActivityManager.videoFiles))
+            onClick.invoke()
+        },
+        onClickRight = {
+            mainActivityManager.replaceCurrentTabWith(AnalyzeDetailTab(mainActivityManager.videoFiles))
+            onClick.invoke()
+        }
+    )
+}
+
+@Composable
+private fun FiveLine(
+    leftText: String = "",
+    rightText: String = "",
+    onClick: () -> Unit
+) {
+    val mainActivityManager = AppCoreManager.instance.mainActivityManager
+    TwoBorderCard(
+        leftContent = {
+            ItemCard(
+                imageVector = Icons.Outlined.Android,
+                title = stringResource(R.string.title_office),
+                subtitle = leftText,
+            )
+        },
+        rightContent = {
+            ItemCard(
+                imageVector = Icons.Outlined.Android,
+                title = stringResource(R.string.title_archive),
+                subtitle = rightText,
+            )
+        },
+        onClickLeft = {
+            mainActivityManager.replaceCurrentTabWith(AnalyzeDetailTab(mainActivityManager.officeFiles))
+            onClick.invoke()
+        },
+        onClickRight = {
+            mainActivityManager.replaceCurrentTabWith(AnalyzeDetailTab(mainActivityManager.archiveFiles))
+            onClick.invoke()
+        }
+    )
+}
+
+@Composable
+private fun SixLine(
+    leftText: String = "",
+    rightText: String = "",
+    onClick: () -> Unit
+) {
+    val mainActivityManager = AppCoreManager.instance.mainActivityManager
+    TwoBorderCard(
+        leftContent = {
+            ItemCard(
+                imageVector = Icons.Outlined.Android,
+                title = stringResource(R.string.title_font),
+                subtitle = leftText,
+            )
+        },
+        rightContent = {
+            ItemCard(
+                imageVector = Icons.Outlined.Android,
+                title = stringResource(R.string.windows_files),
+                subtitle = rightText,
+            )
+        },
+        onClickLeft = {
+            mainActivityManager.replaceCurrentTabWith(AnalyzeDetailTab(mainActivityManager.fontFiles))
+            onClick.invoke()
+        },
+        onClickRight = {
+            mainActivityManager.replaceCurrentTabWith(AnalyzeDetailTab(mainActivityManager.windowsFiles))
+            onClick.invoke()
+        }
+    )
+}
+
+
+@Composable
+private fun SevenLine(
+    leftText: String = "",
+    rightText: String = "",
+    onClick: () -> Unit
+) {
+    val mainActivityManager = AppCoreManager.instance.mainActivityManager
+    TwoBorderCard(
+        leftContent = {
+            ItemCard(
+                imageVector = Icons.Outlined.Android,
+                title = stringResource(R.string.title_other),
+                subtitle = leftText,
+            )
+        },
+        rightContent = null,
+        onClickRight = {
+            mainActivityManager.replaceCurrentTabWith(AnalyzeDetailTab(mainActivityManager.otherFiles))
+            onClick.invoke()
+        }
+    )
 }
 
 @Composable

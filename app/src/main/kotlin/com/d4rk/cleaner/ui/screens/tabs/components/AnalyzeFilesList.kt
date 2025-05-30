@@ -170,11 +170,11 @@ fun ColumnScope.AnalyzeFilesList(tab: FilesTab) {
                                         toggleSelection()
                                         tab.quickReloadFiles()
                                     } else {
-//                                        if (item.isFile) {
-//                                            tab.openFile(context, item)
-//                                        } else {
-//                                            tab.openFolder(item, false)
-//                                        }
+                                        if (item.isFile) {
+                                            tab.openFile(context, item)
+                                        } else {
+                                            tab.openFolder(item, false)
+                                        }
                                     }
                                 }, onLongClick = {
                                     val isFirstSelection = tab.selectedFiles.isEmpty()
