@@ -421,10 +421,10 @@ private fun getAnalyzeText(path: String): Pair<String, String> {
     if (dirInfo == null) {
         return Pair("0.00%", "0.00B 0个文件/0个文件夹")
     } else {
-        val totalFileCount = mainActivityManager.totalFileCount
+        val totalFileSize = mainActivityManager.totalFileSize
         val dirSize = dirInfo.totalSize
-        val percent = if (totalFileCount > 0) {
-            String.format(Locale.getDefault(), "%.2f%%", (dirSize.toDouble() / totalFileCount) * 100)
+        val percent = if (totalFileSize > 0) {
+            String.format(Locale.getDefault(), "%.2f%%", (dirSize.toDouble() / totalFileSize) * 100)
         } else {
             "0.00%"
         }

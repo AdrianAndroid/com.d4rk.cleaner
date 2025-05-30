@@ -8,6 +8,7 @@ import android.media.MediaScannerConnection
 import android.os.Build
 import android.os.Environment
 import androidx.documentfile.provider.DocumentFile
+import com.anggrayudi.storage.file.hasParent
 import com.anggrayudi.storage.file.toRawFile
 import com.d4rk.android.libs.apptoolkit.utils.helpers.logI
 import com.d4rk.cleaner.R
@@ -50,16 +51,16 @@ abstract class HomeRepositoryImplementation(val application : Application , val 
         // 用于临时存储文件夹大小的映射
         val dirSizes: MutableMap<String, DirInfo> = mainActivityManager.dirSizes
 
-        fun refreshDirInfo(docFile: DocumentFile, fileSize: Long, filesCount: Int, dirsCount: Int) {
-            var currentFile: DocumentFile = docFile
-            while (currentFile.uri.path != root.absolutePath) {
-                val path: String = currentFile.uri.path ?: break
+        fun refreshDirInfo(docFileHolder: DocumentHolder, fileSize: Long, filesCount: Int, dirsCount: Int) {
+            var currentFileHolder: DocumentHolder = docFileHolder
+            while (currentFileHolder.path != root.absolutePath) {
+                val path: String = currentFileHolder.path
                 val dirInfo = dirSizes[path] ?: DirInfo()
                 dirInfo.filesCount += filesCount
                 dirInfo.dirsCount += dirsCount
                 dirInfo.totalSize += fileSize
                 dirSizes[path] = dirInfo
-                currentFile = currentFile.parentFile ?: break
+                currentFileHolder = currentFileHolder.parent ?: break
             }
             // 更新根目录信息
             val rootInfo = dirSizes[root.absolutePath] ?: DirInfo()
@@ -92,7 +93,7 @@ abstract class HomeRepositoryImplementation(val application : Application , val 
                                 onFile(DocumentHolder(DocumentFile.fromFile(child)))
                             }
                         }
-                        refreshDirInfo(documentHolder.documentFile, currentSize, filesCount, dirsCount)
+                        refreshDirInfo(documentHolder, currentSize, filesCount, dirsCount)
                         // 回调当前文件夹的总大小
                         onFile(documentHolder)
                     }

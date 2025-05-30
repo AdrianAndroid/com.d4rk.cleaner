@@ -18,6 +18,7 @@ class MainActivityManager {
     // 文件扫描结果管理
     var totalDirectoryCount = 0L // 文件数量
     var totalFileCount = 0L // 文件大小
+    var totalFileSize = 0L
 
     val imageFiles = mutableListOf<DocumentHolder>() // 图片
     var imageFilesSize: Long = 0L // 图片文件大小
@@ -109,46 +110,55 @@ class MainActivityManager {
             extension in FileMimeType.imageExtensions -> {
                 addTypeFile(imageFiles, documentHolder)
                 imageFilesSize += documentHolder.fileSize
+                totalFileSize += documentHolder.fileSize
             }
             extension in FileMimeType.videoExtensions -> {
                 addTypeFile(videoFiles, documentHolder)
                 videoFilesSize += documentHolder.fileSize
+                totalFileSize += documentHolder.fileSize
             }
             extension in FileMimeType.audioExtensions -> {
                 addTypeFile(audioFiles, documentHolder)
                 audioFilesSize += documentHolder.fileSize
+                totalFileSize += documentHolder.fileSize
             }
             extension in FileMimeType.officeExtensions ->  {
                 addTypeFile(officeFiles, documentHolder)
                 officeFilesSize += documentHolder.fileSize
+                totalFileSize += documentHolder.fileSize
             }
             extension in FileMimeType.archiveExtensions ->  {
                 addTypeFile(archiveFiles, documentHolder)
                 archiveFilesSize += documentHolder.fileSize
+                totalFileSize += documentHolder.fileSize
             }
             extension in FileMimeType.apkExtensions -> {
                 addTypeFile(apkFiles, documentHolder)
                 apkFilesSize += documentHolder.fileSize
+                totalFileSize += documentHolder.fileSize
             }
             extension in FileMimeType.fontExtensions -> {
                 addTypeFile(fontFiles, documentHolder)
                 fontFilesSize += documentHolder.fileSize
+                totalFileSize += documentHolder.fileSize
             }
             extension in FileMimeType.windowsExtensions ->  {
                 addTypeFile(windowsFiles, documentHolder)
                 windowsFilesSize += documentHolder.fileSize
+                totalFileSize += documentHolder.fileSize
             }
             extension in FileMimeType.genericExtensions -> {
                 addTypeFile(genericFiles, documentHolder)
                 genericFilesSize += documentHolder.fileSize
+                totalFileSize += documentHolder.fileSize
             }
             else -> if (!FileMimeType.knownExtensions.contains(extension)){
                 addTypeFile(otherFiles, documentHolder)
                 otherFilesSize += documentHolder.fileSize
+                totalFileSize += documentHolder.fileSize
             }
         }
     }
-
 
 
     // tab显示
