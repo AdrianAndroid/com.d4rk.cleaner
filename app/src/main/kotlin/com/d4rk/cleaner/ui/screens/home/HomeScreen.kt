@@ -89,7 +89,9 @@ import com.d4rk.cleaner.utils.helpers.PermissionsHelper
 import com.d4rk.android.libs.apptoolkit.utils.helpers.ndp
 import com.d4rk.android.libs.apptoolkit.utils.helpers.nsp
 import com.d4rk.cleaner.data.core.AppCoreManager
+import com.d4rk.cleaner.func.holder.DocumentHolder
 import com.d4rk.cleaner.func.holder.StorageDeviceHolder
+import com.d4rk.cleaner.func.tabs.AnalyzeDetailTab
 import com.d4rk.cleaner.func.tabs.AnalyzeFilesTab
 import com.d4rk.cleaner.func.tabs.FilesTab
 import com.d4rk.cleaner.ui.components.texts.MiddleEllipsisText
@@ -194,6 +196,13 @@ fun HomeScreen() {
                         ),
                     )
                 },
+                onClickLeft = {
+                    val list = mutableListOf< DocumentHolder>()
+                    list.addAll(mainActivityManager.emptyFolders)
+                    list.addAll(mainActivityManager.emptyFiles)
+                    mainActivityManager.replaceCurrentTabWith(AnalyzeDetailTab(list))
+                    viewModel.showInternal(true)
+                },
                 rightContent = {
                     ItemCard(
                         imageVector = Icons.Outlined.Android,
@@ -204,6 +213,10 @@ fun HomeScreen() {
                             StorageUtils.formatSize(mainActivityManager.bigFilesSize)
                         ),
                     )
+                },
+                onClickRight = {
+                    mainActivityManager.replaceCurrentTabWith(AnalyzeDetailTab(mainActivityManager.bigFiles))
+                    viewModel.showInternal(true)
                 }
             )
 

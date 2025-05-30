@@ -57,6 +57,7 @@ import com.d4rk.android.libs.apptoolkit.ui.components.modifiers.bounceClick
 import com.d4rk.android.libs.apptoolkit.utils.helpers.ndp
 import com.d4rk.cleaner.R
 import com.d4rk.cleaner.data.core.AppCoreManager
+import com.d4rk.cleaner.func.tabs.AnalyzeDetailTab
 import com.d4rk.cleaner.func.tabs.FilesTab
 import com.d4rk.cleaner.ui.components.ui.Isolate
 import com.d4rk.cleaner.ui.components.ui.Space
@@ -122,7 +123,6 @@ fun ColumnScope.AnalyzeFilesList(tab: FilesTab) {
                 isRefreshing = isRefreshing,
                 onRefresh = {
                     isRefreshing = true
-                    tab.openFolder(tab.activeFolder, true, true)
                     coroutineScope.launch {
                         delay(100)
                         isRefreshing = false
@@ -170,11 +170,11 @@ fun ColumnScope.AnalyzeFilesList(tab: FilesTab) {
                                         toggleSelection()
                                         tab.quickReloadFiles()
                                     } else {
-                                        if (item.isFile) {
-                                            tab.openFile(context, item)
-                                        } else {
-                                            tab.openFolder(item, false)
-                                        }
+//                                        if (item.isFile) {
+//                                            tab.openFile(context, item)
+//                                        } else {
+//                                            tab.openFolder(item, false)
+//                                        }
                                     }
                                 }, onLongClick = {
                                     val isFirstSelection = tab.selectedFiles.isEmpty()
@@ -182,9 +182,9 @@ fun ColumnScope.AnalyzeFilesList(tab: FilesTab) {
 
                                     tab.selectedFiles[currentItemPath] = item
 
-                                    if ((isFirstSelection && preferencesManager.generalPrefs.showFileOptionMenuOnLongClick) || !isNewSelection) tab.fileOptionsDialog.show(
-                                        item
-                                    )
+                                    if ((isFirstSelection && preferencesManager.generalPrefs.showFileOptionMenuOnLongClick) || !isNewSelection) {
+                                        tab.fileOptionsDialog.show(item)
+                                    }
 
                                     if (isNewSelection) {
                                         if (tab.lastSelectedFileIndex >= 0) {
