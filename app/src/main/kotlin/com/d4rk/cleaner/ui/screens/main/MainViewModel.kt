@@ -14,8 +14,8 @@ import androidx.compose.material.icons.outlined.Photo
 import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material.icons.outlined.Share
 import androidx.lifecycle.viewModelScope
-import com.d4rk.android.libs.apptoolkit.data.model.ui.navigation.NavigationDrawerItem
-import com.d4rk.android.libs.apptoolkit.notifications.managers.AppUpdateNotificationsManager
+import com.d4rk.cleaner.apptoolkit.data.model.ui.navigation.NavigationDrawerItem
+import com.d4rk.cleaner.apptoolkit.notifications.managers.AppUpdateNotificationsManager
 import com.d4rk.cleaner.R
 import com.d4rk.cleaner.data.core.AppCoreManager
 import com.d4rk.cleaner.data.model.ui.navigation.BottomNavigationScreen
@@ -65,16 +65,16 @@ class MainViewModel(application : Application) : BaseViewModel(application) {
                     selectedIcon = Icons.Outlined.Delete ,
                 ),
                 NavigationDrawerItem(
-                    title = com.d4rk.android.libs.apptoolkit.R.string.settings ,
+                    title = com.d4rk.cleaner.R.string.settings ,
                     selectedIcon = Icons.Outlined.Settings ,
                 ) , NavigationDrawerItem(
-                    title = com.d4rk.android.libs.apptoolkit.R.string.help_and_feedback ,
+                    title = com.d4rk.cleaner.R.string.help_and_feedback ,
                     selectedIcon = Icons.AutoMirrored.Outlined.HelpOutline ,
                 ) , NavigationDrawerItem(
-                    title = com.d4rk.android.libs.apptoolkit.R.string.updates ,
+                    title = com.d4rk.cleaner.R.string.updates ,
                     selectedIcon = Icons.AutoMirrored.Outlined.EventNote ,
                 ) , NavigationDrawerItem(
-                    title = com.d4rk.android.libs.apptoolkit.R.string.share ,
+                    title = com.d4rk.cleaner.R.string.share ,
                     selectedIcon = Icons.Outlined.Share ,
                 )
             ) , bottomNavigationItems = listOf(
@@ -100,7 +100,7 @@ class MainViewModel(application : Application) : BaseViewModel(application) {
         viewModelScope.launch(context = coroutineExceptionHandler) {
             repository.checkAndHandleStartupRepository { isFirstTime ->
                 if (isFirstTime) {
-                    com.d4rk.android.libs.apptoolkit.utils.helpers.IntentsHelper.openActivity(
+                    com.d4rk.cleaner.apptoolkit.utils.helpers.IntentsHelper.openActivity(
                         context = getApplication() , activityClass = StartupActivity::class.java
                     )
                 }

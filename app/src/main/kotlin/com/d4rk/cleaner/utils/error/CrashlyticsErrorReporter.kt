@@ -1,6 +1,6 @@
 package com.d4rk.cleaner.utils.error
 
-import com.d4rk.android.libs.apptoolkit.utils.interfaces.ErrorReporter
+import com.d4rk.cleaner.apptoolkit.utils.interfaces.ErrorReporter
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 
 class CrashlyticsErrorReporter : ErrorReporter {

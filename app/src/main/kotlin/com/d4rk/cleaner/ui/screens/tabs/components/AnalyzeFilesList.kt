@@ -53,8 +53,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
-import com.d4rk.android.libs.apptoolkit.ui.components.modifiers.bounceClick
-import com.d4rk.android.libs.apptoolkit.utils.helpers.ndp
+import com.d4rk.cleaner.apptoolkit.ui.components.modifiers.bounceClick
+import com.d4rk.cleaner.apptoolkit.utils.helpers.ndp
 import com.d4rk.cleaner.R
 import com.d4rk.cleaner.data.core.AppCoreManager
 import com.d4rk.cleaner.func.tabs.AnalyzeDetailTab

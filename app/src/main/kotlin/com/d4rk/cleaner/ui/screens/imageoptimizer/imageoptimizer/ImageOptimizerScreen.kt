@@ -35,8 +35,8 @@ import androidx.constraintlayout.compose.ConstrainedLayoutReference
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import coil3.compose.AsyncImage
-import com.d4rk.android.libs.apptoolkit.ui.components.navigation.LargeTopAppBarWithScaffold
-import com.d4rk.android.libs.apptoolkit.ui.components.snackbar.Snackbar
+import com.d4rk.cleaner.apptoolkit.ui.components.navigation.LargeTopAppBarWithScaffold
+import com.d4rk.cleaner.apptoolkit.ui.components.snackbar.Snackbar
 import com.d4rk.cleaner.R
 import com.d4rk.cleaner.data.core.AppCoreManager
 import com.d4rk.cleaner.data.datastore.DataStore

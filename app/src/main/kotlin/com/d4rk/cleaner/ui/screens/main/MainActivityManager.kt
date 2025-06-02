@@ -4,7 +4,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import com.d4rk.cleaner.data.core.AppCoreManager
 import androidx.compose.runtime.setValue
-import com.d4rk.android.libs.apptoolkit.utils.helpers.logI
+import com.d4rk.cleaner.apptoolkit.utils.helpers.logI
 import com.d4rk.cleaner.func.holder.DocumentHolder
 import com.d4rk.cleaner.func.misc.FileMimeType
 import com.d4rk.cleaner.func.tabs.Tab

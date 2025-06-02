@@ -7,8 +7,8 @@ import android.os.Build
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.IntentSenderRequest
 import androidx.annotation.RequiresApi
-import com.d4rk.android.libs.apptoolkit.notifications.managers.AppUpdateNotificationsManager
-import com.d4rk.android.libs.apptoolkit.notifications.managers.AppUsageNotificationsManager
+import com.d4rk.cleaner.apptoolkit.notifications.managers.AppUpdateNotificationsManager
+import com.d4rk.cleaner.apptoolkit.notifications.managers.AppUsageNotificationsManager
 import com.d4rk.cleaner.R
 import com.d4rk.cleaner.data.datastore.DataStore
 import com.google.android.play.core.appupdate.AppUpdateInfo

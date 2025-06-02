@@ -21,7 +21,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.d4rk.android.libs.apptoolkit.data.model.ui.navigation.NavigationDrawerItem
+import com.d4rk.cleaner.apptoolkit.data.model.ui.navigation.NavigationDrawerItem
 import com.d4rk.cleaner.data.model.ui.navigation.BottomNavigationScreen
 import com.d4rk.cleaner.data.model.ui.screens.MainScreenState
 import com.d4rk.cleaner.data.model.ui.screens.UiMainScreen

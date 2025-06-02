@@ -17,9 +17,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.d4rk.android.libs.apptoolkit.ui.components.modifiers.bounceClick
-import com.d4rk.android.libs.apptoolkit.ui.components.spacers.ButtonIconSpacer
-import com.d4rk.android.libs.apptoolkit.ui.components.spacers.LargeVerticalSpacer
+import com.d4rk.cleaner.apptoolkit.ui.components.modifiers.bounceClick
+import com.d4rk.cleaner.apptoolkit.ui.components.spacers.ButtonIconSpacer
+import com.d4rk.cleaner.apptoolkit.ui.components.spacers.LargeVerticalSpacer
 import com.d4rk.cleaner.R
 import com.d4rk.cleaner.ui.screens.home.HomeViewModel
 
@@ -49,7 +49,7 @@ fun NoFilesFoundScreen(viewModel : HomeViewModel) {
                     contentDescription = null
                 )
                 ButtonIconSpacer()
-                Text(text = stringResource(id = com.d4rk.android.libs.apptoolkit.R.string.try_again))
+                Text(text = stringResource(id = com.d4rk.cleaner.R.string.try_again))
             }
         }
     }

@@ -52,14 +52,14 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.d4rk.android.libs.apptoolkit.ui.components.buttons.AnimatedExtendedFloatingActionButton
-import com.d4rk.android.libs.apptoolkit.ui.components.modifiers.bounceClick
-import com.d4rk.android.libs.apptoolkit.ui.components.navigation.LargeTopAppBarWithScaffold
-import com.d4rk.android.libs.apptoolkit.ui.components.spacers.LargeHorizontalSpacer
-import com.d4rk.android.libs.apptoolkit.ui.components.spacers.MediumVerticalSpacer
-import com.d4rk.android.libs.apptoolkit.ui.components.spacers.SmallVerticalSpacer
-import com.d4rk.android.libs.apptoolkit.utils.helpers.IntentsHelper
-import com.d4rk.android.libs.apptoolkit.utils.rememberHtmlData
+import com.d4rk.cleaner.apptoolkit.ui.components.buttons.AnimatedExtendedFloatingActionButton
+import com.d4rk.cleaner.apptoolkit.ui.components.modifiers.bounceClick
+import com.d4rk.cleaner.apptoolkit.ui.components.navigation.LargeTopAppBarWithScaffold
+import com.d4rk.cleaner.apptoolkit.ui.components.spacers.LargeHorizontalSpacer
+import com.d4rk.cleaner.apptoolkit.ui.components.spacers.MediumVerticalSpacer
+import com.d4rk.cleaner.apptoolkit.ui.components.spacers.SmallVerticalSpacer
+import com.d4rk.cleaner.apptoolkit.utils.helpers.IntentsHelper
+import com.d4rk.cleaner.apptoolkit.utils.rememberHtmlData
 import com.d4rk.cleaner.BuildConfig
 import com.d4rk.cleaner.R
 import com.d4rk.cleaner.data.model.ui.screens.UiHelpQuestion
@@ -88,7 +88,7 @@ fun HelpScreen(activity : Activity , viewModel : HelpViewModel) {
     }
 
     LargeTopAppBarWithScaffold(
-        title = stringResource(id = com.d4rk.android.libs.apptoolkit.R.string.help),
+        title = stringResource(id = com.d4rk.cleaner.R.string.help),
         onBackClicked = { activity.finish() },
         actions = {
             HelpScreenMenuActions(
@@ -110,7 +110,7 @@ fun HelpScreen(activity : Activity , viewModel : HelpViewModel) {
                     )
                     viewModel.requestReviewFlow()
                 }
-            } , text = { Text(text = stringResource(id = com.d4rk.android.libs.apptoolkit.R.string.feedback)) } , icon = {
+            } , text = { Text(text = stringResource(id = com.d4rk.cleaner.R.string.feedback)) } , icon = {
                 Icon(
                     Icons.Outlined.RateReview , contentDescription = null
                 )
@@ -120,7 +120,7 @@ fun HelpScreen(activity : Activity , viewModel : HelpViewModel) {
     ) { paddingValues ->
         LazyColumn(modifier = Modifier.fillMaxSize() , contentPadding = PaddingValues(top = paddingValues.calculateTopPadding() , bottom = paddingValues.calculateBottomPadding() , start = 16.dp , end = 16.dp)) {
             item {
-                Text(text = stringResource(id = com.d4rk.android.libs.apptoolkit.R.string.popular_help_resources))
+                Text(text = stringResource(id = com.d4rk.cleaner.R.string.popular_help_resources))
 
                 MediumVerticalSpacer()
 
@@ -218,8 +218,8 @@ fun ContactUsCard(onClick : () -> Unit) {
                         .weight(1f)
                         .fillMaxHeight()
             ) {
-                Text(text = stringResource(id = com.d4rk.android.libs.apptoolkit.R.string.contact_us))
-                Text(text = stringResource(id = com.d4rk.android.libs.apptoolkit.R.string.contact_us_description))
+                Text(text = stringResource(id = com.d4rk.cleaner.R.string.contact_us))
+                Text(text = stringResource(id = com.d4rk.cleaner.R.string.contact_us_description))
             }
         }
     }

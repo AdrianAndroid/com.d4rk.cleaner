@@ -16,7 +16,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import com.d4rk.android.libs.apptoolkit.notifications.managers.AppUpdateNotificationsManager
+import com.d4rk.cleaner.apptoolkit.notifications.managers.AppUpdateNotificationsManager
 import com.d4rk.cleaner.data.core.AppCoreManager
 import com.d4rk.cleaner.ui.screens.settings.display.theme.style.AppTheme
 import com.google.android.gms.ads.MobileAds
@@ -80,7 +80,7 @@ class MainActivity : AppCompatActivity() {
     @Deprecated("Deprecated in Java")
     @Suppress("DEPRECATION")
     override fun onBackPressed() {
-        MaterialAlertDialogBuilder(this).setTitle(com.d4rk.android.libs.apptoolkit.R.string.close).setMessage(com.d4rk.android.libs.apptoolkit.R.string.summary_close).setPositiveButton(android.R.string.yes) { _ , _ ->
+        MaterialAlertDialogBuilder(this).setTitle(com.d4rk.cleaner.R.string.close).setMessage(com.d4rk.cleaner.R.string.summary_close).setPositiveButton(android.R.string.yes) { _ , _ ->
             super.onBackPressed()
             moveTaskToBack(true)
         }.setNegativeButton(android.R.string.no , null).apply { show() }
@@ -129,7 +129,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun showUpdateSuccessfulSnackbar() {
         val snackbar : Snackbar = Snackbar.make(
-            findViewById(android.R.id.content) , com.d4rk.android.libs.apptoolkit.R.string.snack_app_updated , Snackbar.LENGTH_LONG
+            findViewById(android.R.id.content) , com.d4rk.cleaner.R.string.snack_app_updated , Snackbar.LENGTH_LONG
         ).setAction(android.R.string.ok , null)
         snackbar.show()
     }
@@ -143,8 +143,8 @@ class MainActivity : AppCompatActivity() {
      */
     private fun showUpdateFailedSnackbar() {
         val snackbar : Snackbar = Snackbar.make(
-            findViewById(android.R.id.content) , com.d4rk.android.libs.apptoolkit.R.string.snack_update_failed , Snackbar.LENGTH_LONG
-        ).setAction(com.d4rk.android.libs.apptoolkit.R.string.try_again) {
+            findViewById(android.R.id.content) , com.d4rk.cleaner.R.string.snack_update_failed , Snackbar.LENGTH_LONG
+        ).setAction(com.d4rk.cleaner.R.string.try_again) {
             viewModel.checkForUpdates(
                 appUpdateManager = appUpdateManager , updateResultLauncher = updateResultLauncher
             )

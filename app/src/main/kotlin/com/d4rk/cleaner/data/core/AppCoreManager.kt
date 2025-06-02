@@ -9,9 +9,9 @@ import android.widget.Toast
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.OnLifecycleEvent
 import androidx.lifecycle.ProcessLifecycleOwner
-import com.d4rk.android.libs.apptoolkit.data.core.BaseCoreManager
-import com.d4rk.android.libs.apptoolkit.data.core.ads.AdsCoreManager
-import com.d4rk.android.libs.apptoolkit.utils.error.ErrorHandler
+import com.d4rk.cleaner.apptoolkit.data.core.BaseCoreManager
+import com.d4rk.cleaner.apptoolkit.data.core.ads.AdsCoreManager
+import com.d4rk.cleaner.apptoolkit.utils.error.ErrorHandler
 import com.d4rk.cleaner.utils.constants.ads.AdsConstants
 import com.d4rk.cleaner.data.datastore.DataStore
 import com.d4rk.cleaner.func.holder.DocumentHolder

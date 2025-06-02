@@ -27,8 +27,8 @@ import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.d4rk.android.libs.apptoolkit.ui.components.modifiers.bounceClick
-import com.d4rk.android.libs.apptoolkit.utils.helpers.ndp
+import com.d4rk.cleaner.apptoolkit.ui.components.modifiers.bounceClick
+import com.d4rk.cleaner.apptoolkit.utils.helpers.ndp
 import com.d4rk.cleaner.R
 import com.d4rk.cleaner.data.model.ui.memorymanager.StorageInfo
 

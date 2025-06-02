@@ -1,6 +1,6 @@
 package com.d4rk.cleaner.utils.providers
 
-import com.d4rk.android.libs.apptoolkit.utils.interfaces.providers.AdvancedSettingsProvider
+import com.d4rk.cleaner.apptoolkit.utils.interfaces.providers.AdvancedSettingsProvider
 import com.d4rk.cleaner.data.core.AppCoreManager
 
 class AppAdvancedSettingsProvider : AdvancedSettingsProvider {

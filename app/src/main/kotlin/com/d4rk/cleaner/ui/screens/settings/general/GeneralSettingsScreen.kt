@@ -2,13 +2,13 @@ package com.d4rk.cleaner.ui.screens.settings.general
 
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
-import com.d4rk.android.libs.apptoolkit.ui.components.navigation.LargeTopAppBarWithScaffold
-import com.d4rk.android.libs.apptoolkit.ui.screens.settings.about.AboutSettingsList
-import com.d4rk.android.libs.apptoolkit.ui.screens.settings.advanced.AdvancedSettingsList
-import com.d4rk.android.libs.apptoolkit.ui.screens.settings.display.DisplaySettingsList
-import com.d4rk.android.libs.apptoolkit.ui.screens.settings.display.theme.ThemeSettingsList
-import com.d4rk.android.libs.apptoolkit.ui.screens.settings.privacy.PrivacySettingsList
-import com.d4rk.android.libs.apptoolkit.ui.screens.settings.privacy.usage.UsageAndDiagnosticsList
+import com.d4rk.cleaner.apptoolkit.ui.components.navigation.LargeTopAppBarWithScaffold
+import com.d4rk.cleaner.apptoolkit.ui.screens.settings.about.AboutSettingsList
+import com.d4rk.cleaner.apptoolkit.ui.screens.settings.advanced.AdvancedSettingsList
+import com.d4rk.cleaner.apptoolkit.ui.screens.settings.display.DisplaySettingsList
+import com.d4rk.cleaner.apptoolkit.ui.screens.settings.display.theme.ThemeSettingsList
+import com.d4rk.cleaner.apptoolkit.ui.screens.settings.privacy.PrivacySettingsList
+import com.d4rk.cleaner.apptoolkit.ui.screens.settings.privacy.usage.UsageAndDiagnosticsList
 import com.d4rk.cleaner.ui.screens.settings.cleaning.CleaningSettingsList
 import com.d4rk.cleaner.utils.providers.AppAboutSettingsProvider
 import com.d4rk.cleaner.utils.providers.AppAdvancedSettingsProvider

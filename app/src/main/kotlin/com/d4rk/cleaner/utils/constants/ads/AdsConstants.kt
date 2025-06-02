@@ -1,6 +1,6 @@
 package com.d4rk.cleaner.utils.constants.ads
 
-import com.d4rk.android.libs.apptoolkit.utils.constants.ads.DebugAdsConstants
+import com.d4rk.cleaner.apptoolkit.utils.constants.ads.DebugAdsConstants
 import com.d4rk.cleaner.BuildConfig
 
 object AdsConstants {

@@ -9,15 +9,15 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import com.d4rk.android.libs.apptoolkit.ui.components.navigation.LargeTopAppBarWithScaffold
-import com.d4rk.android.libs.apptoolkit.ui.components.preferences.PreferenceCategoryItem
-import com.d4rk.android.libs.apptoolkit.ui.components.preferences.PreferenceItem
+import com.d4rk.cleaner.apptoolkit.ui.components.navigation.LargeTopAppBarWithScaffold
+import com.d4rk.cleaner.apptoolkit.ui.components.preferences.PreferenceCategoryItem
+import com.d4rk.cleaner.apptoolkit.ui.components.preferences.PreferenceItem
 import com.d4rk.cleaner.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PermissionsSettingsScreen(activity : AppCompatActivity) {
-    LargeTopAppBarWithScaffold(title = activity.getString(com.d4rk.android.libs.apptoolkit.R.string.permissions) , onBackClicked = {
+    LargeTopAppBarWithScaffold(title = activity.getString(com.d4rk.cleaner.R.string.permissions) , onBackClicked = {
         activity.finish()
     }) { paddingValues ->
         PermissionsSettingsList(paddingValues = paddingValues)
@@ -32,7 +32,7 @@ fun PermissionsSettingsList(paddingValues : PaddingValues) {
                 .padding(paddingValues),
     ) {
         item {
-            PreferenceCategoryItem(title = stringResource(id = com.d4rk.android.libs.apptoolkit.R.string.normal))
+            PreferenceCategoryItem(title = stringResource(id = com.d4rk.cleaner.R.string.normal))
             PreferenceItem(
                 title = stringResource(id = R.string.ad_id),
                 summary = stringResource(id = R.string.summary_preference_permissions_ad_id),
@@ -47,7 +47,7 @@ fun PermissionsSettingsList(paddingValues : PaddingValues) {
             )
         }
         item {
-            PreferenceCategoryItem(title = stringResource(id = com.d4rk.android.libs.apptoolkit.R.string.runtime))
+            PreferenceCategoryItem(title = stringResource(id = com.d4rk.cleaner.R.string.runtime))
             PreferenceItem(
                 title = stringResource(id = R.string.access_network_state),
                 summary = stringResource(id = R.string.summary_preference_permissions_access_network_state),
@@ -74,7 +74,7 @@ fun PermissionsSettingsList(paddingValues : PaddingValues) {
             )
         }
         item {
-            PreferenceCategoryItem(title = stringResource(id = com.d4rk.android.libs.apptoolkit.R.string.storage))
+            PreferenceCategoryItem(title = stringResource(id = com.d4rk.cleaner.R.string.storage))
             PreferenceItem(
                 title = stringResource(id = R.string.access_media_location),
                 summary = stringResource(id = R.string.summary_preference_permissions_access_media_location),

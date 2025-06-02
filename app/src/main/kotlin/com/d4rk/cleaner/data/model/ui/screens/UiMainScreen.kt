@@ -1,6 +1,6 @@
 package com.d4rk.cleaner.data.model.ui.screens
 
-import com.d4rk.android.libs.apptoolkit.data.model.ui.navigation.NavigationDrawerItem
+import com.d4rk.cleaner.apptoolkit.data.model.ui.navigation.NavigationDrawerItem
 import com.d4rk.cleaner.data.model.ui.navigation.BottomNavigationScreen
 
 data class UiMainScreen(

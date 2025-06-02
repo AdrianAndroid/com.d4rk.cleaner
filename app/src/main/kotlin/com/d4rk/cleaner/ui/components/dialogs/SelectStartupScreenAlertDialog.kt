@@ -28,7 +28,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.d4rk.android.libs.apptoolkit.ui.components.spacers.MediumVerticalSpacer
+import com.d4rk.cleaner.apptoolkit.ui.components.spacers.MediumVerticalSpacer
 import com.d4rk.cleaner.R
 import com.d4rk.cleaner.utils.constants.ui.bottombar.BottomBarRoutes
 import com.d4rk.cleaner.data.datastore.DataStore
@@ -70,7 +70,7 @@ fun SelectStartupScreenAlertDialogContent(
     }
 
     Column {
-        Text(text = stringResource(id = com.d4rk.android.libs.apptoolkit.R.string.dialog_startup_subtitle))
+        Text(text = stringResource(id = com.d4rk.cleaner.R.string.dialog_startup_subtitle))
         Box(
             modifier = Modifier.fillMaxWidth()
         ) {
@@ -92,7 +92,7 @@ fun SelectStartupScreenAlertDialogContent(
         Spacer(modifier = Modifier.height(height = 24.dp))
         Icon(imageVector = Icons.Outlined.Info , contentDescription = null)
         MediumVerticalSpacer()
-        Text(text = stringResource(id = com.d4rk.android.libs.apptoolkit.R.string.dialog_info_startup))
+        Text(text = stringResource(id = com.d4rk.cleaner.R.string.dialog_info_startup))
     }
 
     LaunchedEffect(key1 = selectedPage.value) {

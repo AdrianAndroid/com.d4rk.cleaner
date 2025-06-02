@@ -17,9 +17,9 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.d4rk.android.libs.apptoolkit.ui.components.modifiers.bounceClick
-import com.d4rk.android.libs.apptoolkit.ui.components.modifiers.hapticDrawerSwipe
-import com.d4rk.android.libs.apptoolkit.ui.components.spacers.LargeVerticalSpacer
+import com.d4rk.cleaner.apptoolkit.ui.components.modifiers.bounceClick
+import com.d4rk.cleaner.apptoolkit.ui.components.modifiers.hapticDrawerSwipe
+import com.d4rk.cleaner.apptoolkit.ui.components.spacers.LargeVerticalSpacer
 import com.d4rk.cleaner.R
 import com.d4rk.cleaner.data.model.ui.screens.MainScreenState
 import com.d4rk.cleaner.ui.screens.main.MainScaffoldContent
@@ -51,7 +51,7 @@ fun NavigationDrawer(
 
 @Composable
 private fun NavigationDrawerItemContent(
-    item : com.d4rk.android.libs.apptoolkit.data.model.ui.navigation.NavigationDrawerItem , coroutineScope : CoroutineScope , drawerState : DrawerState , context : Context
+    item : com.d4rk.cleaner.apptoolkit.data.model.ui.navigation.NavigationDrawerItem , coroutineScope : CoroutineScope , drawerState : DrawerState , context : Context
 ) {
     val title = stringResource(id = item.title)
     NavigationDrawerItem(label = { Text(text = title) } , selected = false , onClick = {

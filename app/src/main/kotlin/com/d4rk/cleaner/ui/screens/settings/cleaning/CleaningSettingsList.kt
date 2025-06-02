@@ -9,8 +9,8 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import com.d4rk.android.libs.apptoolkit.ui.components.preferences.PreferenceCategoryItem
-import com.d4rk.android.libs.apptoolkit.ui.components.preferences.SwitchPreferenceItem
+import com.d4rk.cleaner.apptoolkit.ui.components.preferences.PreferenceCategoryItem
+import com.d4rk.cleaner.apptoolkit.ui.components.preferences.SwitchPreferenceItem
 import com.d4rk.cleaner.R
 import com.d4rk.cleaner.data.core.AppCoreManager
 import com.d4rk.cleaner.data.datastore.DataStore

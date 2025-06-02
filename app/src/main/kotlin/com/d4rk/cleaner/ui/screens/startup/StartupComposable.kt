@@ -33,8 +33,8 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
-import com.d4rk.android.libs.apptoolkit.ui.components.modifiers.bounceClick
-import com.d4rk.android.libs.apptoolkit.ui.components.navigation.TopAppBarScaffold
+import com.d4rk.cleaner.apptoolkit.ui.components.modifiers.bounceClick
+import com.d4rk.cleaner.apptoolkit.ui.components.navigation.TopAppBarScaffold
 import com.d4rk.cleaner.R
 import com.d4rk.cleaner.ui.screens.main.MainActivity
 
@@ -43,8 +43,8 @@ fun StartupComposable(activity : StartupActivity) {
     val context : Context = LocalContext.current
     val fabEnabled : MutableState<Boolean> = remember { mutableStateOf(value = false) }
     LaunchedEffect(context) {
-        if (! com.d4rk.android.libs.apptoolkit.utils.helpers.PermissionsHelper.hasNotificationPermission(context)) {
-            com.d4rk.android.libs.apptoolkit.utils.helpers.PermissionsHelper.requestNotificationPermission(context as Activity)
+        if (! com.d4rk.cleaner.apptoolkit.utils.helpers.PermissionsHelper.hasNotificationPermission(context)) {
+            com.d4rk.cleaner.apptoolkit.utils.helpers.PermissionsHelper.requestNotificationPermission(context as Activity)
         }
         activity.consentFormShown.collect { shown ->
             fabEnabled.value = shown
@@ -52,7 +52,7 @@ fun StartupComposable(activity : StartupActivity) {
     }
 
     TopAppBarScaffold(
-        title = stringResource(id = com.d4rk.android.libs.apptoolkit.R.string.welcome) ,
+        title = stringResource(id = com.d4rk.cleaner.R.string.welcome) ,
     ) { paddingValues ->
         Box(
             modifier = Modifier
@@ -76,7 +76,7 @@ fun StartupComposable(activity : StartupActivity) {
                 }
                 item {
                     Text(
-                        text = stringResource(id = com.d4rk.android.libs.apptoolkit.R.string.summary_browse_terms_of_service_and_privacy_policy) ,
+                        text = stringResource(id = com.d4rk.cleaner.R.string.summary_browse_terms_of_service_and_privacy_policy) ,
                         modifier = Modifier.padding(top = 24.dp , bottom = 24.dp)
                     )
                     val annotatedString : AnnotatedString = buildAnnotatedString {
@@ -87,7 +87,7 @@ fun StartupComposable(activity : StartupActivity) {
                                 textDecoration = TextDecoration.Underline
                             )
                         ) {
-                            append(stringResource(id = com.d4rk.android.libs.apptoolkit.R.string.learn_more))
+                            append(stringResource(id = com.d4rk.cleaner.R.string.learn_more))
                         }
                         val endIndex : Int = length
 
@@ -107,7 +107,7 @@ fun StartupComposable(activity : StartupActivity) {
                                         )
                                         .firstOrNull()
                                         ?.let { annotation ->
-                                            com.d4rk.android.libs.apptoolkit.utils.helpers.IntentsHelper.openUrl(
+                                            com.d4rk.cleaner.apptoolkit.utils.helpers.IntentsHelper.openUrl(
                                                 context = context ,
                                                 url = annotation.item
                                             )
@@ -125,9 +125,9 @@ fun StartupComposable(activity : StartupActivity) {
                                          else {
                                              Gray
                                          } ,
-                                         text = { Text(text = stringResource(id = com.d4rk.android.libs.apptoolkit.R.string.agree)) } ,
+                                         text = { Text(text = stringResource(id = com.d4rk.cleaner.R.string.agree)) } ,
                                          onClick = {
-                                             com.d4rk.android.libs.apptoolkit.utils.helpers.IntentsHelper.openActivity(
+                                             com.d4rk.cleaner.apptoolkit.utils.helpers.IntentsHelper.openActivity(
                                                  context , MainActivity::class.java
                                              )
                                          } ,

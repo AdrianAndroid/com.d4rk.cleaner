@@ -24,10 +24,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import com.d4rk.android.libs.apptoolkit.ui.components.buttons.AnimatedButtonDirection
-import com.d4rk.android.libs.apptoolkit.ui.components.dialogs.VersionInfoAlertDialog
-import com.d4rk.android.libs.apptoolkit.ui.components.modifiers.bounceClick
-import com.d4rk.android.libs.apptoolkit.utils.helpers.IntentsHelper
+import com.d4rk.cleaner.apptoolkit.ui.components.buttons.AnimatedButtonDirection
+import com.d4rk.cleaner.apptoolkit.ui.components.dialogs.VersionInfoAlertDialog
+import com.d4rk.cleaner.apptoolkit.ui.components.modifiers.bounceClick
+import com.d4rk.cleaner.apptoolkit.utils.helpers.IntentsHelper
 import com.d4rk.cleaner.BuildConfig
 import com.d4rk.cleaner.R
 
@@ -54,7 +54,7 @@ fun HelpScreenMenuActions(
     }) {
         DropdownMenuItem(
             modifier = Modifier.bounceClick(),
-            text = { Text(text = stringResource(id = com.d4rk.android.libs.apptoolkit.R.string.view_in_google_play_store)) },
+            text = { Text(text = stringResource(id = com.d4rk.cleaner.R.string.view_in_google_play_store)) },
             leadingIcon = { Icon(imageVector = Icons.Outlined.Shop, contentDescription = null) },
             onClick = {
                 view.playSoundEffect(SoundEffectConstants.CLICK)
@@ -65,7 +65,7 @@ fun HelpScreenMenuActions(
         )
         DropdownMenuItem(
             modifier = Modifier.bounceClick(),
-            text = { Text(text = stringResource(id = com.d4rk.android.libs.apptoolkit.R.string.version_info)) },
+            text = { Text(text = stringResource(id = com.d4rk.cleaner.R.string.version_info)) },
             leadingIcon = { Icon(imageVector = Icons.Outlined.Info, contentDescription = null) },
             onClick = {
                 view.playSoundEffect(SoundEffectConstants.CLICK)
@@ -74,7 +74,7 @@ fun HelpScreenMenuActions(
         )
         DropdownMenuItem(
             modifier = Modifier.bounceClick(),
-            text = { Text(text = stringResource(id = com.d4rk.android.libs.apptoolkit.R.string.beta_program)) },
+            text = { Text(text = stringResource(id = com.d4rk.cleaner.R.string.beta_program)) },
             leadingIcon = { Icon(imageVector = Icons.Outlined.Science, contentDescription = null) },
             onClick = {
                 view.playSoundEffect(SoundEffectConstants.CLICK)
@@ -85,7 +85,7 @@ fun HelpScreenMenuActions(
         )
         DropdownMenuItem(
             modifier = Modifier.bounceClick(),
-            text = { Text(text = stringResource(id = com.d4rk.android.libs.apptoolkit.R.string.terms_of_service)) },
+            text = { Text(text = stringResource(id = com.d4rk.cleaner.R.string.terms_of_service)) },
             leadingIcon = { Icon(imageVector = Icons.Outlined.Description, contentDescription = null) },
             onClick = {
                 view.playSoundEffect(SoundEffectConstants.CLICK)
@@ -94,7 +94,7 @@ fun HelpScreenMenuActions(
         )
         DropdownMenuItem(
             modifier = Modifier.bounceClick(),
-            text = { Text(text = stringResource(id = com.d4rk.android.libs.apptoolkit.R.string.privacy_policy)) },
+            text = { Text(text = stringResource(id = com.d4rk.cleaner.R.string.privacy_policy)) },
             leadingIcon = { Icon(imageVector = Icons.Outlined.PrivacyTip, contentDescription = null) },
             onClick = {
                 view.playSoundEffect(SoundEffectConstants.CLICK)
@@ -103,7 +103,7 @@ fun HelpScreenMenuActions(
         )
         DropdownMenuItem(
             modifier = Modifier.bounceClick(),
-            text = { Text(text = stringResource(id = com.d4rk.android.libs.apptoolkit.R.string.oss_license_title)) },
+            text = { Text(text = stringResource(id = com.d4rk.cleaner.R.string.oss_license_title)) },
             leadingIcon = { Icon(Icons.Outlined.Balance, contentDescription = null) },
             onClick = {
                 view.playSoundEffect(SoundEffectConstants.CLICK)
@@ -126,7 +126,7 @@ fun HelpScreenMenuActions(
             copyrightString = R.string.copyright,
             appName = R.string.app_full_name,
             versionName = BuildConfig.VERSION_NAME,
-            versionString = com.d4rk.android.libs.apptoolkit.R.string.version
+            versionString = com.d4rk.cleaner.R.string.version
         )
     }
 }

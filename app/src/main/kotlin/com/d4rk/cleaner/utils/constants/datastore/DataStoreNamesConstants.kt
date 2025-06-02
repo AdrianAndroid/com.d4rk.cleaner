@@ -1,6 +1,6 @@
 package com.d4rk.cleaner.utils.constants.datastore
 
-import com.d4rk.android.libs.apptoolkit.utils.constants.datastore.DataStoreNamesConstants
+import com.d4rk.cleaner.apptoolkit.utils.constants.datastore.DataStoreNamesConstants
 
 object AppDataStoreConstants : DataStoreNamesConstants() {
     const val DATA_STORE_STARTUP_PAGE = "startup_page"

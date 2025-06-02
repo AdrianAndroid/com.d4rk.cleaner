@@ -27,7 +27,7 @@ import coil3.ImageLoader
 import coil3.disk.DiskCache
 import coil3.disk.directory
 import coil3.memory.MemoryCache
-import com.d4rk.android.libs.apptoolkit.ui.components.navigation.LargeTopAppBarWithScaffold
+import com.d4rk.cleaner.apptoolkit.ui.components.navigation.LargeTopAppBarWithScaffold
 import com.d4rk.cleaner.R
 import com.d4rk.cleaner.data.model.ui.screens.UiTrashModel
 import com.d4rk.cleaner.ui.components.buttons.TwoRowButtons

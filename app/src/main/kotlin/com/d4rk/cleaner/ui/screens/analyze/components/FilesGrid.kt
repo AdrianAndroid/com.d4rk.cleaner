@@ -9,7 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import coil3.ImageLoader
-import com.d4rk.android.libs.apptoolkit.utils.helpers.ScreenHelper
+import com.d4rk.cleaner.apptoolkit.utils.helpers.ScreenHelper
 import com.d4rk.cleaner.ui.components.layouts.NonLazyGrid
 import java.io.File
 

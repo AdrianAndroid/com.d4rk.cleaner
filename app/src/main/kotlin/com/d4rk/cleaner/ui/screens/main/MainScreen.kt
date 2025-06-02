@@ -19,7 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.navigation.compose.rememberNavController
-import com.d4rk.android.libs.apptoolkit.utils.helpers.ScreenHelper
+import com.d4rk.cleaner.apptoolkit.utils.helpers.ScreenHelper
 import com.d4rk.cleaner.data.core.AppCoreManager
 import com.d4rk.cleaner.data.model.ui.screens.MainScreenState
 import com.d4rk.cleaner.ui.components.navigation.BottomNavigationBar
@@ -48,33 +48,40 @@ fun MainScreen(viewModel : MainViewModel) {
 
     if (isTabletOrLandscape) {
         MainScaffoldTabletContent(mainScreenState = mainScreenState)
-    }
-    else {
-        NavigationDrawer(
-            mainScreenState = mainScreenState
-        )
+    } else {
+        NavigationDrawer(mainScreenState = mainScreenState)
     }
 }
 
 @Composable
-fun MainScaffoldContent(
-    mainScreenState : MainScreenState , coroutineScope : CoroutineScope
-) {
-    Scaffold(modifier = Modifier.imePadding() , topBar = {
-        TopAppBarMain(context = mainScreenState.context , navigationIcon = if (mainScreenState.drawerState.isOpen) Icons.AutoMirrored.Outlined.MenuOpen else Icons.Default.Menu , onNavigationIconClick = {
-            coroutineScope.launch {
-                mainScreenState.drawerState.apply {
-                    if (isClosed) open() else close()
-                }
-            }
-        })
-    } , bottomBar = {
-        BottomNavigationBar(
-            navController = mainScreenState.navHostController , dataStore = mainScreenState.dataStore , view = mainScreenState.view , viewModel = mainScreenState.viewModel
-        )
-    }) { paddingValues ->
+fun MainScaffoldContent(mainScreenState: MainScreenState, coroutineScope: CoroutineScope) {
+    Scaffold(
+        modifier = Modifier.imePadding(),
+        topBar = {
+            TopAppBarMain(
+                context = mainScreenState.context,
+                navigationIcon = if (mainScreenState.drawerState.isOpen) Icons.AutoMirrored.Outlined.MenuOpen else Icons.Default.Menu,
+                onNavigationIconClick = {
+                    coroutineScope.launch {
+                        mainScreenState.drawerState.apply {
+                            if (isClosed) open() else close()
+                        }
+                    }
+                })
+        },
+        bottomBar = {
+            BottomNavigationBar(
+                navController = mainScreenState.navHostController,
+                dataStore = mainScreenState.dataStore,
+                view = mainScreenState.view,
+                viewModel = mainScreenState.viewModel
+            )
+        }
+    ) { paddingValues ->
         NavigationHost(
-            navHostController = mainScreenState.navHostController , dataStore = mainScreenState.dataStore , paddingValues = paddingValues
+            navHostController = mainScreenState.navHostController,
+            dataStore = mainScreenState.dataStore,
+            paddingValues = paddingValues
         )
     }
 }

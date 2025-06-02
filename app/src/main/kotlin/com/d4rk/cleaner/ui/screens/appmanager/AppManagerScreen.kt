@@ -60,10 +60,10 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil3.compose.AsyncImage
-import com.d4rk.android.libs.apptoolkit.data.model.ui.error.UiErrorModel
-import com.d4rk.android.libs.apptoolkit.ui.components.dialogs.ErrorAlertDialog
-import com.d4rk.android.libs.apptoolkit.ui.components.layouts.LoadingScreen
-import com.d4rk.android.libs.apptoolkit.ui.components.modifiers.bounceClick
+import com.d4rk.cleaner.apptoolkit.data.model.ui.error.UiErrorModel
+import com.d4rk.cleaner.apptoolkit.ui.components.dialogs.ErrorAlertDialog
+import com.d4rk.cleaner.apptoolkit.ui.components.layouts.LoadingScreen
+import com.d4rk.cleaner.apptoolkit.ui.components.modifiers.bounceClick
 import com.d4rk.cleaner.R
 import com.d4rk.cleaner.data.model.ui.appmanager.ui.ApkInfo
 import com.d4rk.cleaner.data.model.ui.screens.UiAppManagerModel
@@ -290,7 +290,7 @@ fun AppItemComposable(
                         viewModel.uninstallApp(app.packageName)
                     })
                     DropdownMenuItem(modifier = Modifier.bounceClick() ,
-                                     text = { Text(text = stringResource(id = com.d4rk.android.libs.apptoolkit.R.string.share)) } ,
+                                     text = { Text(text = stringResource(id = com.d4rk.cleaner.R.string.share)) } ,
                                      onClick = {
                                          view.playSoundEffect(SoundEffectConstants.CLICK)
                                          viewModel.shareApp(app.packageName)
@@ -413,7 +413,7 @@ fun ApkItemComposable(
                     showMenu = false
                 }) {
                     DropdownMenuItem(modifier = Modifier.bounceClick() ,
-                                     text = { Text(stringResource(id = com.d4rk.android.libs.apptoolkit.R.string.share)) } ,
+                                     text = { Text(stringResource(id = com.d4rk.cleaner.R.string.share)) } ,
                                      onClick = {
                                          view.playSoundEffect(SoundEffectConstants.CLICK)
                                          viewModel.shareApk(apkPath)

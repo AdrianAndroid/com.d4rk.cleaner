@@ -2,7 +2,7 @@ package com.d4rk.cleaner.ui.screens.home
 
 import android.app.Application
 import androidx.lifecycle.viewModelScope
-import com.d4rk.android.libs.apptoolkit.utils.helpers.logI
+import com.d4rk.cleaner.apptoolkit.utils.helpers.logI
 import com.d4rk.cleaner.data.core.AppCoreManager
 import com.d4rk.cleaner.data.model.ui.screens.FileTypesData
 import com.d4rk.cleaner.data.model.ui.screens.UiHomeModel

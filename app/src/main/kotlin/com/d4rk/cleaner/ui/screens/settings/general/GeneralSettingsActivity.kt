@@ -31,7 +31,7 @@ class GeneralSettingsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
-        val title = intent.getStringExtra(EXTRA_TITLE) ?: getString(com.d4rk.android.libs.apptoolkit.R.string.settings)
+        val title = intent.getStringExtra(EXTRA_TITLE) ?: getString(com.d4rk.cleaner.R.string.settings)
         val content = intent.getStringExtra(EXTRA_CONTENT)?.let { SettingsContent.valueOf(it) }
 
         setContent {

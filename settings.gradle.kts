@@ -22,4 +22,4 @@ pluginManagement {
 
 rootProject.name = "Cleaner for Android"
 include(":app")
-include(":apptoolkit")
+//include(":apptoolkit")

@@ -51,15 +51,15 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
-import com.d4rk.android.libs.apptoolkit.ui.components.modifiers.bounceClick
-import com.d4rk.android.libs.apptoolkit.ui.components.navigation.LargeTopAppBarWithScaffold
-import com.d4rk.android.libs.apptoolkit.ui.components.preferences.SettingsPreferenceItem
-import com.d4rk.android.libs.apptoolkit.ui.components.spacers.ButtonIconSpacer
-import com.d4rk.android.libs.apptoolkit.ui.screens.settings.about.AboutSettingsList
-import com.d4rk.android.libs.apptoolkit.ui.screens.settings.advanced.AdvancedSettingsList
-import com.d4rk.android.libs.apptoolkit.ui.screens.settings.display.DisplaySettingsList
-import com.d4rk.android.libs.apptoolkit.ui.screens.settings.privacy.PrivacySettingsList
-import com.d4rk.android.libs.apptoolkit.utils.helpers.ScreenHelper
+import com.d4rk.cleaner.apptoolkit.ui.components.modifiers.bounceClick
+import com.d4rk.cleaner.apptoolkit.ui.components.navigation.LargeTopAppBarWithScaffold
+import com.d4rk.cleaner.apptoolkit.ui.components.preferences.SettingsPreferenceItem
+import com.d4rk.cleaner.apptoolkit.ui.components.spacers.ButtonIconSpacer
+import com.d4rk.cleaner.apptoolkit.ui.screens.settings.about.AboutSettingsList
+import com.d4rk.cleaner.apptoolkit.ui.screens.settings.advanced.AdvancedSettingsList
+import com.d4rk.cleaner.apptoolkit.ui.screens.settings.display.DisplaySettingsList
+import com.d4rk.cleaner.apptoolkit.ui.screens.settings.privacy.PrivacySettingsList
+import com.d4rk.cleaner.apptoolkit.utils.helpers.ScreenHelper
 import com.d4rk.cleaner.R
 import com.d4rk.cleaner.ui.screens.help.HelpActivity
 import com.d4rk.cleaner.ui.screens.settings.cleaning.CleaningSettingsList
@@ -75,7 +75,7 @@ import com.d4rk.cleaner.utils.providers.AppPrivacySettingsProvider
 fun SettingsComposable(activity : SettingsActivity) {
     val context : Context = LocalContext.current
 
-    LargeTopAppBarWithScaffold(title = stringResource(id = com.d4rk.android.libs.apptoolkit.R.string.settings) , onBackClicked = { activity.finish() }) { paddingValues ->
+    LargeTopAppBarWithScaffold(title = stringResource(id = com.d4rk.cleaner.R.string.settings) , onBackClicked = { activity.finish() }) { paddingValues ->
         val isTabletOrLandscape : Boolean = ScreenHelper.isLandscapeOrTablet(context = context)
         if (isTabletOrLandscape) {
             TabletSettingsScreen(paddingValues = paddingValues , context = context)
@@ -90,10 +90,10 @@ fun SettingsComposable(activity : SettingsActivity) {
 fun PhoneSettingsScreen(paddingValues : PaddingValues , context : Context) {
     SettingsList(paddingValues = paddingValues , onPreferenceClick = { preference ->
         when (preference) {
-            "notifications" -> com.d4rk.android.libs.apptoolkit.utils.helpers.IntentsHelper.openAppNotificationSettings(context)
+            "notifications" -> com.d4rk.cleaner.apptoolkit.utils.helpers.IntentsHelper.openAppNotificationSettings(context)
 
             "display" -> GeneralSettingsActivity.start(
-                context , title = context.getString(com.d4rk.android.libs.apptoolkit.R.string.display) , content = SettingsContent.DISPLAY
+                context , title = context.getString(com.d4rk.cleaner.R.string.display) , content = SettingsContent.DISPLAY
             )
 
             "cleaning" -> GeneralSettingsActivity.start(
@@ -101,15 +101,15 @@ fun PhoneSettingsScreen(paddingValues : PaddingValues , context : Context) {
             )
 
             "privacy" -> GeneralSettingsActivity.start(
-                context , title = context.getString(com.d4rk.android.libs.apptoolkit.R.string.security_and_privacy) , content = SettingsContent.PRIVACY
+                context , title = context.getString(com.d4rk.cleaner.R.string.security_and_privacy) , content = SettingsContent.PRIVACY
             )
 
             "advanced" -> GeneralSettingsActivity.start(
-                context , title = context.getString(com.d4rk.android.libs.apptoolkit.R.string.advanced) , content = SettingsContent.ADVANCED
+                context , title = context.getString(com.d4rk.cleaner.R.string.advanced) , content = SettingsContent.ADVANCED
             )
 
             "about" -> GeneralSettingsActivity.start(
-                context , title = context.getString(com.d4rk.android.libs.apptoolkit.R.string.about) , content = SettingsContent.ABOUT
+                context , title = context.getString(com.d4rk.cleaner.R.string.about) , content = SettingsContent.ABOUT
             )
         }
     })
@@ -189,7 +189,7 @@ fun SettingsDetailPlaceholder(paddingValues : PaddingValues) {
                         )
                         Spacer(modifier = Modifier.height(height = 8.dp))
                         Text(
-                            modifier = Modifier.fillMaxWidth() , text = stringResource(id = com.d4rk.android.libs.apptoolkit.R.string.settings_placeholder_description) , style = MaterialTheme.typography.bodyMedium , color = MaterialTheme.colorScheme.onSurfaceVariant , textAlign = TextAlign.Center
+                            modifier = Modifier.fillMaxWidth() , text = stringResource(id = com.d4rk.cleaner.R.string.settings_placeholder_description) , style = MaterialTheme.typography.bodyMedium , color = MaterialTheme.colorScheme.onSurfaceVariant , textAlign = TextAlign.Center
                         )
                     }
 
@@ -197,7 +197,7 @@ fun SettingsDetailPlaceholder(paddingValues : PaddingValues) {
                             .padding(all = 24.dp)
                             .align(Alignment.Start)
                             .bounceClick() , onClick = {
-                        com.d4rk.android.libs.apptoolkit.utils.helpers.IntentsHelper.openActivity(
+                        com.d4rk.cleaner.apptoolkit.utils.helpers.IntentsHelper.openActivity(
                             context = context , activityClass = HelpActivity::class.java
                         )
                     }) {
@@ -205,7 +205,7 @@ fun SettingsDetailPlaceholder(paddingValues : PaddingValues) {
                             imageVector = Icons.AutoMirrored.Outlined.ContactSupport , contentDescription = null
                         )
                         ButtonIconSpacer()
-                        Text(text = stringResource(id = com.d4rk.android.libs.apptoolkit.R.string.get_help))
+                        Text(text = stringResource(id = com.d4rk.cleaner.R.string.get_help))
                     }
                 }
             }
@@ -216,7 +216,7 @@ fun SettingsDetailPlaceholder(paddingValues : PaddingValues) {
 @Composable
 fun SettingsDetail(preference : String , context : Context , paddingValues : PaddingValues) {
     when (preference) {
-        "notifications" -> com.d4rk.android.libs.apptoolkit.utils.helpers.IntentsHelper.openAppNotificationSettings(context)
+        "notifications" -> com.d4rk.cleaner.apptoolkit.utils.helpers.IntentsHelper.openAppNotificationSettings(context)
 
         "display" -> DisplaySettingsList(
             paddingValues = paddingValues , provider = AppDisplaySettingsProvider()
@@ -258,9 +258,9 @@ fun SettingsList(
             Column(modifier = Modifier.run {
                 padding(start = 16.dp , end = 16.dp).clip(RoundedCornerShape(24.dp))
             }) {
-                SettingsPreferenceItem(Icons.Outlined.Notifications , title = stringResource(id = com.d4rk.android.libs.apptoolkit.R.string.notifications) , summary = stringResource(id = com.d4rk.android.libs.apptoolkit.R.string.summary_preference_settings_notifications) , onClick = { onPreferenceClick("notifications") })
+                SettingsPreferenceItem(Icons.Outlined.Notifications , title = stringResource(id = com.d4rk.cleaner.R.string.notifications) , summary = stringResource(id = com.d4rk.cleaner.R.string.summary_preference_settings_notifications) , onClick = { onPreferenceClick("notifications") })
                 Spacer(modifier = Modifier.height(2.dp))
-                SettingsPreferenceItem(Icons.Outlined.Palette , title = stringResource(id = com.d4rk.android.libs.apptoolkit.R.string.display) , summary = stringResource(id = com.d4rk.android.libs.apptoolkit.R.string.summary_preference_settings_display) , onClick = { onPreferenceClick("display") })
+                SettingsPreferenceItem(Icons.Outlined.Palette , title = stringResource(id = com.d4rk.cleaner.R.string.display) , summary = stringResource(id = com.d4rk.cleaner.R.string.summary_preference_settings_display) , onClick = { onPreferenceClick("display") })
             }
             Spacer(modifier = Modifier.height(24.dp))
         }
@@ -287,11 +287,11 @@ fun SettingsList(
                         .padding(start = 16.dp , end = 16.dp)
                         .clip(RoundedCornerShape(24.dp))
             ) {
-                SettingsPreferenceItem(Icons.Outlined.SafetyCheck , title = stringResource(id = com.d4rk.android.libs.apptoolkit.R.string.security_and_privacy) , summary = stringResource(id = com.d4rk.android.libs.apptoolkit.R.string.summary_preference_settings_privacy_and_security) , onClick = { onPreferenceClick("privacy") })
+                SettingsPreferenceItem(Icons.Outlined.SafetyCheck , title = stringResource(id = com.d4rk.cleaner.R.string.security_and_privacy) , summary = stringResource(id = com.d4rk.cleaner.R.string.summary_preference_settings_privacy_and_security) , onClick = { onPreferenceClick("privacy") })
                 Spacer(modifier = Modifier.height(2.dp))
-                SettingsPreferenceItem(Icons.Outlined.Build , title = stringResource(id = com.d4rk.android.libs.apptoolkit.R.string.advanced) , summary = stringResource(id = com.d4rk.android.libs.apptoolkit.R.string.summary_preference_settings_advanced) , onClick = { onPreferenceClick("advanced") })
+                SettingsPreferenceItem(Icons.Outlined.Build , title = stringResource(id = com.d4rk.cleaner.R.string.advanced) , summary = stringResource(id = com.d4rk.cleaner.R.string.summary_preference_settings_advanced) , onClick = { onPreferenceClick("advanced") })
                 Spacer(modifier = Modifier.height(2.dp))
-                SettingsPreferenceItem(Icons.Outlined.Info , title = stringResource(id = com.d4rk.android.libs.apptoolkit.R.string.about) , summary = stringResource(id = R.string.summary_preference_settings_about) , onClick = { onPreferenceClick("about") })
+                SettingsPreferenceItem(Icons.Outlined.Info , title = stringResource(id = com.d4rk.cleaner.R.string.about) , summary = stringResource(id = R.string.summary_preference_settings_about) , onClick = { onPreferenceClick("about") })
             }
         }
     }

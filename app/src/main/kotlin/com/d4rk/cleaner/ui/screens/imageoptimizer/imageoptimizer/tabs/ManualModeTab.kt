@@ -30,7 +30,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import com.d4rk.android.libs.apptoolkit.ui.components.spacers.SmallVerticalSpacer
+import com.d4rk.cleaner.apptoolkit.ui.components.spacers.SmallVerticalSpacer
 import com.d4rk.cleaner.R
 import com.d4rk.cleaner.data.model.ui.imageoptimizer.ImageOptimizerState
 import com.d4rk.cleaner.ui.screens.imageoptimizer.imageoptimizer.ImageOptimizerViewModel
