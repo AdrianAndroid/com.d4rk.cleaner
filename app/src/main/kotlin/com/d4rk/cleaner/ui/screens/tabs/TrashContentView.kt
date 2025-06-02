@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyItemScope
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.RadioButtonChecked
@@ -262,7 +261,7 @@ fun LevelTitle(
     onRadioCheckChanged: (Boolean) -> Unit = {}
 ) {
     var arrowUp by remember { mutableStateOf(trashHolder.isItemSelect) }
-    var radioCheck by remember { mutableStateOf(trashHolder.isSelectAll()) }
+    var radioCheck by remember(trashHolder.isSelectAll()) { mutableStateOf(trashHolder.isSelectAll()) }
     val preferencesManager = AppCoreManager.instance.preferencesManager
     val fontSize = when (preferencesManager.displayPrefs.fileListSize) {
         FilesTabFileListSize.SMALL.ordinal -> FilesTabFileListSizeMap.FontSize.SMALL
@@ -323,7 +322,7 @@ fun LevelTitle(
 }
 
 @Composable
-fun LazyItemScope.LevelSubTitle(
+fun LevelSubTitle(
     documentHolder: DocumentHolder,
     isFileSelected: Boolean,
     onSelectionChanged: (DocumentHolder) -> Unit = {}
@@ -447,7 +446,7 @@ class TrashHolder(
     }
 
     fun isSelectAll() : Boolean {
-        return selectedFiles.size == files.size
+        return selectedFiles.size == files.size && files.isNotEmpty()
     }
 
     fun selectAll(isRadioCheckChange: Boolean) {
