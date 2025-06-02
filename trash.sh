@@ -8,7 +8,7 @@ echo "垃圾文件生成日志 - $(date)"
 # 生成随机目录路径
 generate_random_path() {
     local base_path="$1"
-    local depth=$((RANDOM % 20 + 1))  # 随机生成1-4层目录
+    local depth=$((RANDOM % 10 + 1))  # 随机生成1-4层目录
     local path="$base_path"
     
     for ((i=1; i<=depth; i++)); do
@@ -52,7 +52,7 @@ create_redundant_files() {
     )
     
     # 创建不同类型的冗余文件
-    for i in {1..2}; do
+    for i in {1..20}; do
         local random_path=$(generate_random_path "$BASE_DIR/redundant")
         adb shell "mkdir -p \"$random_path\""
         
@@ -406,7 +406,7 @@ create_large_files() {
 echo "开始生成安卓垃圾文件模拟数据..."
 adb shell "mkdir -p \"$BASE_DIR\""
 
-for i in {1..2}; do
+for i in {1..3}; do
     BASE_DIR="/sdcard/GarbageTest$i"
     create_empty_files
     create_redundant_files

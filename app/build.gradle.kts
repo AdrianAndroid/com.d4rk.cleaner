@@ -105,4 +105,7 @@ dependencies {
 
     implementation(libs.storage)
     implementation(libs.gson)
+
+    debugImplementation("androidx.compose.ui:ui-tooling:1.8.1")
+    releaseImplementation("androidx.compose.ui:ui-tooling-preview:1.8.1")
 }

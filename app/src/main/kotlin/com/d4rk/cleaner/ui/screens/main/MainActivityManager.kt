@@ -97,7 +97,7 @@ class MainActivityManager {
 
     fun analyzeCleanFile(documentHolder: DocumentHolder) {
         val extension = documentHolder.extension()
-        logI { "analyze --> size=${extension} ${documentHolder.fileName()}" }
+//        logI { "analyze --> size=${extension} ${documentHolder.fileName()}" }
         if (documentHolder.isDirectory()) {
             totalDirectoryCount += 1
         } else {

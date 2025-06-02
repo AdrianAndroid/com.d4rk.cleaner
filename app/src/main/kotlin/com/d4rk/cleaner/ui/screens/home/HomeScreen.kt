@@ -94,8 +94,10 @@ import com.d4rk.cleaner.func.holder.StorageDeviceHolder
 import com.d4rk.cleaner.func.tabs.AnalyzeDetailTab
 import com.d4rk.cleaner.func.tabs.AnalyzeFilesTab
 import com.d4rk.cleaner.func.tabs.FilesTab
+import com.d4rk.cleaner.func.tabs.TrashTab
 import com.d4rk.cleaner.ui.components.texts.MiddleEllipsisText
 import com.d4rk.cleaner.ui.screens.tabs.FilesTabContentView
+import com.d4rk.cleaner.ui.screens.tabs.TrashContentView
 import com.d4rk.cleaner.utils.cleaning.StorageUtils
 import com.d4rk.cleaner.utils.extension.toRes
 import com.raival.compose.file.explorer.screen.main.tab.files.provider.StorageProvider
@@ -113,13 +115,13 @@ fun HomeScreen() {
     val viewModel : HomeViewModel = viewModel()
     val uiState : UiHomeModel by viewModel.uiState.collectAsState()
     val uiErrorModel : UiErrorModel by viewModel.uiErrorModel.collectAsState()
-    val imageLoader : ImageLoader = remember {
-        ImageLoader.Builder(context = context).memoryCache {
-            MemoryCache.Builder().maxSizePercent(context = context , percent = 0.24).build()
-        }.diskCache {
-            DiskCache.Builder().directory(directory = context.cacheDir.resolve(relative = "image_cache")).maxSizePercent(percent = 0.02).build()
-        }.build()
-    }
+//    val imageLoader : ImageLoader = remember {
+//        ImageLoader.Builder(context = context).memoryCache {
+//            MemoryCache.Builder().maxSizePercent(context = context , percent = 0.24).build()
+//        }.diskCache {
+//            DiskCache.Builder().directory(directory = context.cacheDir.resolve(relative = "image_cache")).maxSizePercent(percent = 0.02).build()
+//        }.build()
+//    }
     val scrollState = rememberScrollState()
     val mainActivityManager = AppCoreManager.instance.mainActivityManager
 
@@ -147,9 +149,7 @@ fun HomeScreen() {
         FilesTabContentView()
     } else {
         Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .verticalScroll(scrollState),
+            modifier = Modifier.fillMaxSize().verticalScroll(scrollState),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
@@ -159,7 +159,8 @@ fun HomeScreen() {
                     .size(600.ndp())
                     .offset(y = 0.dp),
                 onClick = {
-//                    viewModel.analyze()
+                    mainActivityManager.replaceCurrentTabWith(TrashTab())
+                    viewModel.showInternal(true)
                 }
             )
 

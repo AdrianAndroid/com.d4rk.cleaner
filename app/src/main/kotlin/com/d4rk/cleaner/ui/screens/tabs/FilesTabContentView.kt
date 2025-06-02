@@ -10,6 +10,7 @@ import com.d4rk.cleaner.data.core.AppCoreManager
 import com.d4rk.cleaner.func.tabs.AnalyzeDetailTab
 import com.d4rk.cleaner.func.tabs.AnalyzeFilesTab
 import com.d4rk.cleaner.func.tabs.FilesTab
+import com.d4rk.cleaner.func.tabs.TrashTab
 import com.d4rk.cleaner.ui.screens.tabs.components.AnalyzeDetailList
 import com.d4rk.cleaner.ui.screens.tabs.components.AnalyzeFilesList
 import com.d4rk.cleaner.ui.screens.tabs.components.FilesList
@@ -37,6 +38,9 @@ fun FilesTabContentView() {
                 HorizontalDivider(modifier = Modifier, thickness = 1.dp)
                 FilesList(tab)
             }
+        }
+        is TrashTab -> {
+            TrashContentView()
         }
     }
 }

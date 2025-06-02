@@ -198,6 +198,8 @@
     <string name="summary_preference_faq_9">Cleaner should be compatible with most Android devices that meet the app\'s minimum system requirements. However, it is always a good idea to check the app\'s page on the Google Play Store or the app store you are using to confirm compatibility with your specific device. If you encounter any issues while using Cleaner, you can try troubleshooting the problem or contacting the app\'s support team for assistance</string>
 
     <string name="title_empty">empty file/folder</string>
+    <string name="title_empty_files">empty file</string>
+    <string name="title_empty_folders">empty folder</string>
     <string name="title_generic">redudent</string>
     <string name="title_archive">archive</string>
     <string name="title_apk">apk</string>
