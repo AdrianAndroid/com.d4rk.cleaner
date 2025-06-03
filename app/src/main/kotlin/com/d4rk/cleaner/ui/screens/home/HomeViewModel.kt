@@ -33,38 +33,30 @@ class HomeViewModel(application : Application) : BaseViewModel(application) {
 
     fun analyze() {
         viewModelScope.launch(context = coroutineExceptionHandler) {
-            // val preferences : Map<String , Boolean> = repository.getPreferences()
+            if (isLoading.value) {
+                return@launch
+            }
             val mainActivityManager: MainActivityManager = AppCoreManager.instance.mainActivityManager
             mainActivityManager.clearAnalyzeBefore()
-            repository.analyze { documentHolder: DocumentHolder ->
-                mainActivityManager.analyzeCleanFile(documentHolder = documentHolder)
-                _uiState.update { state ->
-                    state.copy(
-                        displayProcessText = documentHolder.absolutePath(),
-                    )
-                }
-            }
-        }
-    }
-
-    fun analyze2() {
-        viewModelScope.launch(context = coroutineExceptionHandler) {
-            showLoading()
-            repository.analyzeFiles { result ->
-                val (scannedFiles : List<File> , emptyFolders : List<File>) = result
-                val currentFileTypesData : FileTypesData = _uiState.value.analyzeState.fileTypesData
-
-                viewModelScope.launch(context = coroutineExceptionHandler + Dispatchers.IO) {
-                    val prefs : Map<String , Boolean> = repository.getPreferences()
-                    val groupedFiles : Map<String, List<File>> = withContext(Dispatchers.Default) {
-                        computeGroupedFiles(scannedFiles = scannedFiles , emptyFolders = emptyFolders , fileTypesData = currentFileTypesData , preferences = prefs)
-                    }
+            repository.analyze(
+                onStart = { showLoading() },
+                onProgress = { documentHolder: DocumentHolder ->
+                    mainActivityManager.analyzeCleanFile(documentHolder = documentHolder)
                     _uiState.update { state ->
-                        state.copy(analyzeState = state.analyzeState.copy(scannedFileList = scannedFiles , emptyFolderList = emptyFolders , isAnalyzeScreenVisible = true , groupedFiles = groupedFiles))
+                        state.copy(
+                            displayProcessText = documentHolder.absolutePath(),
+                        )
+                    }
+                },
+                onEnd = {
+                    hideLoading()
+                    _uiState.update { state ->
+                        state.copy(
+                            displayProcessText = "分析完成",
+                        )
                     }
                 }
-            }
-            hideLoading()
+            )
         }
     }
 
@@ -74,37 +66,6 @@ class HomeViewModel(application : Application) : BaseViewModel(application) {
                 state.copy(showInternalStorage = showInternalStorage)
             }
         }
-    }
-
-    private fun computeGroupedFiles(
-        scannedFiles : List<File> , emptyFolders : List<File> , fileTypesData : FileTypesData , preferences : Map<String , Boolean>
-    ) : Map<String , List<File>> {
-        val knownExtensions : Set<String> = (fileTypesData.imageExtensions + fileTypesData.videoExtensions + fileTypesData.audioExtensions + fileTypesData.officeExtensions + fileTypesData.archiveExtensions + fileTypesData.apkExtensions + fileTypesData.fontExtensions + fileTypesData.windowsExtensions).toSet()
-
-        val filesMap : LinkedHashMap<String , MutableList<File>> = linkedMapOf()
-        filesMap.putAll(fileTypesData.fileTypesTitles.associateWith { mutableListOf() })
-
-        scannedFiles.forEach { file ->
-            val extension : String = file.extension.lowercase()
-            val category : String? = when (extension) {
-                in fileTypesData.imageExtensions -> if (preferences[ExtensionsConstants.IMAGE_EXTENSIONS] == true) fileTypesData.fileTypesTitles[0] else null
-                in fileTypesData.videoExtensions -> if (preferences[ExtensionsConstants.VIDEO_EXTENSIONS] == true) fileTypesData.fileTypesTitles[1] else null
-                in fileTypesData.audioExtensions -> if (preferences[ExtensionsConstants.AUDIO_EXTENSIONS] == true) fileTypesData.fileTypesTitles[2] else null
-                in fileTypesData.officeExtensions -> if (preferences[ExtensionsConstants.OFFICE_EXTENSIONS] == true) fileTypesData.fileTypesTitles[3] else null
-                in fileTypesData.archiveExtensions -> if (preferences[ExtensionsConstants.ARCHIVE_EXTENSIONS] == true) fileTypesData.fileTypesTitles[4] else null
-                in fileTypesData.apkExtensions -> if (preferences[ExtensionsConstants.APK_EXTENSIONS] == true) fileTypesData.fileTypesTitles[5] else null
-                in fileTypesData.fontExtensions -> if (preferences[ExtensionsConstants.FONT_EXTENSIONS] == true) fileTypesData.fileTypesTitles[6] else null
-                in fileTypesData.windowsExtensions -> if (preferences[ExtensionsConstants.WINDOWS_EXTENSIONS] == true) fileTypesData.fileTypesTitles[7] else null
-                else -> if (! knownExtensions.contains(extension) && preferences[ExtensionsConstants.OTHER_EXTENSIONS] == true) fileTypesData.fileTypesTitles[9] else null
-            }
-            category?.let { filesMap[it]?.add(file) }
-        }
-
-        if (emptyFolders.isNotEmpty() && preferences[ExtensionsConstants.EMPTY_FOLDERS] == true) {
-            filesMap[fileTypesData.fileTypesTitles[8]] = emptyFolders.toMutableList()
-        }
-
-        return filesMap.filter { it.value.isNotEmpty() }
     }
 
     fun onCloseAnalyzeComposable() {

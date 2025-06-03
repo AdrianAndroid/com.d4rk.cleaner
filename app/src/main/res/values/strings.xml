@@ -351,6 +351,7 @@
     <string name="item_subtitle_2">%s(%s)</string>
     <string name="internal_storage">Internal Storage</string>
     <string name="storage_analyze">Storage Analyze</string>
+    <string name="storage_usage">Storage Usage</string>
     <string name="task_subtitle">Size: %1$d</string>
     <string name="delete">Delete</string>
     <string name="move">Move</string>
@@ -371,4 +372,5 @@
     <string name="compressing">Compressing: $%1$s</string>
     <string name="root_dir">Root</string>
     <string name="empty">Empty</string>
+    <string name="classify_files">Classify Files</string>
 </resources>

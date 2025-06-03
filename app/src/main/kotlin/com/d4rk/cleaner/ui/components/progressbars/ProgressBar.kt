@@ -87,7 +87,7 @@ fun StorageProgressButton(
             colors = ButtonDefaults.filledTonalButtonColors()
         ) {
             Text(
-                text = stringResource(id = R.string.quick_scan),
+                text = stringResource(id = R.string.storage_information),
                 textAlign = TextAlign.Center,
                 style = MaterialTheme.typography.titleLarge
             )

@@ -47,11 +47,17 @@ class HomeRepository(dataStore : DataStore , application : Application) : HomeRe
         }
     }
 
-    suspend fun analyze(onSuccess : (DocumentHolder) -> Unit) {
+    suspend fun analyze(
+        onStart: () -> Unit,
+        onProgress : (DocumentHolder) -> Unit,
+        onEnd: () -> Unit
+    ) {
         withContext(context = Dispatchers.IO) {
+            onStart()
             iterateFiles { wrapFile ->
-                onSuccess(wrapFile)
+                onProgress(wrapFile)
             }
+            onEnd()
         }
     }
 

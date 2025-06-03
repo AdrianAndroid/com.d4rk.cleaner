@@ -353,4 +353,6 @@
     <string name="summary_donations">无论您捐赠多少，都能帮助我们维持应用程序运行并改进功能。</string>
     <string name="non_paid_support">非付费支持</string>
     <string name="web_ad">网页广告</string>
+    <string name="storage_usage">存储占用</string>
+    <string name="classify_files">分类文件</string>
 </resources>

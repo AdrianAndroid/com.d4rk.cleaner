@@ -26,11 +26,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Description
 import androidx.compose.material.icons.outlined.Android
 import androidx.compose.material.icons.outlined.Apps
 import androidx.compose.material.icons.outlined.Download
@@ -38,7 +40,9 @@ import androidx.compose.material.icons.outlined.FolderOpen
 import androidx.compose.material.icons.outlined.Image
 import androidx.compose.material.icons.outlined.MoreVert
 import androidx.compose.material.icons.outlined.MusicNote
+import androidx.compose.material.icons.outlined.PieChartOutline
 import androidx.compose.material.icons.outlined.SdStorage
+import androidx.compose.material.icons.outlined.SettingsSuggest
 import androidx.compose.material.icons.outlined.SnippetFolder
 import androidx.compose.material.icons.outlined.Storage
 import androidx.compose.material3.Button
@@ -53,6 +57,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
@@ -61,6 +66,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -96,17 +102,19 @@ import com.d4rk.cleaner.func.tabs.AnalyzeFilesTab
 import com.d4rk.cleaner.func.tabs.FilesTab
 import com.d4rk.cleaner.func.tabs.TrashTab
 import com.d4rk.cleaner.ui.components.texts.MiddleEllipsisText
+import com.d4rk.cleaner.ui.components.ui.Isolate
+import com.d4rk.cleaner.ui.components.ui.Space
 import com.d4rk.cleaner.ui.screens.tabs.FilesTabContentView
 import com.d4rk.cleaner.ui.screens.tabs.TrashContentView
 import com.d4rk.cleaner.utils.cleaning.StorageUtils
 import com.d4rk.cleaner.utils.extension.toRes
 import com.raival.compose.file.explorer.screen.main.tab.files.provider.StorageProvider
 
-private const val MARGIN = 50
+private const val MARGIN = 40
 private const val MARGIN_BOTTOM = 25
 private const val CARD_HEIGHT = 518
 private const val BORDER_WIDTH = 2
-private const val BORDER_RADIUS = 74
+private const val BORDER_RADIUS = 30
 
 @Composable
 fun HomeScreen() {
@@ -115,6 +123,7 @@ fun HomeScreen() {
     val viewModel : HomeViewModel = viewModel()
     val uiState : UiHomeModel by viewModel.uiState.collectAsState()
     val uiErrorModel : UiErrorModel by viewModel.uiErrorModel.collectAsState()
+    val isLoading: State<Boolean> = viewModel.isLoading.collectAsState()
 //    val imageLoader : ImageLoader = remember {
 //        ImageLoader.Builder(context = context).memoryCache {
 //            MemoryCache.Builder().maxSizePercent(context = context , percent = 0.24).build()
@@ -149,86 +158,86 @@ fun HomeScreen() {
         FilesTabContentView()
     } else {
         Column(
-            modifier = Modifier.fillMaxSize().verticalScroll(scrollState),
+            modifier = Modifier
+                .fillMaxSize()
+                .verticalScroll(scrollState),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-
             StorageProgressButton(
                 progress = uiState.storageInfo.storageUsageProgress,
                 modifier = Modifier
-                    .size(600.ndp())
+                    .size(450.ndp())
                     .offset(y = 0.dp),
                 onClick = {
-                    mainActivityManager.replaceCurrentTabWith(TrashTab())
-                    viewModel.showInternal(true)
+                    clickValid(isLoading.value) {
+                        mainActivityManager.replaceCurrentTabWith(TrashTab())
+                        viewModel.showInternal(true)
+                    }
                 }
             )
 
-            OutlinedCard(modifier = Modifier.width(300.ndp()).wrapContentHeight()) {
+            SpaceSpace()
+
+            OutlinedCard(
+                modifier = Modifier
+                    .width(300.ndp())
+                    .wrapContentHeight()
+                    .alpha(if (isLoading.value) 0.3f else 1f)
+            ) {
                 IconButton(
-                    modifier = Modifier.fillMaxSize().bounceClick(),
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .bounceClick(),
                     onClick = {
-                        viewModel.analyze()
+                        clickValid(isLoading.value) {
+                            viewModel.analyze()
+                        }
                     },
                     content = {
-                        Text(text = "开始扫描")
+                        Text(text = "开始扫描", modifier = Modifier.alpha(if (isLoading.value) 0.3f else 1f))
                     }
                 )
             }
 
-            OutlinedCard(modifier = Modifier.fillMaxWidth().wrapContentHeight()) {
+            SpaceSpace()
+
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = MARGIN.ndp()),
+                horizontalArrangement = Arrangement.Start,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Description,
+                    contentDescription = null,
+                    modifier = Modifier.size(20.dp)
+                )
                 MiddleEllipsisText(
                     text = uiState.displayProcessText,
                     style = TextStyle(fontSize = 14.sp, color = Color.Blue),
-                    modifier = Modifier
-                        .width(250.dp)
-                        .padding(top = 16.dp)
+                    modifier = Modifier.fillMaxWidth()
                 )
             }
 
-            FirstLine(
-                leftText = stringResource(R.string.item_subtitle_1, "${mainActivityManager.emptyFolders.size + mainActivityManager.emptyFiles.size}"),
-                rightText = stringResource(R.string.item_subtitle_2, "${mainActivityManager.bigFiles.size}", StorageUtils.formatSize(mainActivityManager.bigFilesSize)),
-                onClick = { viewModel.showInternal(true) }
-            )
-            Spacer(modifier = Modifier.height(MARGIN_BOTTOM.ndp()))
-            SecondLine(
-                leftText = stringResource(R.string.item_subtitle_2, "${mainActivityManager.genericFiles.size}", StorageUtils.formatSize(mainActivityManager.genericFilesSize)),
-                rightText = stringResource(R.string.item_subtitle_2, "${mainActivityManager.newFiles.size}", StorageUtils.formatSize(mainActivityManager.newFilesSize)),
-                onClick = { viewModel.showInternal(true) }
-            )
-            Spacer(modifier = Modifier.height(MARGIN_BOTTOM.ndp()))
-            ThirdLine(
-                leftText = stringResource(R.string.item_subtitle_2, "${mainActivityManager.apkFiles.size}", StorageUtils.formatSize(mainActivityManager.apkFilesSize)),
-                rightText = stringResource(R.string.item_subtitle_2, "${mainActivityManager.imageFiles.size}", StorageUtils.formatSize(mainActivityManager.imageFilesSize)),
-                onClick = { viewModel.showInternal(true) }
-            )
-            Spacer(modifier = Modifier.height(MARGIN_BOTTOM.ndp()))
-            FourLine(
-                leftText = stringResource(R.string.item_subtitle_2, "${mainActivityManager.videoFiles.size}", StorageUtils.formatSize(mainActivityManager.videoFilesSize)),
-                rightText = stringResource(R.string.item_subtitle_2, "${mainActivityManager.audioFiles.size}", StorageUtils.formatSize(mainActivityManager.audioFilesSize)),
-                onClick = { viewModel.showInternal(true) }
-            )
-            Spacer(modifier = Modifier.height(MARGIN_BOTTOM.ndp()))
-            FiveLine(
-                leftText = stringResource(R.string.item_subtitle_2, "${mainActivityManager.officeFiles.size}", StorageUtils.formatSize(mainActivityManager.officeFilesSize)),
-                rightText = stringResource(R.string.item_subtitle_2, "${mainActivityManager.archiveFiles.size}", StorageUtils.formatSize(mainActivityManager.archiveFilesSize)),
-                onClick = { viewModel.showInternal(true) }
-            )
-            Spacer(modifier = Modifier.height(MARGIN_BOTTOM.ndp()))
-            SixLine(
-                leftText = stringResource(R.string.item_subtitle_2, "${mainActivityManager.fontFiles.size}", StorageUtils.formatSize(mainActivityManager.fontFilesSize)),
-                rightText = stringResource(R.string.item_subtitle_2, "${mainActivityManager.windowsFiles.size}", StorageUtils.formatSize(mainActivityManager.windowsFilesSize)),
-                onClick = { viewModel.showInternal(true) }
-            )
-            Spacer(modifier = Modifier.height(MARGIN_BOTTOM.ndp()))
-            SevenLine(
-                leftText = stringResource(R.string.item_subtitle_2, "${mainActivityManager.otherFiles.size}", StorageUtils.formatSize(mainActivityManager.otherFilesSize)),
-                rightText = "",
-                onClick = { viewModel.showInternal(true) }
-            )
+            SpaceSpaceGap()
 
-            Spacer(modifier = Modifier.height(MARGIN_BOTTOM.ndp()))
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = MARGIN.ndp()),
+                horizontalArrangement = Arrangement.Start,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(text = stringResource(R.string.storage_usage))
+                Icon(
+                    imageVector = Icons.Outlined.SettingsSuggest,
+                    contentDescription = null,
+                    modifier = Modifier.size(20.dp)
+                )
+            }
+
+            SpaceSpace()
 
             TwoBorderCard(
                 leftContent = {
@@ -237,19 +246,21 @@ fun HomeScreen() {
                         title = R.string.storage_analyze.toRes(),
                         subtitle = stringResource(
                             R.string.item_subtitle_2,
-                            "${mainActivityManager.otherFiles.size}",
-                            StorageUtils.formatSize(mainActivityManager.otherFilesSize)
+                            "${mainActivityManager.totalDirectoryCount + mainActivityManager.totalFileCount}",
+                            StorageUtils.formatSize(mainActivityManager.totalFileSize)
                         ),
                     )
                 },
                 rightContent = null,
                 onClickLeft = {
-                    mainActivityManager.replaceCurrentTabWith(AnalyzeFilesTab(StorageProvider.sdcard))
-                    viewModel.showInternal(true)
+                    clickValid(isLoading.value) {
+                        mainActivityManager.replaceCurrentTabWith(AnalyzeFilesTab(StorageProvider.sdcard))
+                        viewModel.showInternal(true)
+                    }
                 }
             )
 
-            Spacer(modifier = Modifier.height(MARGIN_BOTTOM.ndp()))
+            SpaceSpace()
 
             StorageProvider.getStorageDevices(context).forEach { holder: StorageDeviceHolder ->
                 TwoBorderCard(
@@ -257,25 +268,110 @@ fun HomeScreen() {
                         ItemCard(
                             imageVector = Icons.Outlined.SdStorage,
                             title = holder.title,
-                            subtitle = stringResource(
-                                R.string.item_subtitle_2,
-                                "${mainActivityManager.otherFiles.size}",
-                                StorageUtils.formatSize(mainActivityManager.otherFilesSize)
-                            ),
+                            subtitle = "${StorageUtils.formatSize(holder.totalSize)}(${StorageUtils.formatSize(holder.usedSize)})",
                         )
                     },
                     rightContent = null,
                     onClickLeft = {
-                        mainActivityManager.replaceCurrentTabWith(FilesTab(holder.documentHolder))
-                        viewModel.showInternal(true)
+                        clickValid(isLoading.value) {
+                            mainActivityManager.replaceCurrentTabWith(FilesTab(holder.documentHolder))
+                            viewModel.showInternal(true)
+                        }
                     }
                 )
 
-                Spacer(modifier = Modifier.height(MARGIN_BOTTOM.ndp()))
-//            HorizontalDivider()
+                SpaceSpace()
             }
+
+            SpaceSpaceGap()
+
+            Isolate {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = MARGIN.ndp()),
+                    horizontalArrangement = Arrangement.Start,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(text = stringResource(R.string.classify_files))
+                    Icon(
+                        imageVector = Icons.Outlined.PieChartOutline,
+                        contentDescription = null,
+                        modifier = Modifier.size(20.dp)
+                    )
+                }
+            }
+
+            SpaceSpace()
+
+            Isolate {
+                FirstLine(
+                    leftText = stringResource(R.string.item_subtitle_1, "${mainActivityManager.emptyFolders.size + mainActivityManager.emptyFiles.size}"),
+                    rightText = stringResource(R.string.item_subtitle_2, "${mainActivityManager.bigFiles.size}", StorageUtils.formatSize(mainActivityManager.bigFilesSize)),
+                    onClick = { clickValid(isLoading.value) { viewModel.showInternal(true) }}
+                )
+                SpaceSpace()
+                SecondLine(
+                    leftText = stringResource(R.string.item_subtitle_2, "${mainActivityManager.genericFiles.size}", StorageUtils.formatSize(mainActivityManager.genericFilesSize)),
+                    rightText = stringResource(R.string.item_subtitle_2, "${mainActivityManager.newFiles.size}", StorageUtils.formatSize(mainActivityManager.newFilesSize)),
+                    onClick = { clickValid(isLoading.value) { viewModel.showInternal(true) }}
+                )
+                SpaceSpace()
+                ThirdLine(
+                    leftText = stringResource(R.string.item_subtitle_2, "${mainActivityManager.apkFiles.size}", StorageUtils.formatSize(mainActivityManager.apkFilesSize)),
+                    rightText = stringResource(R.string.item_subtitle_2, "${mainActivityManager.imageFiles.size}", StorageUtils.formatSize(mainActivityManager.imageFilesSize)),
+                    onClick = { clickValid(isLoading.value) { viewModel.showInternal(true) }}
+                )
+                SpaceSpace()
+                FourLine(
+                    leftText = stringResource(R.string.item_subtitle_2, "${mainActivityManager.videoFiles.size}", StorageUtils.formatSize(mainActivityManager.videoFilesSize)),
+                    rightText = stringResource(R.string.item_subtitle_2, "${mainActivityManager.audioFiles.size}", StorageUtils.formatSize(mainActivityManager.audioFilesSize)),
+                    onClick = { clickValid(isLoading.value) { viewModel.showInternal(true) }}
+                )
+                SpaceSpace()
+                FiveLine(
+                    leftText = stringResource(R.string.item_subtitle_2, "${mainActivityManager.officeFiles.size}", StorageUtils.formatSize(mainActivityManager.officeFilesSize)),
+                    rightText = stringResource(R.string.item_subtitle_2, "${mainActivityManager.archiveFiles.size}", StorageUtils.formatSize(mainActivityManager.archiveFilesSize)),
+                    onClick = { clickValid(isLoading.value) { viewModel.showInternal(true) }}
+                )
+                SpaceSpace()
+                SixLine(
+                    leftText = stringResource(R.string.item_subtitle_2, "${mainActivityManager.fontFiles.size}", StorageUtils.formatSize(mainActivityManager.fontFilesSize)),
+                    rightText = stringResource(R.string.item_subtitle_2, "${mainActivityManager.windowsFiles.size}", StorageUtils.formatSize(mainActivityManager.windowsFilesSize)),
+                    onClick = { clickValid(isLoading.value) { viewModel.showInternal(true) }}
+                )
+                SpaceSpace()
+                SevenLine(
+                    leftText = stringResource(R.string.item_subtitle_2, "${mainActivityManager.otherFiles.size}", StorageUtils.formatSize(mainActivityManager.otherFilesSize)),
+                    rightText = "",
+                    onClick = { clickValid(isLoading.value) { viewModel.showInternal(true) } }
+                )
+            }
+
+            Space(size = 100.dp)
         }
     }
+}
+
+private fun clickValid(
+    isLoading: Boolean,
+    callback: () -> Unit
+) {
+    if (isLoading) {
+        AppCoreManager.instance.showMsg("正在扫描中...")
+    } else {
+        callback.invoke()
+    }
+}
+
+@Composable
+private fun SpaceSpaceGap() {
+    Spacer(modifier = Modifier.height(MARGIN.ndp()))
+}
+
+@Composable
+private fun SpaceSpace() {
+    Spacer(modifier = Modifier.height(MARGIN_BOTTOM.ndp()))
 }
 
 @Composable
@@ -514,11 +610,11 @@ private fun ItemCard(
         modifier = modifier
             .fillMaxWidth()
             .animateContentSize()
-            .padding(16.dp),
+            .padding(10.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Card(
-            modifier = Modifier.size(48.dp),
+            modifier = Modifier.size(35.dp),
             colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer),
         ) {
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {

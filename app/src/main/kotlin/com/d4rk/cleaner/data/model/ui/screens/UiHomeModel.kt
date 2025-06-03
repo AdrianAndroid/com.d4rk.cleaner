@@ -9,7 +9,7 @@ data class UiHomeModel(
     var analyzeState : UiAnalyzeModel = UiAnalyzeModel(), //
     var daysFromLastScan : Int = 0, // 最近扫描天数
     var isRescanDialogVisible : Boolean = false, // 重新扫描对话框
-    var displayProcessText : String = "", // 显示进度文本
+    var displayProcessText : String = "点击开始扫描", // 显示进度文本
     val analyzedFiles : AnalyzeModel = AnalyzeModel(), // 已分析文件列表
 
     var showInternalStorage: Boolean = false,
